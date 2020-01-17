@@ -9,3 +9,4 @@
 <p><strong>Tentative Mock-up -</strong> Storyboard of the majority of potential pages demonstrating the design concept of the project.<br><br></p>
 <p><strong>UML Class Diagram -</strong> Set up to be used as a guideline when developing the necessary classes for the web application.<br><br></p>
 <p><strong>Project File (Agenda) -</strong> Record of all meetings with client, including the agenda followed, and the exact minutes of the meeting, who was present, and what was discussed.<br><br></p>
+<p><strong>Deliverable Sign-off -</strong> Proof of client's approval of each deliverable (the product of each completed sprint).<br><br></p>
