@@ -1,7 +1,9 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 namespace TMFadmin.Models
 {
-    //interface for all sources of revenue
-    public abstract class Source {
+    //abstract class for all sources of revenue
+    public abstract class Revenue {
         protected string _firstname {get; set;}
         protected string _lastname {get; set;}
         protected Address _mailing;
@@ -9,11 +11,11 @@ namespace TMFadmin.Models
         protected string _phone {get; set;}
         protected string _fax {get; set;}
         protected string _email {get; set;}
-        //protected Datetime _date {get; set;}
+        protected DateTime _date {get; set;}
         protected string _activity {get; set;} = "active";
         protected string _notes {get; set;}
 
-        public Source() {
+        public Revenue() {
             _firstname  = "";
             _lastname = "";
             _mailing = new Address();
@@ -21,7 +23,6 @@ namespace TMFadmin.Models
             _phone = "";
             _fax = "";
             _email = "";
-           // _date = DateTime.Now.ToString("h:mm:ss tt");
         }
     } 
 }
