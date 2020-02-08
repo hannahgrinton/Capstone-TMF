@@ -14,8 +14,6 @@ namespace TMFadmin.Models
         public float paid {get; set;}
         //how much they have left to pay
         public float due {get; set;}
-        //previous years they've paid for an advertisement
-        public DateTime[] yearsAdvertised {get; set;}
 
         public Advertisement() : base() {
             imgFile = "";
