@@ -5,6 +5,7 @@ namespace TMFadmin.Models
     //address class
     public class Address
     {
+        public int id {get;}
         public string address {get; set;}
         public string city {get; set;}
         public string province {get; set;}
@@ -12,6 +13,7 @@ namespace TMFadmin.Models
         public string country {get; set;}
 
         public Address() {
+            id = 0;
             address = "";
             city = "";
             province = "";

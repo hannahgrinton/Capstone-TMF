@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace TMFadmin.Models
 {
     public class Fund {
+        public int id {get;}
         //who created the fund/award
         public string creator {get; set;}
         //date of creation
@@ -17,6 +18,7 @@ namespace TMFadmin.Models
         public string notes {get; set;}
 
         public Fund() {
+            id = 0;
             creator = "";
             donors = null;
             notes = "";
