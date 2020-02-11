@@ -1,0 +1,37 @@
+use dbTMF;
+-- CREATE TABLE addressRels (
+--     relationId int NOT NULL AUTO_INCREMENT,
+--     type varchar(10) NOT NULL,
+--     sponsorId int,
+--     addressId int,
+--     PRIMARY KEY (relationId),
+--     FOREIGN KEY (sponsorId) REFERENCES sponsor(sponsorId),
+--     FOREIGN KEY (addressId) REFERENCES address(addressId)
+-- );
+-- CREATE TABLE advertRels (
+--     relationId int NOT NULL AUTO_INCREMENT,
+--     sponsorId int,
+--     adId int,
+--     PRIMARY KEY (relationId),
+--     FOREIGN KEY (sponsorId) REFERENCES sponsor(sponsorId),
+--     FOREIGN KEY (adId) REFERENCES advertisement(adId)
+-- );
+-- CREATE TABLE donRels (
+--     relationId int NOT NULL AUTO_INCREMENT,
+--     sponsorId int,
+--     donId int,
+--     PRIMARY KEY (relationId),
+--     FOREIGN KEY (sponsorId) REFERENCES sponsor(sponsorId),
+--     FOREIGN KEY (donId) REFERENCES donation(donId)
+-- );
+-- CREATE TABLE awards (
+--     awardId int NOT NULL AUTO_INCREMENT,
+--     recipient varchar(10),
+--     year varchar(4),
+--     fundId int,
+--     PRIMARY KEY (awardId),
+--     FOREIGN KEY (fundId) REFERENCES fund(fundId)
+-- );
+
+-- ALTER TABLE donation ADD fundId int;
+-- ALTER TABLE donation ADD CONSTRAINT fundId FOREIGN KEY (fundId) REFERENCES fund(fundId);
