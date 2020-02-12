@@ -21,7 +21,7 @@ namespace TMFadmin.Controllers
         }
         public IActionResult Logout() {
             //logs user out and reqirects to login page
-            HttpContext.Session.SetString("auth", "false");
+            //HttpContext.Session.SetString("auth", "false");
             return RedirectToAction("Index", "Login");
         }
         public IActionResult Privacy()
@@ -39,10 +39,12 @@ namespace TMFadmin.Controllers
             List<Sponsor> sponsors = revenueManager.alphaSponsorLname();
             return View(sponsors);
         }
-        public IActionResult ViewSponsor(mySponsorId) {
+        public IActionResult ViewSponsor(int mySponsorId) {
             //view sponsor in detail
             Sponsor sponsor = new Sponsor();
             sponsor = revenueManager.getSponsor(mySponsorId);
+            revenueManager.getSponsorDon(mySponsorId);
+            revenueManager.getSponsorAd(mySponsorId);
             return View(sponsor);
         }
         public IActionResult AddSponsor() {

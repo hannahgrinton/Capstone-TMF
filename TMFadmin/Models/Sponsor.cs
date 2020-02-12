@@ -5,7 +5,7 @@ namespace TMFadmin.Models
     public class Sponsor
     {   
         [Key]
-        private int sponsorId {get; set;}
+        public int sponsorId {get; set;}
         //first name
         [Required]
         [MaxLength(50)]

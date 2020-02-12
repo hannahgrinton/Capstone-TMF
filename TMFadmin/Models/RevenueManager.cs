@@ -16,6 +16,11 @@ namespace TMFadmin.Models
         public DbSet<DonationRelations> donRels { get; set; }
         public DbSet<Fund> fund { get; set; }
         public DbSet<Sponsor> sponsor { get; set; }
+        
+        //list to hold donations for current sponsor
+        public List<Donation> donations { get; set; }
+        //list to hold ads for current sponsor
+        public List<Advertisement> adverts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
@@ -23,7 +28,7 @@ namespace TMFadmin.Models
         //------------------------------------------------------------- Sponsor Work
         //get current sponsor
         public Sponsor getSponsor(int mySponsorId) {
-            return sponsor.Single(item => item.id == mySponsorId);
+            return sponsor.Single(item => item.sponsorId == mySponsorId);
         }
         //alphabetize by lastname
         public List<Sponsor> alphaSponsorLname() {
@@ -36,34 +41,30 @@ namespace TMFadmin.Models
             return sponsors;
         }
         //get list of donations of sponsor
-        public List<Donation> getSponsorDon(int mySponsorId) {
+        public void getSponsorDon(int mySponsorId) {
             //list of relations that pertain to sponsor
             List<DonationRelations> rels = donRels.Where(item => item.sponsorId == mySponsorId).ToList();
-            //list to hold donation object
-            List<Donation> donations;
             //loop through all donations
             foreach (var item in rels) 
             {
                 //if donation id matches relation id, add it to list
-                donation = donation.Single(don => don.donId == item.donId);
-                donations.Add(donation);
+                Donation don = new Donation();
+                don = donation.Single(d => d.donId == item.donId);
+                donations.Add(don);
             }
-            return donations;
         }
         //get list of ads of sponsor
-        public List<Donation> getSponsorAd(int mySponsorId) {
+        public void getSponsorAd(int mySponsorId) {
             //list of relations that pertain to sponsor
             List<AdvertRelations> rels = advertRels.Where(item => item.sponsorId == mySponsorId).ToList();
-            //list to hold ads object
-            List<Advertisement> ads;
             //loop through all ads
             foreach (var item in rels) 
             {
+                Advertisement advert = new Advertisement();
                 //if add id matches relation id, add it to list
                 advert = advertisement.Single(ad => ad.adId == item.adId);
-                ads.Add(advert);
+                adverts.Add(advert);
             }
-            return ads;
         }
     }
 }
