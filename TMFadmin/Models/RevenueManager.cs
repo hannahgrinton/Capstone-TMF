@@ -20,5 +20,50 @@ namespace TMFadmin.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
         }
+        //------------------------------------------------------------- Sponsor Work
+        //get current sponsor
+        public Sponsor getSponsor(int mySponsorId) {
+            return sponsor.Single(item => item.id == mySponsorId);
+        }
+        //alphabetize by lastname
+        public List<Sponsor> alphaSponsorLname() {
+            List<Sponsor> sponsors = sponsor.OrderBy(l => l.lastname).ToList();
+            return sponsors;
+        }
+        //alphabetize by firstname
+        public List<Sponsor> alphaSponsorFname() {
+            List<Sponsor> sponsors = sponsor.OrderBy(l => l.firstname).ToList();
+            return sponsors;
+        }
+        //get list of donations of sponsor
+        public List<Donation> getSponsorDon(int mySponsorId) {
+            //list of relations that pertain to sponsor
+            List<DonationRelations> rels = donRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            //list to hold donation object
+            List<Donation> donations;
+            //loop through all donations
+            foreach (var item in rels) 
+            {
+                //if donation id matches relation id, add it to list
+                donation = donation.Single(don => don.donId == item.donId);
+                donations.Add(donation);
+            }
+            return donations;
+        }
+        //get list of ads of sponsor
+        public List<Donation> getSponsorAd(int mySponsorId) {
+            //list of relations that pertain to sponsor
+            List<AdvertRelations> rels = advertRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            //list to hold ads object
+            List<Advertisement> ads;
+            //loop through all ads
+            foreach (var item in rels) 
+            {
+                //if add id matches relation id, add it to list
+                advert = advertisement.Single(ad => ad.adId == item.adId);
+                ads.Add(advert);
+            }
+            return ads;
+        }
     }
 }
