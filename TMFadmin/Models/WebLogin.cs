@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using MySql.Data.MySqlClient;
 // this model controls who gets into the admin end
-namespace HomePage.Models {
+namespace TMFadmin.Models {
 
 	public class WebLogin {
 		// private variables
