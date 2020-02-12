@@ -1,39 +1,41 @@
 namespace TMFadmin.Models
 {
     public class Sponsor
-    {
-        private int id {get;}
+    {   
+        [Key]
+        private int sponsorId {get; set;}
         //first name
+        [Required]
+        [MaxLength(50)]
+        [Display(Name="First Name")]
         public string firstname {get; set;}
         //last name
+        [Required]
+        [MaxLength(50)]
+        [Display(Name="Last Name")]
         public string lastname {get; set;}
-        //type of sponsor - donor or advertiser
-        public string type {get; set;}
-        //mailing address
-        public Address mailing;
-        //billing address
-        public Address billing;
         //phone number
+        [Required]
+        [MaxLength(14)]
+        [Display(Name="Phone No.")]
         public string phone {get; set;}
         //fax number
+        [MaxLength(14)]
+        [Display(Name="Fax No.")]
         public string fax {get; set;}
         //email address
+        [MaxLength(70)]
+        [Display(Name="Email Address")]
         public string email {get; set;}
         //whether they are active revenue sources or wish to not be solicited
-        protected string activity {get; set;} = "active";
+        [Required]
+        [MaxLength(10)]
+        [Display(Name="Activity")]
+        public string activity {get; set;} = "active";
         //additional notes
-        protected string notes {get; set;}
+        [MaxLength(250)]
+        [Display(Name="Notes")]
+        public string notes {get; set;}
 
-        public Sponsor() {
-            id = 0;
-            firstname  = "";
-            lastname = "";
-            type = "";
-            mailing = new Address();
-            billing = new Address();
-            phone = "";
-            fax = "";
-            email = "";
-        }
     }
 }

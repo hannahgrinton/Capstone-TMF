@@ -3,25 +3,20 @@ using System.ComponentModel.DataAnnotations;
 namespace TMFadmin.Models
 {
     public class Fund {
-        public int id {get;}
+        [Key]
+        public int fundId {get;set;}
         //who created the fund/award
+        [MaxLength(100)]
+        [Display(Name="Creator")]
         public string creator {get; set;}
         //date of creation
+        [Required]
+        [Display(Name="Date Created")]
         public DateTime dateCreated {get; set;}
-        //list of donors
-        public Donation[] donors {get; set;}
-        //festival years where fund was used
-        public DateTime[] yearsUsed {get; set;}
-        //list of who has recieved the fund/award - if applicable
-        public string[] recipients {get; set;}
         //additional notes - such as if the fund was used for something besides an award
+        [MaxLength(250)]
+        [Display(Name="Notes")]
         public string notes {get; set;}
 
-        public Fund() {
-            id = 0;
-            creator = "";
-            donors = null;
-            notes = "";
-        }
     }
 }

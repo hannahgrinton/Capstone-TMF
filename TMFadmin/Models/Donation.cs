@@ -2,23 +2,28 @@ using System;
 using System.ComponentModel.DataAnnotations;
 namespace TMFadmin.Models
 {
-    public class Donation : Revenue
+    public class Donation
     {
-        //what they're donating to 
-        public Fund fund;
+        [Key]
+        public int donId {get;set;}
+        //date of donation request (year is most important, as it will be appended to a list)
+        [Required]
+        [Display(Name="Date")]
+        protected DateTime date {get; set;}
+        //additional notes
+        [MaxLength(250)]
+        [Display(Name="Notes")]
+        protected string notes {get; set;}
         //charitable receipt sent or not
+        [Required]
+        [Display(Name="Chariable Receipt Sent")]
         public bool receipt {get; set;}
         //amount donated
+        [Required]
+        [MaxLength(10)]
+        [Display(Name="Amount Donated")]
         public float amount {get; set;}
-        //total amount donated from all time
-        public float total {get; set;}
-
-        public Donation() : base() {
-            fund = new Fund();
-            receipt = false;
-            amount  = 0;
-            total = 0;
-        }
-
+        //id of fund donating to
+        public int fundId {get; set;}
     }
 }
