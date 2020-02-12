@@ -19,7 +19,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TMF Revenue Management</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -29,20 +29,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav navbar-right">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Menu</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Menu</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View<b class="caret"></b></a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Sponsors</a></li>
                                 <li><a class="dropdown-item" href="#">Donations</a></li>
                                 <li><a class="dropdown-item" href="#">Advertisements</a></li>
                                 <li><a class="dropdown-item" href="#">Funds</a></li>
                                 <li><a class="dropdown-item" href="#">Awards</a></li>
+                                <li><a class="dropdown-item" href="#">Address</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add<b class="caret"></b></a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Sponsor</a></li>
                                 <li><a class="dropdown-item" href="#">Donation</a></li>
@@ -53,10 +54,10 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Settings</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Settings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
                         </li>
                     </ul>
                 </div>
