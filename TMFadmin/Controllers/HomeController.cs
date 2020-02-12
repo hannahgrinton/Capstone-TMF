@@ -36,8 +36,7 @@ namespace TMFadmin.Controllers
         //---------------------------------------------------------------------- Sponsor Work
         public IActionResult ViewSponsors() {
             //view all sponsors
-            List<Sponsor> sponsors = revenueManager.alphaSponsorLname();
-            return View(sponsors);
+            return View(revenueManager);
         }
         public IActionResult ViewSponsor(int mySponsorId) {
             //view sponsor in detail
@@ -45,6 +44,7 @@ namespace TMFadmin.Controllers
             sponsor = revenueManager.getSponsor(mySponsorId);
             revenueManager.getSponsorDon(mySponsorId);
             revenueManager.getSponsorAd(mySponsorId);
+            revenueManager.getSponsorAddresses(mySponsorId);
             return View(sponsor);
         }
         public IActionResult AddSponsor() {

@@ -21,6 +21,8 @@ namespace TMFadmin.Models
         public List<Donation> donations { get; set; }
         //list to hold ads for current sponsor
         public List<Advertisement> adverts { get; set; }
+        //list to hold addresses for current sponsor
+        public List<Address> addresses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
@@ -64,6 +66,19 @@ namespace TMFadmin.Models
                 //if add id matches relation id, add it to list
                 advert = advertisement.Single(ad => ad.adId == item.adId);
                 adverts.Add(advert);
+            }
+        }
+        //get list of addresses of sponsor
+        public void getSponsorAddresses(int mySponsorId) {
+            //list of relations that pertain to sponsor
+            List<AddressRelations> rels = addressRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            //loop through all addresses
+            foreach (var item in rels) 
+            {
+                Address add = new Address();
+                //if add id matches relation id, add it to list
+                add = address.Single(ad => ad.addressId == item.addressId);
+                addresses.Add(add);
             }
         }
     }

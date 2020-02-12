@@ -1,0 +1,33 @@
+@model TMFadmin.Models.RevenueManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Sponsors</h1>
+    <table class="table table-hover table-striped" style="margin-top: 40px;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Fax</th>
+                <th scope="col">Email</th>
+                <th scope="col">Activity</th>
+                <th scope="col">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.alphaSponsorLname())
+                {
+                    <tr>
+                        <td>@item.firstname</td>
+                        <td>@item.lastname</td>
+                        <td>@item.phone</td>
+                        <td>@item.fax</td>
+                        <td>@item.email</td>
+                        <td>@item.activity</td>
+                        <td>@item.notes</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
