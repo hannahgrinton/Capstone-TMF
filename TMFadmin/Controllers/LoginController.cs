@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using HomePage.Models;
+using TMFadmin.Models;
 
 //this is the controller for the login for the administration end of the app
-namespace HomePage.Controllers {
+namespace TMFadmin.Controllers {
 
     public class LoginController : Controller {
 
