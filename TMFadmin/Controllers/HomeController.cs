@@ -38,6 +38,7 @@ namespace TMFadmin.Controllers
             //view all sponsors
             return View(revenueManager);
         }
+        [HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
             //view sponsor in detail
             Sponsor sponsor = new Sponsor();
@@ -60,6 +61,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult EditSponsor(int mySponsorId) {
             //redirect to edit sponsor form
             Sponsor sponsor = new Sponsor();
@@ -74,6 +76,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult DeleteSponsor(int mySponsorId) {
             //redirect to delete sponsor page
             Sponsor sponsor = new Sponsor();
