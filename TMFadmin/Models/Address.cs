@@ -35,6 +35,9 @@ namespace TMFadmin.Models
         [MaxLength(20)]
         [Display(Name="Country")]
         public string country {get; set;} = "Canada";
-
+        [Required]
+        [MaxLength(10)]
+        [Display(Name="Address Type")]
+        public string type {get; set;}
     }
 }
