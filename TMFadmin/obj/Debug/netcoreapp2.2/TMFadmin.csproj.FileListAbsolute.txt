@@ -29,3 +29,4 @@
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/TMFadmin.pdb
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/TMFadmin.csproj.CopyComplete
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewSponsors.g.cshtml.cs
+/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewSponsor.g.cshtml.cs

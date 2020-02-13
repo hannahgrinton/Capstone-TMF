@@ -8,6 +8,14 @@ namespace TMFadmin.Models
         [Key]
         public int addressId {get; set;}
         [Required]
+        [MaxLength(50)]
+        [Display(Name="First Name")]
+        public string firstname {get; set;}
+        [Required]
+        [MaxLength(50)]
+        [Display(Name="Last Name")]
+        public string lastname {get; set;}
+        [Required]
         [MaxLength(100)]
         [Display(Name="Address")]
         public string address {get; set;}

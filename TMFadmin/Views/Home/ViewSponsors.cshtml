@@ -28,9 +28,9 @@
                         <td>@item.notes</td>
                         <td>
                             <form method="post">
-                                <button class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="hidden" type="submit" asp-controller="Home" asp-action="ViewSponsor" value="@item.sponsorId" name="mySponsorId"></button>
-                                <button class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="hidden" type="submit" asp-controller="Home" asp-action="EditSponsor" value="@item.sponsorId" name="mySponsorId"></button>
-                                <button class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="hidden" type="submit" asp-controller="Home" asp-action="DeleteSponsor" value="@item.sponsorId" name="mySponsorId"></button>
+                                <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewSponsor" value="@item.sponsorId" name="mySponsorId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditSponsor" value="@item.sponsorId" name="mySponsorId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteSponsor" value="@item.sponsorId" name="mySponsorId" hidden></label>
                             </form>
                             
                         </td>

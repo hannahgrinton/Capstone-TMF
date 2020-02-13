@@ -43,9 +43,13 @@ namespace TMFadmin.Controllers
             //view sponsor in detail
             Sponsor sponsor = new Sponsor();
             sponsor = revenueManager.getSponsor(mySponsorId);
-            revenueManager.getSponsorDon(mySponsorId);
-            revenueManager.getSponsorAd(mySponsorId);
+            // revenueManager.getSponsorDon(mySponsorId);
+            // revenueManager.getSponsorAd(mySponsorId);
             revenueManager.getSponsorAddresses(mySponsorId);
+            // ViewBag.donations = revenueManager.donations;
+            // ViewBag.adverts = revenueManager.adverts;
+            ViewBag.addresses = revenueManager.addresses;
+
             return View(sponsor);
         }
         public IActionResult AddSponsor() {

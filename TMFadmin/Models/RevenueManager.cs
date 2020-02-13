@@ -47,6 +47,7 @@ namespace TMFadmin.Models
             //list of relations that pertain to sponsor
             List<DonationRelations> rels = donRels.Where(item => item.sponsorId == mySponsorId).ToList();
             //loop through all donations
+            donations = new List<Donation> {};
             foreach (var item in rels) 
             {
                 //if donation id matches relation id, add it to list
@@ -60,6 +61,7 @@ namespace TMFadmin.Models
             //list of relations that pertain to sponsor
             List<AdvertRelations> rels = advertRels.Where(item => item.sponsorId == mySponsorId).ToList();
             //loop through all ads
+            adverts = new List<Advertisement> {};
             foreach (var item in rels) 
             {
                 Advertisement advert = new Advertisement();
@@ -70,15 +72,18 @@ namespace TMFadmin.Models
         }
         //get list of addresses of sponsor
         public void getSponsorAddresses(int mySponsorId) {
+            Console.WriteLine("\n\n\nmy id: " + mySponsorId);
             //list of relations that pertain to sponsor
             List<AddressRelations> rels = addressRels.Where(item => item.sponsorId == mySponsorId).ToList();
             //loop through all addresses
+            addresses = new List<Address> {};
             foreach (var item in rels) 
             {
-                Address add = new Address();
-                //if add id matches relation id, add it to list
-                add = address.Single(ad => ad.addressId == item.addressId);
-                addresses.Add(add);
+                Console.WriteLine("\n\n\nitem id: " + item.addressId);
+                Address myAddress = new Address();
+                //if address id matches relation id, add it to list
+                myAddress = address.Single(ad => ad.addressId == item.addressId);
+                addresses.Add(myAddress);
             }
         }
     }

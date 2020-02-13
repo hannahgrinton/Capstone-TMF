@@ -1,0 +1,10 @@
+@model TMFadmin.Models.Sponsor
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">@Model.firstname @Model.lastname</h1>
+    @foreach (var item in ViewBag.addresses)
+    {
+        <div>@item.firstname</div>
+        <div>@item.lastname</div>
+        <div>@item.address</div>
+    }
+</div>
