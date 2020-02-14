@@ -34,12 +34,7 @@ namespace TMFadmin.Models
         }
         //alphabetize by lastname
         public List<Sponsor> alphaSponsorLname() {
-            List<Sponsor> sponsors = sponsor.OrderBy(l => l.lastname).ToList();
-            return sponsors;
-        }
-        //alphabetize by firstname
-        public List<Sponsor> alphaSponsorFname() {
-            List<Sponsor> sponsors = sponsor.OrderBy(l => l.firstname).ToList();
+            List<Sponsor> sponsors = sponsor.OrderBy(l => l.company).ToList();
             return sponsors;
         }
         //get list of donations of sponsor

@@ -6,16 +6,11 @@ namespace TMFadmin.Models
     {   
         [Key]
         public int sponsorId {get; set;}
-        //first name
+        //Company
         [Required]
-        [MaxLength(50)]
-        [Display(Name="First Name")]
-        public string firstname {get; set;}
-        //last name
-        [Required]
-        [MaxLength(50)]
-        [Display(Name="Last Name")]
-        public string lastname {get; set;}
+        [MaxLength(200)]
+        [Display(Name="Company")]
+        public string company {get; set;}
         //phone number
         [Required]
         [MaxLength(14)]
