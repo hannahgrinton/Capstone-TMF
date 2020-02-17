@@ -75,26 +75,40 @@
                 <div class="card-body">
                     @if ((ViewBag.adverts != null) || (ViewBag.adverts != ""))
                     {
-                        <div class="d-flex justify-content-around">
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Image File</th>
+                                    <th scope="col">Ad Size</th>
+                                    <th scope="col">Cost</th>
+                                    <th scope="col">Amount Paid</th>
+                                    <th scope="col">Amount Due</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             @foreach (var item in ViewBag.adverts)
                             {
-                                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <div class="card-title">@item.date.ToString("dd/M/yy")</div>
-                                        <div class="card-text">@item.imgFile</div>
-                                        <div class="card-text" style="margin-bottom: 10px;">@item.adSize</div>
-                                        <div class="card-text d-flex justify-content-between" style="margin-left: 40px; margin-right: 40px;"><span>Cost:</span><span>$@item.cost</span></div>
-                                        <div class="card-text d-flex justify-content-between" style="margin-left: 40px; margin-right: 40px;"><span>Paid:</span><span>$@(item.paid == null ? "0.00" : item.paid)</span></div>
-                                        <div class="card-text d-flex justify-content-between" style="margin-left: 40px; margin-right: 40px;"><span>Due:</span><span>$@item.due</span></div>
-                                        <div class="card-text" style="margin-top: 10px;">@item.notes</div>
+                                <tr>
+                                    <td>@item.date.ToString("dd/M/yy")</td>
+                                    <td>@item.imgFile</td>
+                                    <td>@item.adSize</td>
+                                    <td>$@item.cost</td>
+                                    <td>$@item.paid</td>
+                                    <td>$@item.due</td>
+                                    <td>@item.notes</td>
+                                    <td>
                                         <form method="post" style="margin-top: 10px; float: right;">
                                             <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAdvertisement" value="@item.adId" name="myAdId" hidden></label>
                                             <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAdvertisement" value="@item.adId" name="myAdId" hidden></label>
                                         </form>
-                                    </div>
-                                </div>
+                                    </td>
+                                </tr>
                             }
-                        </div>
+                            </tbody>
+                        </table>
                     }
                 </div>
             </div>
@@ -111,23 +125,34 @@
                 <div class="card-body">
                     @if ((ViewBag.donations != null) || (ViewBag.donations != ""))
                     {
-                        <div class="d-flex justify-content-around">
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Charitable Receipt</th>
+                                    <th scope="col">Amount Donated</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             @foreach (var item in ViewBag.donations)
                             {
-                                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <div class="card-title">@item.date.ToString("dd/M/yy")</div>
-                                        <div class="card-text">@(item.receipt == 1 ? "Charitable Receipt Sent" : "Charitable Receipt Not Sent")</div>
-                                        <div class="card-text d-flex justify-content-between" style="margin-left: 40px; margin-right: 40px;"><span>Amount:</span><span>$@item.amount</span></div>
-                                        <div class="card-text" style="margin-top: 10px;">@item.notes</div>
+                                <tr>
+                                    <td>@item.date.ToString("dd/M/yy")</td>
+                                    <td>@(item.receipt == 1 ? "Charitable Receipt Sent" : "Charitable Receipt Not Sent")</td>
+                                    <td>$@item.amount</td>
+                                    <td>@item.notes</td>
+                                    <td>
                                         <form method="post" style="margin-top: 10px; float: right;">
                                             <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditDonation" value="@item.donId" name="mydonId" hidden></label>
                                             <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteDonation" value="@item.donId" name="mydonId" hidden></label>
                                         </form>
-                                    </div>
-                                </div>
+                                    </td>
+                                </tr>
                             }
-                        </div>
+                            </tbody>
+                        </table>
                     }
                 </div>
             </div>
