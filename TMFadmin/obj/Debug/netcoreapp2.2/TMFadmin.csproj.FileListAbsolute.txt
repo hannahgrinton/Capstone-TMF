@@ -67,3 +67,5 @@
 /media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewAdvertisements.cshtml.g.cs
 /media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewDonations.cshtml.g.cs
 /media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewAwards.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewFunds.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewAddresses.cshtml.g.cs

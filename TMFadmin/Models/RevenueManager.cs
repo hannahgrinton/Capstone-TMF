@@ -101,5 +101,19 @@ namespace TMFadmin.Models
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
             return award;
         }
+
+
+                //----------------------------------------------------------------- Fund Work
+        public List<Fund> getFundsById() {
+            List<Fund> funds = fund.OrderBy(l => l.fundId).ToList();
+            return funds;
+        }            
+        
+        
+        //----------------------------------------------------------------- Fund Work
+        public List<Address> getAddressesById() {
+            List<Address> addresses = address.OrderBy(l => l.addressId).ToList();
+            return addresses;
+        }
     }
 }

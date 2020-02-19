@@ -114,6 +114,19 @@ namespace TMFadmin.Controllers
         public IActionResult ViewAwards() {
             //view all awards
             return View(revenueManager);
+        }                
+
+
+        //---------------------------------------------------------------------- Funds Work
+        public IActionResult ViewFunds() {
+            //view all funds
+            return View(revenueManager);
+        }
+
+        //---------------------------------------------------------------------- Funds Work
+        public IActionResult ViewAddresses() {
+            //view all addresses
+            return View(revenueManager);
         }
     }
 }
