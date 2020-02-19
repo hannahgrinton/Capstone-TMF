@@ -1,0 +1,42 @@
+@model TMFadmin.Models.RevenueManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Advertisements</h1>
+    <table class="table table-hover table-striped" style="margin-top: 40px;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Image</th>
+                <th scope="col">Ad Size</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.GetAdvertisements())
+                {
+                    <tr>
+                        <td>@item.date</td>
+                        <td>@item.notes</td>
+                        <td>@item.imgFile</td>
+                        <td>@item.adSize</td>
+                        <td>@item.cost</td>
+                        <td>@item.paid</td>
+                        <td>@item.due</td>
+                        <td>
+                            <form method="post">
+                                <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

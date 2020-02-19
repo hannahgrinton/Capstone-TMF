@@ -95,5 +95,10 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         } 
+                //---------------------------------------------------------------------- Sponsor Work
+        public IActionResult ViewAdvertisements() {
+            //view all advertisements
+            return View(revenueManager);
+        }
     }
 }

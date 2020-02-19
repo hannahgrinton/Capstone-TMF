@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {}
+    "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/TMFadmin.csproj": {}
   },
   "projects": {
-    "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {
+    "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/TMFadmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
+        "projectUniqueName": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/TMFadmin.csproj",
         "projectName": "TMFadmin",
-        "projectPath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
-        "packagesPath": "/Users/hannahgrinton/.nuget/packages/",
-        "outputPath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/",
+        "projectPath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/TMFadmin.csproj",
+        "packagesPath": "/home/fuzzbox/.nuget/packages/",
+        "outputPath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/hannahgrinton/.nuget/NuGet/NuGet.Config"
+          "/home/fuzzbox/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -82,10 +82,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }

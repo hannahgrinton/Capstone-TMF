@@ -79,5 +79,11 @@ namespace TMFadmin.Models
                 addresses.Add(myAddress);
             }
         }
+
+        //----------------------------------------------------------------- Advertisement Work
+        public List<Advertisement> GetAdvertisements() {
+            List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
+            return advertisements;
+        }
     }
 }
