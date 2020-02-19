@@ -4,6 +4,7 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <thead class="thead-dark">
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Date</th>
                 <th scope="col">Notes</th>
                 <th scope="col">Image</th>
@@ -16,9 +17,10 @@
         </thead>
         <tbody>
             @{
-                foreach (var item in Model.GetAdvertisements())
+                foreach (var item in Model.getAdvertisementsById())
                 {
                     <tr>
+                        <td>@item.adId</td>
                         <td>@item.date</td>
                         <td>@item.notes</td>
                         <td>@item.imgFile</td>

@@ -99,6 +99,21 @@ namespace TMFadmin.Controllers
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
+        }        
+        
+        
+        
+        //---------------------------------------------------------------------- Donations Work
+        public IActionResult ViewDonations() {
+            //view all donations
+            return View(revenueManager);
+        }
+
+                
+        //---------------------------------------------------------------------- Awards Work
+        public IActionResult ViewAwards() {
+            //view all awards
+            return View(revenueManager);
         }
     }
 }

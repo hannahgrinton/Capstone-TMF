@@ -81,9 +81,25 @@ namespace TMFadmin.Models
         }
 
         //----------------------------------------------------------------- Advertisement Work
-        public List<Advertisement> GetAdvertisements() {
+        public List<Advertisement> getAdvertisementsById() {
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
             return advertisements;
+        }
+
+
+
+        //----------------------------------------------------------------- Donation Work
+        public List<Donation> getDonationsByDate() {
+            List<Donation> donations = donation.OrderBy(l => l.date).ToList();
+            return donations;
+        }
+
+
+
+                //----------------------------------------------------------------- Donation Work
+        public List<Award> getAwardsById() {
+            List<Award> award = awards.OrderBy(l => l.awardId).ToList();
+            return award;
         }
     }
 }

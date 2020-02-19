@@ -2986,6 +2986,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewDonations.cshtml",
+      "TargetPath": "Views/Home/ViewDonations.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/Privacy.cshtml",
       "TargetPath": "Views/Home/Privacy.cshtml",
       "FileKind": "mvc"
@@ -3003,6 +3008,11 @@
     {
       "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewAdvertisements.cshtml",
       "TargetPath": "Views/Home/ViewAdvertisements.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewAwards.cshtml",
+      "TargetPath": "Views/Home/ViewAwards.cshtml",
       "FileKind": "mvc"
     },
     {
