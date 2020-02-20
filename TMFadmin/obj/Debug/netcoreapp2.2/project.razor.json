@@ -3016,6 +3016,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddAddress.cshtml",
+      "TargetPath": "Views/Home/AddAddress.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAdvertisements.cshtml",
       "TargetPath": "Views/Home/ViewAdvertisements.cshtml",
       "FileKind": "mvc"
@@ -3028,6 +3033,11 @@
     {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/Index.cshtml",
       "TargetPath": "Views/Home/Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddSponsor.cshtml",
+      "TargetPath": "Views/Home/AddSponsor.cshtml",
       "FileKind": "mvc"
     },
     {
