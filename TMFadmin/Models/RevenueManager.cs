@@ -81,6 +81,7 @@ namespace TMFadmin.Models
         }
 
         //----------------------------------------------------------------- Advertisement Work
+        //get list of adverts, sorted by ID
         public List<Advertisement> getAdvertisementsById() {
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
             return advertisements;
@@ -89,6 +90,7 @@ namespace TMFadmin.Models
 
 
         //----------------------------------------------------------------- Donation Work
+        //get list of donations, sorted by date
         public List<Donation> getDonationsByDate() {
             List<Donation> donations = donation.OrderBy(l => l.date).ToList();
             return donations;
@@ -96,14 +98,16 @@ namespace TMFadmin.Models
 
 
 
-                //----------------------------------------------------------------- Donation Work
+        //----------------------------------------------------------------- Donation Work
+        //get list of awards, sorted by ID
         public List<Award> getAwardsById() {
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
             return award;
         }
 
 
-                //----------------------------------------------------------------- Fund Work
+        //----------------------------------------------------------------- Fund Work
+        //get list of funds, sorted by ID
         public List<Fund> getFundsById() {
             List<Fund> funds = fund.OrderBy(l => l.fundId).ToList();
             return funds;
@@ -111,6 +115,7 @@ namespace TMFadmin.Models
         
         
         //----------------------------------------------------------------- Fund Work
+        //get list of addresses sorted by ID
         public List<Address> getAddressesById() {
             List<Address> addresses = address.OrderBy(l => l.addressId).ToList();
             return addresses;
