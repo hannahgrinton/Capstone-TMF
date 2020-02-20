@@ -34,7 +34,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Sponsors</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="ViewSponsors">Contacts</a></li>
                                 <li><a class="dropdown-item" href="#">Donations</a></li>
                                 <li><a class="dropdown-item" href="#">Advertisements</a></li>
                                 <li><a class="dropdown-item" href="#">Funds</a></li>
@@ -45,7 +45,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Sponsor</a></li>
+                                <li><a class="dropdown-item" href="#">Contact</a></li>
                                 <li><a class="dropdown-item" href="#">Donation</a></li>
                                 <li><a class="dropdown-item" href="#">Advertisement</a></li>
                                 <li><a class="dropdown-item" href="#">Fund</a></li>
@@ -71,11 +71,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @* <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - TMF Revenue Management - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer> *@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

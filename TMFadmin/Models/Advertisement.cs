@@ -25,16 +25,13 @@ namespace TMFadmin.Models
         public string adSize {get; set;}
         //total cost of advertisement
         [Required]
-        [MaxLength(10)]
         [Display(Name="Total Cost")]
         public float cost {get; set;}
         //how much they've paid so far
-        [MaxLength(10)]
         [Display(Name="Amount Paid")]
-        public float paid {get; set;}
+        public float? paid {get; set;}
         //how much they have left to pay
         [Required]
-        [MaxLength(10)]
         [Display(Name="Amount Due")]
         public float due {get; set;}
     }

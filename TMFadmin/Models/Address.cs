@@ -8,6 +8,14 @@ namespace TMFadmin.Models
         [Key]
         public int addressId {get; set;}
         [Required]
+        [MaxLength(50)]
+        [Display(Name="First Name")]
+        public string firstname {get; set;}
+        [Required]
+        [MaxLength(50)]
+        [Display(Name="Last Name")]
+        public string lastname {get; set;}
+        [Required]
         [MaxLength(100)]
         [Display(Name="Address")]
         public string address {get; set;}
@@ -27,6 +35,9 @@ namespace TMFadmin.Models
         [MaxLength(20)]
         [Display(Name="Country")]
         public string country {get; set;} = "Canada";
-
+        [Required]
+        [MaxLength(10)]
+        [Display(Name="Address Type")]
+        public string type {get; set;}
     }
 }

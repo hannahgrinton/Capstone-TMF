@@ -5,17 +5,12 @@ namespace TMFadmin.Models
     public class Sponsor
     {   
         [Key]
-        private int sponsorId {get; set;}
-        //first name
+        public int sponsorId {get; set;}
+        //Company
         [Required]
-        [MaxLength(50)]
-        [Display(Name="First Name")]
-        public string firstname {get; set;}
-        //last name
-        [Required]
-        [MaxLength(50)]
-        [Display(Name="Last Name")]
-        public string lastname {get; set;}
+        [MaxLength(200)]
+        [Display(Name="Company")]
+        public string company {get; set;}
         //phone number
         [Required]
         [MaxLength(14)]
@@ -24,7 +19,7 @@ namespace TMFadmin.Models
         //fax number
         [MaxLength(14)]
         [Display(Name="Fax No.")]
-        public string fax {get; set;}
+        public string fax {get; set;} = "N/A";
         //email address
         [MaxLength(70)]
         [Display(Name="Email Address")]
@@ -37,7 +32,7 @@ namespace TMFadmin.Models
         //additional notes
         [MaxLength(250)]
         [Display(Name="Notes")]
-        public string notes {get; set;}
+        public string notes {get; set;} = "N/A";
 
     }
 }

@@ -2981,6 +2981,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewSponsor.cshtml",
+      "TargetPath": "Views/Home/ViewSponsor.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewSponsors.cshtml",
+      "TargetPath": "Views/Home/ViewSponsors.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Shared/_Layout.cshtml",
       "TargetPath": "Views/Shared/_Layout.cshtml",
       "FileKind": "mvc"

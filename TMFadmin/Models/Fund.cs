@@ -5,6 +5,11 @@ namespace TMFadmin.Models
     public class Fund {
         [Key]
         public int fundId {get;set;}
+        //name of fund
+        [Required]
+        [MaxLength(200)]
+        [Display(Name="Name")]
+        public string fundName {get; set;}
         //who created the fund/award
         [MaxLength(100)]
         [Display(Name="Creator")]

@@ -1,0 +1,165 @@
+@model TMFadmin.Models.Sponsor
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4"><a asp-controller="Home" asp-action="ViewSponsors" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>@Model.company</h1>
+    <div class="alert alert-primary" role="alert" style="margin-top: 20px; margin-bottom: 20px;"><i class="fas fa-sticky-note" style="font-size: 26px; float: left;"></i>&nbsp;@Model.notes</div>
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingInfo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                    Information
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseInfo" class="collapse show" aria-labelledby="headingInfo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <span><i class="fas fa-phone" style="font-size: 26px;"></i>&nbsp;@Model.phone</span>
+                        
+                        <span><i class="fas fa-fax" style="font-size: 26px;"></i>&nbsp;@Model.fax</span>
+
+                        <span><i class="fas fa-envelope" style="font-size: 26px;"></i>&nbsp;@Model.email</span>
+                        
+                        @if (Model.activity == "active") {
+                            <span><i class="far fa-check-circle" style="font-size: 26px; color: green;"></i>&nbsp;@Model.activity</span>
+                        } else {
+                            <span><i class="fas fa-ban" style="font-size: 26px; color: red;"></i>&nbsp;@Model.activity</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Addresses
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        @foreach (var item in ViewBag.addresses)
+                        {
+                            <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+                                <div class="card-header"><i class="fas fa-address-card"></i>&nbsp;@item.type</div>
+                                <div class="card-body">
+                                    <div class="card-title">@item.firstname @item.lastname</div>
+                                    <div class="card-text">@item.address</div>
+                                    <div class="card-text">@item.city, @item.province</div>
+                                    <div class="card-text">@item.postal</div>
+                                    <div class="card-text">@item.country</div>
+                                    <form method="post" style="margin-top: 10px; float: right;">
+                                        <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAddress" value="@item.addressId" name="myAddressId" hidden></label>
+                                        <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAddress" value="@item.addressId" name="myAddressId" hidden></label>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Advertisements
+                </button>
+            </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    @if ((ViewBag.adverts != null) || (ViewBag.adverts != ""))
+                    {
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Image File</th>
+                                    <th scope="col">Ad Size</th>
+                                    <th scope="col">Cost</th>
+                                    <th scope="col">Amount Paid</th>
+                                    <th scope="col">Amount Due</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in ViewBag.adverts)
+                            {
+                                <tr>
+                                    <td>@item.date.ToString("dd/M/yy")</td>
+                                    <td>@item.imgFile</td>
+                                    <td>@item.adSize</td>
+                                    <td>$@item.cost</td>
+                                    <td>$@item.paid</td>
+                                    <td>$@item.due</td>
+                                    <td>@item.notes</td>
+                                    <td>
+                                        <form method="post" style="margin-top: 10px; float: right;">
+                                            <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                                            <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Donations
+                </button>
+            </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    @if ((ViewBag.donations != null) || (ViewBag.donations != ""))
+                    {
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Charitable Receipt</th>
+                                    <th scope="col">Amount Donated</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in ViewBag.donations)
+                            {
+                                <tr>
+                                    <td>@item.date.ToString("dd/M/yy")</td>
+                                    <td>@(item.receipt == 1 ? "Charitable Receipt Sent" : "Charitable Receipt Not Sent")</td>
+                                    <td>$@item.amount</td>
+                                    <td>@item.notes</td>
+                                    <td>
+                                        <form method="post" style="margin-top: 10px; float: right;">
+                                            <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditDonation" value="@item.donId" name="mydonId" hidden></label>
+                                            <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteDonation" value="@item.donId" name="mydonId" hidden></label>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" style="float: right; margin-top: 20px;">
+        <label class="btn btn-primary" style="cursor: pointer;">Edit<input type="submit" value="@Model.sponsorId" asp-controller="Home" asp-action="EditSponsor" hidden></label>
+        <label class="btn btn-danger" style="cursor: pointer;">Delete<input type="submit" value="@Model.sponsorId" asp-controller="Home" asp-action="DeleteSponsor" hidden></label>
+    </form>
+</div>
