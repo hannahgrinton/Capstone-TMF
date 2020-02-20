@@ -1,0 +1,36 @@
+@model TMFadmin.Models.RevenueManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Awards</h1>
+    <table class="table table-hover table-striped" style="margin-top: 40px;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Recipient</th>
+                <th scope="col">Year Awarded</th>
+                <th scope="col">Fund</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.getAwardsById())
+                {
+                    <tr>
+                        <td>@item.awardId</td>
+                        <td>@item.recipient</td>
+                        <td>@item.year</td>
+                        <td>@item.fundId</td>
+                        <td>
+                            <form method="post">
+                                <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewAward" value="@item.awardId" name="myDonId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAward" value="@item.awardId" name="myDonId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAward" value="@item.awardId" name="myDonId" hidden></label>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

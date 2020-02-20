@@ -1,0 +1,38 @@
+@model TMFadmin.Models.RevenueManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Funds</h1>
+    <table class="table table-hover table-striped" style="margin-top: 40px;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.getFundsById())
+                {
+                    <tr>
+                        <td>@item.fundId</td>
+                        <td>@item.fundName</td>
+                        <td>@item.creator</td>
+                        <td>@item.dateCreated</td>
+                        <td>@item.notes</td>
+                        <td>
+                            <form method="post">
+                                <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewFund" value="@item.fundId" name="myFundId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditFund" value="@item.fundId" name="myFundId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteFund" value="@item.fundId" name="myFundId" hidden></label>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

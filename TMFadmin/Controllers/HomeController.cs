@@ -55,7 +55,7 @@ namespace TMFadmin.Controllers
         public IActionResult AddSponsor() {
             //redirect to add sponsor form
             Sponsor sponsor = new Sponsor();
-            return View(sponsor);
+            return View(revenueManager);
         }
         [HttpPost]
         public IActionResult AddSponsorSubmit(Sponsor sponsor) {
@@ -95,5 +95,44 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         } 
+                //---------------------------------------------------------------------- Sponsor Work
+        public IActionResult ViewAdvertisements() {
+            //view all advertisements
+            return View(revenueManager);
+        }        
+        
+        
+        
+        //---------------------------------------------------------------------- Donations Work
+        public IActionResult ViewDonations() {
+            //view all donations
+            return View(revenueManager);
+        }
+
+                
+        //---------------------------------------------------------------------- Awards Work
+        public IActionResult ViewAwards() {
+            //view all awards
+            return View(revenueManager);
+        }                
+
+
+        //---------------------------------------------------------------------- Funds Work
+        public IActionResult ViewFunds() {
+            //view all funds
+            return View(revenueManager);
+        }
+
+        //---------------------------------------------------------------------- Funds Work
+        public IActionResult ViewAddresses() {
+            //view all addresses
+            return View(revenueManager);
+        }
+        
+        public IActionResult AddAddress() {
+            //redirect to add address form
+            Sponsor sponsor = new Sponsor();
+            return View(revenueManager);
+        }
     }
 }

@@ -79,5 +79,46 @@ namespace TMFadmin.Models
                 addresses.Add(myAddress);
             }
         }
+
+        //----------------------------------------------------------------- Advertisement Work
+        //get list of adverts, sorted by ID
+        public List<Advertisement> getAdvertisementsById() {
+            List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
+            return advertisements;
+        }
+
+
+
+        //----------------------------------------------------------------- Donation Work
+        //get list of donations, sorted by date
+        public List<Donation> getDonationsByDate() {
+            List<Donation> donations = donation.OrderBy(l => l.date).ToList();
+            return donations;
+        }
+
+
+
+        //----------------------------------------------------------------- Donation Work
+        //get list of awards, sorted by ID
+        public List<Award> getAwardsById() {
+            List<Award> award = awards.OrderBy(l => l.awardId).ToList();
+            return award;
+        }
+
+
+        //----------------------------------------------------------------- Fund Work
+        //get list of funds, sorted by ID
+        public List<Fund> getFundsById() {
+            List<Fund> funds = fund.OrderBy(l => l.fundId).ToList();
+            return funds;
+        }            
+        
+        
+        //----------------------------------------------------------------- Fund Work
+        //get list of addresses sorted by ID
+        public List<Address> getAddressesById() {
+            List<Address> addresses = address.OrderBy(l => l.addressId).ToList();
+            return addresses;
+        }
     }
 }

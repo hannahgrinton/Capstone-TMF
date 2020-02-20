@@ -63,3 +63,14 @@ body {
 .ico-button:hover {
   color: #0056b3;
 }
+
+.accHead{
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.accHead>a{  
+  color:white;
+}
+
+.btnSubmit{
+  margin: 5px;
+}
