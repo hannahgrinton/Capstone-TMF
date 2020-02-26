@@ -108,6 +108,11 @@ namespace TMFadmin.Controllers
             //view all donations
             return View(revenueManager);
         }
+        public IActionResult AddDonation() {
+            //redirect to add donation form
+            Donation donation = new Donation();
+            return View(revenueManager);
+        }
 
                 
         //---------------------------------------------------------------------- Awards Work
