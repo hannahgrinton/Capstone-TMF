@@ -19,7 +19,7 @@ namespace TMFadmin.Models
         //fax number
         [MaxLength(14)]
         [Display(Name="Fax No.")]
-        public string fax {get; set;} = "N/A";
+        public string fax {get; set;}
         //email address
         [MaxLength(70)]
         [Display(Name="Email Address")]
@@ -32,7 +32,7 @@ namespace TMFadmin.Models
         //additional notes
         [MaxLength(250)]
         [Display(Name="Notes")]
-        public string notes {get; set;} = "N/A";
+        public string notes {get; set;}
 
     }
 }
