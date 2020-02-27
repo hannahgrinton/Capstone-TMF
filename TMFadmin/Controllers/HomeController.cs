@@ -99,6 +99,11 @@ namespace TMFadmin.Controllers
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
+        }
+        public IActionResult AddAdvertisement() {
+            //redirect to add donation form
+            Advertisement advertisement = new Advertisement();
+            return View(revenueManager);
         }        
         
         
@@ -108,11 +113,21 @@ namespace TMFadmin.Controllers
             //view all donations
             return View(revenueManager);
         }
+        public IActionResult AddDonation() {
+            //redirect to add donation form
+            Donation donation = new Donation();
+            return View(revenueManager);
+        }
 
                 
         //---------------------------------------------------------------------- Awards Work
         public IActionResult ViewAwards() {
             //view all awards
+            return View(revenueManager);
+        }
+        public IActionResult AddAward() {
+            //redirect to add fund form
+            Award award = new Award();
             return View(revenueManager);
         }                
 
@@ -120,6 +135,11 @@ namespace TMFadmin.Controllers
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
             //view all funds
+            return View(revenueManager);
+        }
+        public IActionResult AddFund() {
+            //redirect to add fund form
+            Fund fund = new Fund();
             return View(revenueManager);
         }
 
@@ -132,6 +152,14 @@ namespace TMFadmin.Controllers
         public IActionResult AddAddress() {
             //redirect to add address form
             Sponsor sponsor = new Sponsor();
+            return View(revenueManager);
+        }
+
+
+
+        // check out login page
+        public IActionResult LandingLogin() {
+            //redirect to add login
             return View(revenueManager);
         }
     }
