@@ -99,6 +99,11 @@ namespace TMFadmin.Controllers
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
+        }
+        public IActionResult AddAdvertisement() {
+            //redirect to add donation form
+            Advertisement advertisement = new Advertisement();
+            return View(revenueManager);
         }        
         
         
@@ -147,6 +152,14 @@ namespace TMFadmin.Controllers
         public IActionResult AddAddress() {
             //redirect to add address form
             Sponsor sponsor = new Sponsor();
+            return View(revenueManager);
+        }
+
+
+
+        // check out login page
+        public IActionResult LandingLogin() {
+            //redirect to add login
             return View(revenueManager);
         }
     }

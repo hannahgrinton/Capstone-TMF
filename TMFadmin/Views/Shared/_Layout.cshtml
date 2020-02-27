@@ -47,17 +47,17 @@
                             <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="AddSponsor">Sponsor</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="AddDonation">Donation</a></li>
-                                <li><a class="dropdown-item" href="#">Advertisement</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="AddAdvertisement">Advertisement</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="AddFund">Fund</a></li>
                                 <li><a class="dropdown-item" asp-controller="Home" asp-action="AddAward">Award</a></li>
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="AddSponsor">Address</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="AddAddress">Address</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Settings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                            <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index">Logout</a>
                         </li>
                     </ul>
                 </div>
