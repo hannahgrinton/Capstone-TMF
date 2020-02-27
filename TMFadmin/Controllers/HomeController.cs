@@ -119,12 +119,22 @@ namespace TMFadmin.Controllers
         public IActionResult ViewAwards() {
             //view all awards
             return View(revenueManager);
+        }
+        public IActionResult AddAward() {
+            //redirect to add fund form
+            Award award = new Award();
+            return View(revenueManager);
         }                
 
 
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
             //view all funds
+            return View(revenueManager);
+        }
+        public IActionResult AddFund() {
+            //redirect to add fund form
+            Fund fund = new Fund();
             return View(revenueManager);
         }
 
