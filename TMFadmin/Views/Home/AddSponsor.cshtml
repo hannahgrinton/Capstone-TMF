@@ -2,7 +2,7 @@
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4"><a asp-controller="Home" asp-action="Index" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Contact</h1>
     <div class="container text-center">
-        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;">
+        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddSponsorSubmit">
             <div class="accordian text-center" role="tablist" id="accordion-1" style="width: 550px; align-self: center;">
                 <div class="card">
                     <div class="card-header" role="tab">
@@ -74,7 +74,11 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group" style="width: 580px;"><button style="margin:15px; float: right;" class="btn btn-primary btn-submit" type="button" asp-controller="Home" asp-action="AddSponsorSubmit">Add Contact</button></div>
+            <div class="form-group" style="width: 580px;">
+                <input style="margin:15px; float: right;"
+                    class="btn btn-primary btn-submit" 
+                    type="submit" value="Add Contact">
+            </div>
         </form>
     </div>
 </div>
