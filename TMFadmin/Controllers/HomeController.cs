@@ -55,15 +55,15 @@ namespace TMFadmin.Controllers
         public IActionResult AddSponsor() {
             //redirect to add sponsor form
             Sponsor sponsor = new Sponsor();
-            return View(revenueManager);
+            return View(sponsor);
         }
         [HttpPost]
         public IActionResult AddSponsorSubmit(Sponsor sponsor) {
             //submit new sponsor to db
-            if (!ModelState.IsValid) return RedirectToAction("Index");
+            if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
             revenueManager.Add(sponsor);
             revenueManager.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewSponsors");
         }
         [HttpPost]
         public IActionResult EditSponsor(int mySponsorId) {
