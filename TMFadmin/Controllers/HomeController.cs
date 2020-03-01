@@ -38,7 +38,7 @@ namespace TMFadmin.Controllers
             //view all sponsors
             return View(revenueManager);
         }
-        [HttpPost]
+        //[HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
             //view sponsor in detail
             Sponsor sponsor = new Sponsor();
@@ -58,12 +58,15 @@ namespace TMFadmin.Controllers
             return View(sponsor);
         }
         [HttpPost]
-        public IActionResult AddSponsorSubmit(Sponsor sponsor) {
+        public IActionResult AddSponsorSubmit(Sponsor mySponsor) {
             //submit new sponsor to db
             if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
-            revenueManager.Add(sponsor);
+            revenueManager.Add(mySponsor);
             revenueManager.SaveChanges();
-            return RedirectToAction("ViewSponsors");
+            Sponsor sponsor = new Sponsor();
+            sponsor = revenueManager.newestSponsor();
+            int id = sponsor.sponsorId;
+            return RedirectToAction("ViewSponsor", new { mySponsorId = id });
         }
         [HttpPost]
         public IActionResult EditSponsor(int mySponsorId) {
@@ -148,11 +151,20 @@ namespace TMFadmin.Controllers
             //view all addresses
             return View(revenueManager);
         }
+        [Route("/AddAddress/{id = 0}")]
+        public IActionResult AddAddress(int mySponsorId = 0) {
+            Address address = new Address();
+            ViewBag.selectList = revenueManager.getList();
+            return View(address);
+        }
         
-        public IActionResult AddAddress() {
-            //redirect to add address form
-            Sponsor sponsor = new Sponsor();
-            return View(revenueManager);
+        [HttpPost]
+        public IActionResult AddAddressSubmit(Address myAddress) {
+            //submit new address to db
+            if (!ModelState.IsValid) return RedirectToAction("AddAddress");
+            revenueManager.Add(myAddress);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewAddresses");
         }
 
 

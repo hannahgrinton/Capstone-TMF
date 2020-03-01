@@ -32,10 +32,20 @@ namespace TMFadmin.Models
         public Sponsor getSponsor(int mySponsorId) {
             return sponsor.Single(item => item.sponsorId == mySponsorId);
         }
+        //get newest sponsor
+        public Sponsor newestSponsor() {
+            return sponsor.Last();
+        }
         //alphabetize by lastname
         public List<Sponsor> alphaSponsorLname() {
             List<Sponsor> sponsors = sponsor.OrderBy(l => l.company).ToList();
             return sponsors;
+        }
+        //get select list of sponsor names
+        public SelectList getList() {
+            //using linq methods to query data and return as a list
+            List<Sponsor> listData = sponsor.OrderBy(c => c.company).ToList();
+            return new SelectList(listData, "sponsorId", "company");
         }
         //get list of donations of sponsor
         public void getSponsorDon(int mySponsorId) {
