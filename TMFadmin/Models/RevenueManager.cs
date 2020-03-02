@@ -42,10 +42,14 @@ namespace TMFadmin.Models
             return sponsors;
         }
         //get select list of sponsor names
-        public SelectList getList() {
+        public SelectList getList(int mySponsorId) {
+            string id = Convert.ToString(mySponsorId);
             //using linq methods to query data and return as a list
             List<Sponsor> listData = sponsor.OrderBy(c => c.company).ToList();
-            return new SelectList(listData, "sponsorId", "company");
+            SelectList myList = new SelectList(listData, "sponsorId", "company");
+            var selected = myList.Where(x => x.Value == id).First();
+            selected.Selected = true;
+            return myList;
         }
         //get list of donations of sponsor
         public void getSponsorDon(int mySponsorId) {

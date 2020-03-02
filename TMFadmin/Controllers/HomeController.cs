@@ -133,7 +133,7 @@ namespace TMFadmin.Controllers
             Award award = new Award();
             return View(revenueManager);
         }                
-
+ 
 
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
@@ -151,15 +151,14 @@ namespace TMFadmin.Controllers
             //view all addresses
             return View(revenueManager);
         }
-        [Route("/AddAddress/{id = 0}")]
-        public IActionResult AddAddress(int mySponsorId = 0) {
+        [Route("/AddAddress/{id = 1}")]
+        public IActionResult AddAddress(int mySponsorId = 1) {
             Address address = new Address();
-            ViewBag.selectList = revenueManager.getList();
+            ViewBag.selectList = revenueManager.getList(mySponsorId);
             return View(address);
         }
-        
         [HttpPost]
-        public IActionResult AddAddressSubmit(Address myAddress) {
+        public IActionResult AddAddressSubmit(Address myAddress, int mySponsorId) {
             //submit new address to db
             if (!ModelState.IsValid) return RedirectToAction("AddAddress");
             revenueManager.Add(myAddress);
