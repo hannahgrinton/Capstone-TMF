@@ -36,6 +36,12 @@ namespace TMFadmin.Models
         public Sponsor newestSponsor() {
             return sponsor.Last();
         }
+        //get newest sponsor's id
+        public int newID() {
+            Sponsor sponsor = newestSponsor();
+            int id = sponsor.sponsorId;
+            return id;
+        }
         //alphabetize by lastname
         public List<Sponsor> alphaSponsorLname() {
             List<Sponsor> sponsors = sponsor.OrderBy(l => l.company).ToList();
@@ -134,5 +140,10 @@ namespace TMFadmin.Models
             List<Address> addresses = address.OrderBy(l => l.addressId).ToList();
             return addresses;
         }
+        //get newest address
+        public Address newestAddress() {
+            return address.Last();
+        }
+
     }
 }

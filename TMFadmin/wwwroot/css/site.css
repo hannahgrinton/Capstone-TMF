@@ -75,3 +75,9 @@ body {
   margin: 5px;
 }
 
+.address-button-box {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}

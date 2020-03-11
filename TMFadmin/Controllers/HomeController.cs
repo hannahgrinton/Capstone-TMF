@@ -151,10 +151,10 @@ namespace TMFadmin.Controllers
             //view all addresses
             return View(revenueManager);
         }
-        [Route("/AddAddress/{id = 1}")]
-        public IActionResult AddAddress(int mySponsorId = 1) {
+        [Route("/AddAddress/{id}")]
+        public IActionResult AddAddress(int id) {
             Address address = new Address();
-            ViewBag.selectList = revenueManager.getList(mySponsorId);
+            ViewBag.selectList = revenueManager.getList(id);
             return View(address);
         }
         [HttpPost]
@@ -163,6 +163,15 @@ namespace TMFadmin.Controllers
             if (!ModelState.IsValid) return RedirectToAction("AddAddress");
             revenueManager.Add(myAddress);
             revenueManager.SaveChanges();
+
+            AddressRelations rel = new AddressRelations();
+            rel.sponsorId = mySponsorId;
+            Address address = new Address();
+            address = revenueManager.newestAddress();
+            rel.addressId = address.addressId;
+            revenueManager.Add(rel);
+            revenueManager.SaveChanges();
+            
             return RedirectToAction("ViewAddresses");
         }
 

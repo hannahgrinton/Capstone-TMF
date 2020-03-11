@@ -44,7 +44,7 @@
             <div class="card-body">
                 <h5 class="card-title">Add Address</h5>
                 <p class="card-text">Add a new address to the database via a form.</p>
-                <a asp-controller="Home" asp-action="AddAddress" class="btn btn-primary">Go</a>
+                <a asp-controller="Home" asp-action="AddAddress" asp-route-id="@Model.newID()" class="btn btn-primary">Go</a>
         </div>
         </div>
     </div>

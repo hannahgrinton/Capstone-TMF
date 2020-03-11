@@ -60,7 +60,9 @@
                             </div>
                         }
                         @if (ViewBag.addresses.Count < 2) {
-                            <a asp-controller="Home" asp-action="AddAddress" asp-route-id="@Model.sponsorId" class="btn btn-primary">Add Address</a>
+                            <div class="address-button-box">
+                                <a asp-controller="Home" asp-action="AddAddress" asp-route-id="@Model.sponsorId" class="btn btn-primary">Add Address</a>
+                            </div>
                         }
                     </div>
                 </div>
