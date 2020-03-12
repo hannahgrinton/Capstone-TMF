@@ -3,19 +3,19 @@
     <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Address</h1>
     <div class="container text-center">
         <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddAddressSubmit">
-            <div class="accordian text-center" role="tablist" id="addressAccordian" style="width: 550px; align-self: center;">
+            <div class="accordion text-center" role="tablist" id="addressAccordion" style="width: 550px; align-self: center;">
                 <div class="card">
                     <div class="card-header" role="tab">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sponInfo" aria-expanded="true" aria-controls="addressAccordian">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sponInfo" aria-expanded="true" aria-controls="addressAccordion">
                                 Sponsor Information
                             </button>
                         </h5>
                     </div>
-                    <div id="sponInfo" role="tabpanel" class="collapse show" data-parent="#addressAccordian">
+                    <div id="sponInfo" role="tabpanel" class="collapse show" data-parent="#addressAccordion">
                         <div class="card-body">
                             <div class="form-group" style="text-align: left;">
-                                <label for="mySponsorId"><i class="far fa-address-card" style="font-size: 22px;"></i>&nbsp;Select Contact to Add Address to:</label>
+                                <label for="mySponsorId"><i class="far fa-address-card" style="font-size: 22px;"></i>&nbsp;Select contact to add address to:</label>
                                 <div class="form-group">
                                     <select id="lstSponsor" name="mySponsorId" asp-items="ViewBag.selectList" class="form-control"></select>
                                 </div>
@@ -26,12 +26,12 @@
                 <div class="card">
                     <div class="card-header" role="tab">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#addInfo" aria-expanded="false" aria-controls="addressAccordian">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#addInfo" aria-expanded="false" aria-controls="addressAccordion">
                                 Address Information
                             </button>
                         </h5>
                     </div>
-                    <div role="tabpanel" class="collapse" data-parent="#addressAccordian" id="addInfo">
+                    <div role="tabpanel" class="collapse" data-parent="#addressAccordion" id="addInfo">
                         <div class="card-body">
                             <div class="form-row form-group">
                                 <div class="col" style="text-align: left;">

@@ -1,55 +1,70 @@
-@model TMFadmin.Models.RevenueManager
+@model TMFadmin.Models.Donation
 <div class="text-center" style="margin-top: 100px;">
-    <h1 class="display-4">Add Donation</h1>
-    <div class="container">
-
-        
-    <form>
-        <div role="tablist" id="accordion-1">
+    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Donation</h1>
+    <div class="container text-center">     
+    <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddDonationSubmit">
+        <div role="tablist" id="donationAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
             <div class="card">
-                <div class="card-header  accHead" role="tab">
-                    <h5 style="color:white" class="mb-0">Donation</h5>
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sponInfo" aria-expanded="true" aria-controls="donationAccordion">
+                            Sponsor/Fund Information
+                        </button>
+                    </h5>
                 </div>
-                <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                <div id="sponInfo" role="tabpanel" class="collapse show" data-parent="#donationAccordion">
                     <div class="card-body">
-                    <div class="form-group">
-                        <label id="sltDonor" for="sltDonor">Donor</label>
-                        <select class="form-control" id="sltDonor" name="Donor">
-                            <option value="" selected="">This Donor Name</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label id="lblFund" for="sltFund">Fund</label>
-                        <select class="form-control" id="sltFund" name="Fund">
-                            <option value="">This Fund Name</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtAmount">Amount</label>
-                        <input class="form-control" type="text" id="txtAmount" name="Amount">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label id="lblDate" for="sltDate">Date</label>
-                        <input class="form-control" id="sltDate" type="date" name="Date">
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="chkReceipt">
-                            <label class="form-check-label" for="chkReceipt">Receipt Sent?</label>
+                        <div class="form-group" style="text-align: left;">
+                            <label for="mySponsorId"><i class="far fa-address-card" style="font-size: 22px;"></i>&nbsp;Select contact making the donation:</label>
+                            <div class="form-group">
+                                <select id="lstSponsor" name="mySponsorId" asp-items="ViewBag.selectList" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <label for="myFundId"><i class="fas fa-funnel-dollar" style="font-size: 22px;"></i>&nbsp;Select the fund to donate to:</label>
+                            <div class="form-group">
+                                <select id="lstFund" name="myFundId" asp-items="ViewBag.fundList" class="form-control"></select>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label id="lblNote" for="txtNote">Notes</label>
-                        <textarea class="form-control" type="text" id="txtNote" name="Note" maxlength="255"></textarea>
-                    </div>
-            
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add Donation</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#donInfo" aria-expanded="false" aria-controls="donationAccordion">
+                            Donation Information
+                        </button>
+                    </h5>
+                </div>
+                <div id="donInfo" class="collapse" role="tabpanel" data-parent="#donationAccordion">
+                    <div class="card-body">
+                    
+                        <div class="form-group" style="text-align: left;">
+                            <label for="txtAmount"><i class="fas fa-dollar-sign" style="font-size: 22px;"></i>&nbsp;Amount</label>
+                            <input class="form-control" type="number" step="0.01" id="txtAmount" name="Amount" asp-for="amount" placeholder="0.00" maxlength="10">
+                            <span asp-validation-for="amount" class="text-danger" />
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <label><i class="fas fa-receipt" style="font-size: 22px;"></i>&nbsp;Charitable Receipt Status</label>
+                            <div class="form-check">    
+                                <input class="form-check-input" type="checkbox" id="receipt" name="receipt" value="1">
+                                <label class="form-check-label" for="receipt">Sent</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <label for="notes"><i class="far fa-clipboard" style="font-size: 22px;"></i>&nbsp;Notes</label>
+                            <textarea class="form-control" asp-for="notes" type="text" id="txtNote" name="notes" maxlength="250" rows="4"></textarea>
+                            <span asp-validation-for="notes" class="text-danger" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="form-group" style="width: 580px;">
+            <input style="margin:15px; float: right;"
+                class="btn btn-primary btn-submit" 
+                type="submit" value="Add Donation">
         </div>
     </form>
     </div>

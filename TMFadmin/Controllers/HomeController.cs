@@ -98,7 +98,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         } 
-                //---------------------------------------------------------------------- Sponsor Work
+        //---------------------------------------------------------------------- Sponsor Work
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
@@ -119,10 +119,53 @@ namespace TMFadmin.Controllers
         public IActionResult AddDonation() {
             //redirect to add donation form
             Donation donation = new Donation();
-            return View(revenueManager);
+            ViewBag.selectList = revenueManager.getList();
+            ViewBag.fundList = revenueManager.getFundList();
+            return View(donation);
         }
-
-                
+        [HttpPost]
+        public IActionResult AddDonationSubmit(Donation myDonation, int mySponsorId, int myFundId, String receipt) {
+            //submit new sponsor to db
+            if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
+            myDonation.date = DateTime.Now;
+            if (receipt == "1") {
+                myDonation.receipt = 1;
+            } else {
+                myDonation.receipt = 0;
+            }
+            if (myFundId != 0) {
+               myDonation.fundId = myFundId; 
+            }
+            //add donation
+            revenueManager.Add(myDonation);
+            revenueManager.SaveChanges();
+            //build relation with sponsor  
+            DonationRelations donRel =new DonationRelations();
+            donRel.sponsorId = mySponsorId;
+            donRel.donId = revenueManager.newDonId();
+            //add relationship
+            revenueManager.Add(donRel);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewDonations");
+        }
+        [HttpPost]
+        public IActionResult DeleteDonation(int myDonationId) {
+            //redirect to delete Donation page
+            Donation donation = new Donation();
+            donation = revenueManager.getDonation(myDonationId);
+            return View(donation);
+        }
+        [HttpPost]
+        public IActionResult DeleteDonationSubmit(Donation donation) {
+            //delete Donation
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(donation);
+            DonationRelations rel = new DonationRelations();
+            rel = revenueManager.getDonationRelations(donation.donId);
+            revenueManager.Remove(rel);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewDonations");
+        }        
         //---------------------------------------------------------------------- Awards Work
         public IActionResult ViewAwards() {
             //view all awards

@@ -48,6 +48,11 @@ namespace TMFadmin.Models
             return sponsors;
         }
         //get select list of sponsor names
+        public SelectList getList() {
+            List<Sponsor> listData = sponsor.OrderBy(c => c.company).ToList();
+            return new SelectList(listData, "sponsorId", "company");
+        }
+        //get select list of sponsor names with selected item matching parameter
         public SelectList getList(int mySponsorId) {
             string id = Convert.ToString(mySponsorId);
             //using linq methods to query data and return as a list
@@ -115,10 +120,26 @@ namespace TMFadmin.Models
             List<Donation> donations = donation.OrderBy(l => l.date).ToList();
             return donations;
         }
+        //get newest donation
+        public Donation newestDonation() {
+            return donation.Last();
+        }
+        //get newest donation id
+        public int newDonId() {
+            Donation donation = newestDonation();
+            int id = donation.donId;
+            return id;
+        }
+        //get donation by id
+        public Donation getDonation(int myDonationId) {
+            return donation.Single(item => item.donId == myDonationId);
+        }
+        //get relation with sponsor based on the id of the donation
+        public DonationRelations getDonationRelations(int myDonationId) {
+            return donRels.Single(item => item.donId == myDonationId);
+        }
 
-
-
-        //----------------------------------------------------------------- Donation Work
+        //----------------------------------------------------------------- Award Work
         //get list of awards, sorted by ID
         public List<Award> getAwardsById() {
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
@@ -131,10 +152,27 @@ namespace TMFadmin.Models
         public List<Fund> getFundsById() {
             List<Fund> funds = fund.OrderBy(l => l.fundId).ToList();
             return funds;
-        }            
+        }
+        //get select list of funds, set default to N/A     
+        public SelectList getFundList() {
+            List<Fund> listData = fund.OrderBy(c => c.fundId).ToList();
+            Fund blank = new Fund();
+            blank.fundId = 0;
+            blank.fundName = "N/A";
+            blank.dateCreated = DateTime.Now;
+            listData.Add(blank);
+            SelectList myList = new SelectList(listData, "fundId", "fundName");
+            var selected = myList.Where(x => x.Value == "0").First();
+            selected.Selected = true;
+            return myList;
+        }        
+        //get fund by id
+        public Fund getFund(int id) {
+            return fund.Single(item => item.fundId == id);
+        }
         
         
-        //----------------------------------------------------------------- Fund Work
+        //----------------------------------------------------------------- Address Work
         //get list of addresses sorted by ID
         public List<Address> getAddressesById() {
             List<Address> addresses = address.OrderBy(l => l.addressId).ToList();
