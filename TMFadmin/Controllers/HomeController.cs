@@ -93,7 +93,7 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult DeleteSponsorSubmit(Sponsor sponsor) {
             //delete sponsor
-            if (!ModelState.IsValid) return RedirectToAction("Index");
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
             revenueManager.Remove(sponsor);
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
@@ -108,6 +108,23 @@ namespace TMFadmin.Controllers
             Advertisement advertisement = new Advertisement();
             return View(revenueManager);
         }        
+        // ------ delete
+        [HttpPost]
+        public IActionResult DeleteAdvertisement(int myAdId) {
+            //redirect to delete Advertisement page
+            Advertisement advertisement = new Advertisement();
+            advertisement = revenueManager.getAdvertisement(myAdId);
+            return View(advertisement);
+        }
+        [HttpPost]
+        public IActionResult DeleteAdvertisementSubmit(Advertisement myAdvertisement) {
+            //delete Advertisement
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myAdvertisement);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
+
         
         
         
@@ -149,10 +166,10 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewDonations");
         }
         [HttpPost]
-        public IActionResult DeleteDonation(int myDonationId) {
+        public IActionResult DeleteDonation(int myDonId) {
             //redirect to delete Donation page
             Donation donation = new Donation();
-            donation = revenueManager.getDonation(myDonationId);
+            donation = revenueManager.getDonation(myDonId);
             return View(donation);
         }
         [HttpPost]
@@ -176,6 +193,24 @@ namespace TMFadmin.Controllers
             Award award = new Award();
             return View(revenueManager);
         }                
+        
+                // ------ delete
+        [HttpPost]
+        public IActionResult DeleteAward(int myAwardId) {
+            //redirect to delete fund page
+            Award award = new Award();
+            award = revenueManager.getAward(myAwardId);
+            return View(award);
+        }
+        [HttpPost]
+        public IActionResult DeleteAwardSubmit(Award myAward) {
+            //delete Fund
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myAward);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
+
  
 
         //---------------------------------------------------------------------- Funds Work
@@ -188,8 +223,24 @@ namespace TMFadmin.Controllers
             Fund fund = new Fund();
             return View(revenueManager);
         }
+                // ------ delete
+        [HttpPost]
+        public IActionResult DeleteFund(int myFundId) {
+            //redirect to delete fund page
+            Fund fund = new Fund();
+            fund = revenueManager.getFund(myFundId);
+            return View(fund);
+        }
+        [HttpPost]
+        public IActionResult DeleteFundSubmit(Fund myFund) {
+            //delete Fund
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myFund);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
 
-        //---------------------------------------------------------------------- Funds Work
+        //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {
             //view all addresses
             return View(revenueManager);
@@ -217,7 +268,22 @@ namespace TMFadmin.Controllers
             
             return RedirectToAction("ViewAddresses");
         }
-
+        // ------ delete
+        [HttpPost]
+        public IActionResult DeleteAddress(int myAddressId) {
+            //redirect to delete address page
+            Address address = new Address();
+            address = revenueManager.getAddress(myAddressId);
+            return View(address);
+        }
+        [HttpPost]
+        public IActionResult DeleteAddressSubmit(Address myAddress) {
+            //delete address
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myAddress);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
 
 
         // check out login page

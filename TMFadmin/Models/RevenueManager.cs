@@ -111,6 +111,12 @@ namespace TMFadmin.Models
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
             return advertisements;
         }
+        //get current award
+        public Advertisement getAdvertisement(int myAdId) {
+            return advertisement.Single(item => item.adId == myAdId);
+        }
+
+
 
 
 
@@ -145,6 +151,12 @@ namespace TMFadmin.Models
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
             return award;
         }
+
+        //get current award
+        public Award getAward(int myAwardId) {
+            return awards.Single(item => item.awardId == myAwardId);
+        }
+
 
 
         //----------------------------------------------------------------- Fund Work
@@ -181,6 +193,11 @@ namespace TMFadmin.Models
         //get newest address
         public Address newestAddress() {
             return address.Last();
+        }
+
+        //get current address
+        public Address getAddress(int myAddressId) {
+            return address.Single(item => item.addressId == myAddressId);
         }
 
     }

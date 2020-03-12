@@ -88,3 +88,9 @@
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/TMFadmin.dll
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/TMFadmin.pdb
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/TMFadmin.csproj.CopyComplete
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteAddress.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteSponsor.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteDonation.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteFund.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteAward.cshtml.g.cs
+/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteAdvertisement.cshtml.g.cs

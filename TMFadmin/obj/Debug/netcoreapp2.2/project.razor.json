@@ -1,5 +1,5 @@
 {
-  "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
+  "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/TMFadmin.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2869,7 +2869,7 @@
         "Kind": "ITagHelper",
         "Name": "Microsoft.AspNetCore.SpaServices.Prerendering.PrerenderTagHelper",
         "AssemblyName": "Microsoft.AspNetCore.SpaServices",
-        "Documentation": null,
+        "Documentation": "\n            <summary>\n            A tag helper for prerendering JavaScript applications on the server.\n            </summary>\n        ",
         "TagOutputHint": null,
         "CaseSensitive": false,
         "TagMatchingRules": [
@@ -2912,7 +2912,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": null,
+            "Documentation": "\n            <summary>\n            If set, specifies the name of the CommonJS export that is the prerendering function to execute.\n            If not set, the JavaScript module's default CommonJS export must itself be the prerendering function.\n            </summary>\n        ",
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExportName"
@@ -2926,7 +2926,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": null,
+            "Documentation": "\n            <summary>\n            An optional JSON-serializable parameter to be supplied to the prerendering code.\n            </summary>\n        ",
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "CustomDataParameter"
@@ -2940,7 +2940,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": null,
+            "Documentation": "\n            <summary>\n            The maximum duration to wait for prerendering to complete.\n            </summary>\n        ",
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "TimeoutMillisecondsParameter"
@@ -2961,113 +2961,143 @@
   "RootNamespace": "TMFadmin",
   "Documents": [
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewFunds.cshtml",
-      "TargetPath": "Views/Home/ViewFunds.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Shared/_CookieConsentPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_CookieConsentPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Shared/_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views/Shared/_ValidationScriptsPartial.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Login/Index.cshtml",
+      "TargetPath": "Views\\Login\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddFund.cshtml",
-      "TargetPath": "Views/Home/AddFund.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Shared/Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/_ViewStart.cshtml",
-      "TargetPath": "Views/_ViewStart.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/_ViewImports.cshtml",
+      "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Shared/_CookieConsentPartial.cshtml",
-      "TargetPath": "Views/Shared/_CookieConsentPartial.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddDonation.cshtml",
+      "TargetPath": "Views\\Home\\AddDonation.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAwards.cshtml",
-      "TargetPath": "Views/Home/ViewAwards.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Login/Index.cshtml",
-      "TargetPath": "Views/Login/Index.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewSponsors.cshtml",
+      "TargetPath": "Views\\Home\\ViewSponsors.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Shared/Error.cshtml",
-      "TargetPath": "Views/Shared/Error.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteAdvertisement.cshtml",
+      "TargetPath": "Views\\Home\\DeleteAdvertisement.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewDonations.cshtml",
-      "TargetPath": "Views/Home/ViewDonations.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteDonation.cshtml",
+      "TargetPath": "Views\\Home\\DeleteDonation.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewSponsor.cshtml",
-      "TargetPath": "Views/Home/ViewSponsor.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewDonations.cshtml",
+      "TargetPath": "Views\\Home\\ViewDonations.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAddresses.cshtml",
-      "TargetPath": "Views/Home/ViewAddresses.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteSponsor.cshtml",
+      "TargetPath": "Views\\Home\\DeleteSponsor.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewSponsors.cshtml",
-      "TargetPath": "Views/Home/ViewSponsors.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Shared/_Layout.cshtml",
-      "TargetPath": "Views/Shared/_Layout.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddSponsor.cshtml",
+      "TargetPath": "Views\\Home\\AddSponsor.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddAdvertisement.cshtml",
-      "TargetPath": "Views/Home/AddAdvertisement.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewSponsor.cshtml",
+      "TargetPath": "Views\\Home\\ViewSponsor.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddAddress.cshtml",
-      "TargetPath": "Views/Home/AddAddress.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAdvertisements.cshtml",
-      "TargetPath": "Views/Home/ViewAdvertisements.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewFunds.cshtml",
+      "TargetPath": "Views\\Home\\ViewFunds.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/Privacy.cshtml",
-      "TargetPath": "Views/Home/Privacy.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddFund.cshtml",
+      "TargetPath": "Views\\Home\\AddFund.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddAward.cshtml",
-      "TargetPath": "Views/Home/AddAward.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteFund.cshtml",
+      "TargetPath": "Views\\Home\\DeleteFund.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddDonation.cshtml",
-      "TargetPath": "Views/Home/AddDonation.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewAdvertisements.cshtml",
+      "TargetPath": "Views\\Home\\ViewAdvertisements.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/Index.cshtml",
-      "TargetPath": "Views/Home/Index.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteAward.cshtml",
+      "TargetPath": "Views\\Home\\DeleteAward.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddSponsor.cshtml",
-      "TargetPath": "Views/Home/AddSponsor.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewAddresses.cshtml",
+      "TargetPath": "Views\\Home\\ViewAddresses.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/_ViewImports.cshtml",
-      "TargetPath": "Views/_ViewImports.cshtml",
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/ViewAwards.cshtml",
+      "TargetPath": "Views\\Home\\ViewAwards.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddAddress.cshtml",
+      "TargetPath": "Views\\Home\\AddAddress.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddAward.cshtml",
+      "TargetPath": "Views\\Home\\AddAward.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Shared/_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Shared/_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/DeleteAddress.cshtml",
+      "TargetPath": "Views\\Home\\DeleteAddress.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/media/fuzzbox/lin_storage/localDev/tmf-revenue/Capstone-TMF/TMFadmin/Views/Home/AddAdvertisement.cshtml",
+      "TargetPath": "Views\\Home\\AddAdvertisement.cshtml",
       "FileKind": "mvc"
     }
   ],
