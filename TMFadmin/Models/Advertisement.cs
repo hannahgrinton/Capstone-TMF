@@ -6,7 +6,7 @@ namespace TMFadmin.Models
     {
         [Key]
         public int adId {get; set;}
-        //date of advertisement request (year is most important, as it will be appended to a list)
+        //date of advertisement request
         [Required]
         [Display(Name="Date")]
         public DateTime date {get; set;}
