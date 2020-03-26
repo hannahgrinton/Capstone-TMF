@@ -1,8 +1,8 @@
-@model TMFadmin.Models.RevenueManager
+@model TMFadmin.Models.Advertisement
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Advertisement</h1>
     <div class="container text-center">    
-    <form enctype="multipart/form-data" style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;">
+    <form enctype="multipart/form-data" style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddAdvertisementSubmit">
         <div role="tablist" id="adAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
             <div class="card">
                 <div class="card-header" role="tab">
@@ -17,9 +17,7 @@
                         <div class="form-group" style="text-align: left;">
                             <label for="mySponsorId"><i class="far fa-address-card" style="font-size: 22px;"></i>&nbsp;Select contact requesting the advertisement:</label>
                             <div class="form-group">
-                                <select id="mySponsorId" name="mySponsorId" class="form-control" >
-                                    <option value="1">This Advertiser</option>
-                                </select>
+                                <select id="mySponsorId" name="mySponsorId" class="form-control" asp-items="ViewBag.selectList"></select>
                             </div>
                         </div>
                         <div class="form-group" style="text-align: left;">

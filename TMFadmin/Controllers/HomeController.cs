@@ -104,13 +104,33 @@ namespace TMFadmin.Controllers
             return View(revenueManager);
         }
         public IActionResult AddAdvertisement() {
-            //redirect to add donation form
+            //redirect to add ad form
             Advertisement advertisement = new Advertisement();
-            return View(revenueManager);
+            ViewBag.selectList = revenueManager.getList();
+            return View(advertisement);
         }        
-        
-        
-        
+        [HttpPost]
+        public IActionResult AddAdvertisementSubmit(Advertisement myAdvertisement, int mySponsorId, String adSize) {
+            if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
+            //submit new ad to db
+            if (adSize == "full") {
+                myAdvertisement.adSize = "full";
+            } else if (adSize == "half") {
+                myAdvertisement.adSize = "half";
+            } else if (adSize == "quarter") {
+                myAdvertisement.adSize = "quarter";
+            }
+            myAdvertisement.date = DateTime.Now;
+            revenueManager.Add(myAdvertisement);
+            revenueManager.SaveChanges();
+            //build rel with sponsor
+            AdvertRelations rel = new AdvertRelations();
+            rel.sponsorId = mySponsorId;
+            rel.adId = revenueManager.newAdId();
+            revenueManager.Add(rel);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewAdvertisements");
+        }
         //---------------------------------------------------------------------- Donations Work
         public IActionResult ViewDonations() {
             //view all donations
@@ -125,7 +145,7 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult AddDonationSubmit(Donation myDonation, int mySponsorId, int myFundId, String receipt) {
-            //submit new sponsor to db
+            //submit new donation to db
             if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
             myDonation.date = DateTime.Now;
             if (receipt == "1") {
@@ -140,7 +160,7 @@ namespace TMFadmin.Controllers
             revenueManager.Add(myDonation);
             revenueManager.SaveChanges();
             //build relation with sponsor  
-            DonationRelations donRel =new DonationRelations();
+            DonationRelations donRel = new DonationRelations();
             donRel.sponsorId = mySponsorId;
             donRel.donId = revenueManager.newDonId();
             //add relationship
@@ -186,7 +206,7 @@ namespace TMFadmin.Controllers
         public IActionResult AddFund() {
             //redirect to add fund form
             Fund fund = new Fund();
-            return View(revenueManager);
+            return View(fund);
         }
 
         //---------------------------------------------------------------------- Funds Work

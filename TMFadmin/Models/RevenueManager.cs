@@ -111,7 +111,16 @@ namespace TMFadmin.Models
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
             return advertisements;
         }
-
+        //get newest ad
+        public Advertisement newestAdvert() {
+            return advertisement.Last();
+        }
+        //get newest advert id
+        public int newAdId() {
+            Advertisement advert = newestAdvert();
+            int id = advert.adId;
+            return id;
+        }
 
 
         //----------------------------------------------------------------- Donation Work
@@ -182,6 +191,5 @@ namespace TMFadmin.Models
         public Address newestAddress() {
             return address.Last();
         }
-
     }
 }
