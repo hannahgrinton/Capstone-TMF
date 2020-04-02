@@ -15,7 +15,7 @@ namespace TMFadmin.Models
         [Display(Name="Notes")]
         public string notes {get; set;}
         //png file name
-        [MaxLength(50)]
+        [MaxLength(100)]
         [Display(Name="Image File")]
         public string imgFile {get; set;}
         //size of advertisement

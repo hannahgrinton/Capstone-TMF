@@ -42,12 +42,14 @@
                                 <label class="btn btn-light" style="cursor: pointer;">
                                     Browse<input type="file" id="imgFile" name="imgFile" hidden>
                                 </label>
-                                <span id="message" class="text-primary">No File Selected</span>
+                                <span>Selected File: <span id="message" class="text-primary">No File Selected</span></span>
+                                <span asp-validation-for="imgFile" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group" style="text-align: left;">
                             <label for="notes"><i class="far fa-clipboard" style="font-size: 22px;"></i>&nbsp;Notes</label>
                             <textarea class="form-control" id="notes" type="text" name="notes" maxlength="250" rows="4"></textarea>
+                            <span asp-validation-for="notes" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -63,16 +65,19 @@
                 <div id="tranInfo" class="collapse item-2" role="tabpanel" data-parent="#adAccordion">
                     <div class="card-body">
                         <div class="form-group" style="text-align: left;">
-                            <label for="txtTotal"><i class="fas fa-dollar-sign" style="font-size: 22px;"></i>&nbsp;Total Cost</label>
-                            <input class="form-control" type="number" step="0.01" id="txtTotal" name="cost" placeholder="0.00" maxlength="10">
+                            <label for="cost"><i class="fas fa-dollar-sign" style="font-size: 22px;"></i>&nbsp;Total Cost</label>
+                            <input class="form-control" type="number" step="0.01" id="cost" name="cost" asp-for="cost" placeholder="0.00" maxlength="10">
+                            <span asp-validation-for="cost" class="text-danger"></span>
                         </div>
                         <div class="form-group" style="text-align: left;">
-                            <label for="txtPaid"><i class="fas fa-money-check-alt" style="font-size: 22px;"></i>&nbsp;Amount Paid</label>
-                            <input class="form-control" type="number" step="0.01" id="txtPaid" name="paid" placeholder="0.00" maxlength="10">
+                            <label for="paid"><i class="fas fa-money-check-alt" style="font-size: 22px;"></i>&nbsp;Amount Paid</label>
+                            <input class="form-control" type="number" step="0.01" id="paid" name="paid" asp-for="paid" placeholder="0.00" maxlength="10">
+                            <span asp-validation-for="paid" class="text-danger"></span>
                         </div>
                         <div class="form-group" style="text-align: left;">
-                            <label for="txtDue"><i class="fas fa-file-invoice-dollar" style="font-size: 22px;"></i>&nbsp;Amount Due</label>
-                            <input class="form-control" type="number" step="0.01" id="txtDue" name="due" placeholder="0.00" maxlength="10">
+                            <label for="due"><i class="fas fa-file-invoice-dollar" style="font-size: 22px;"></i>&nbsp;Amount Due</label>
+                            <input class="form-control" type="number" step="0.01" id="due" name="due" asp-for="due" placeholder="0.00" maxlength="10">
+                            <span asp-validation-for="due" class="text-danger"></span>
                         </div>
                     </div>
                 </div>

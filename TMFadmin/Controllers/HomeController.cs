@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMFadmin.Models;
 
@@ -11,8 +13,10 @@ namespace TMFadmin.Controllers
     public class HomeController : Controller
     {
         private RevenueManager revenueManager;
-        public HomeController(RevenueManager myManager) {
+        private IHostingEnvironment environment;
+        public HomeController(RevenueManager myManager, IHostingEnvironment env) {
             revenueManager = myManager;
+            environment = env;
         }
         //---------------------------------------------------------------------- Main Work
         public IActionResult Index()
@@ -110,8 +114,9 @@ namespace TMFadmin.Controllers
             return View(advertisement);
         }        
         [HttpPost]
-        public IActionResult AddAdvertisementSubmit(Advertisement myAdvertisement, int mySponsorId, String adSize) {
-            if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
+        public IActionResult AddAdvertisementSubmit(Advertisement myAdvertisement, int mySponsorId, String adSize, IFormFile imgFile) {
+            ImageManager imageManager = new ImageManager(environment, "images");
+            if (!ModelState.IsValid) return RedirectToAction("AddAdvertisement");
             //submit new ad to db
             if (adSize == "full") {
                 myAdvertisement.adSize = "full";
@@ -121,15 +126,40 @@ namespace TMFadmin.Controllers
                 myAdvertisement.adSize = "quarter";
             }
             myAdvertisement.date = DateTime.Now;
-            revenueManager.Add(myAdvertisement);
-            revenueManager.SaveChanges();
-            //build rel with sponsor
-            AdvertRelations rel = new AdvertRelations();
-            rel.sponsorId = mySponsorId;
-            rel.adId = revenueManager.newAdId();
-            revenueManager.Add(rel);
-            revenueManager.SaveChanges();
-            return RedirectToAction("ViewAdvertisements");
+            int result = imageManager.uploadImage(imgFile);
+            switch (result) {
+                case 1:
+                    ViewData["feedback"] = "Wrong File Type";
+                    return RedirectToAction("AddAdvertisement");
+                case 2:
+                    ViewData["feedback"] = "File Too Large";
+                    return RedirectToAction("AddAdvertisement");
+                case 3:
+                    ViewData["feedback"] = "File Name Too Long";
+                    return RedirectToAction("AddAdvertisement");
+                case 4:
+                    ViewData["feedback"] = "Error Saving File";
+                    return RedirectToAction("AddAdvertisement");
+                case 5:
+                    ViewData["feedback"] = "Success";
+                    myAdvertisement.imgFile = imageManager.fileName;
+                    revenueManager.Add(myAdvertisement);
+                    revenueManager.SaveChanges();
+                    //build rel with sponsor
+                    AdvertRelations rel = new AdvertRelations();
+                    rel.sponsorId = mySponsorId;
+                    rel.adId = revenueManager.newAdId();
+                    revenueManager.Add(rel);
+                    revenueManager.SaveChanges();
+                    return RedirectToAction("ViewAdvertisements");
+                default:
+                    ViewData["feedback"] = "No File Selected";
+                    return RedirectToAction("AddAdvertisement");
+            }
+            
+
+            
+            
         }
         //---------------------------------------------------------------------- Donations Work
         public IActionResult ViewDonations() {
@@ -194,9 +224,20 @@ namespace TMFadmin.Controllers
         public IActionResult AddAward() {
             //redirect to add fund form
             Award award = new Award();
-            return View(revenueManager);
+            ViewBag.fundList = revenueManager.getFundList();
+            return View(award);
         }                
- 
+        [HttpPost]
+        public IActionResult AddAwardSubmit(Award myAward, int myFundId) {
+            if (!ModelState.IsValid) return RedirectToAction("AddAward");
+            if (myFundId != 0) {
+               myAward.fundId = myFundId; 
+            }
+            //add award
+            revenueManager.Add(myAward);
+            revenueManager.SaveChanges(); 
+            return RedirectToAction("ViewAwards");
+        }
 
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
@@ -208,8 +249,15 @@ namespace TMFadmin.Controllers
             Fund fund = new Fund();
             return View(fund);
         }
+        [HttpPost]
+        public IActionResult AddFundSubmit(Fund myFund) {
+            if (!ModelState.IsValid) return RedirectToAction("AddFund");
+            revenueManager.Add(myFund);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewFunds");
+        }
 
-        //---------------------------------------------------------------------- Funds Work
+        //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {
             //view all addresses
             return View(revenueManager);
@@ -239,7 +287,7 @@ namespace TMFadmin.Controllers
         }
 
 
-
+        //------------------------------------------------------------------------ Login Page Work
         // check out login page
         public IActionResult LandingLogin() {
             //redirect to add login

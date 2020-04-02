@@ -2,7 +2,7 @@
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Fund</h1>
     <div class="container text-center">
-        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" >
+        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddFundSubmit">
             <div role="tablist" id="fundAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
                 <div class="card">
                     <div class="card-header" role="tab">
@@ -15,12 +15,14 @@
                     <div class="collapse show" role="tabpanel" data-parent="#fundAccordion" id="fundInfo">
                         <div class="card-body">
                             <div class="form-group" style="text-align: left;">
-                                <label id="lblName" for="txtName">Fund Name</label>
-                                <input class="form-control" type="text" id="txtAmount" name="Name">
+                                <label for="fundName"><i class="fas fa-funnel-dollar" style="font-size: 22px;"></i>&nbsp;Fund Name</label>
+                                <input class="form-control" type="text" id="fundName" asp-for="fundName" name="fundName" maxlength="200" placeholder="Name of Fund to be added">
+                                <span asp-validation-for="fundName" class="text-danger" />
                             </div>
                             <div class="form-group" style="text-align: left;">
-                                <label id="txtAmount" name="Amount">Creator</label>
-                                <input class="form-control" type="text" id="lblDate" for="sltDate">
+                                <label for="creator"><i class="fas fa-user-tie" style="font-size: 22px;"></i>&nbsp;Creator</label>
+                                <input class="form-control" type="text" id="creator" name="creator" asp-for="creator" maxlength="100" placeholder="Name of Fund Creator, if applicable">
+                                <span asp-validation-for="creator" class="text-danger" />
                             </div>
                         </div>
                     </div>
@@ -36,8 +38,9 @@
                     <div role="tabpanel" class="collapse" data-parent="#fundAccordion" id="addInfo">
                         <div class="card-body">
                             <div class="form-group" style="text-align: left;">
-                                <label id="lblDate" for="sltDate"><i class="far fa-calendar-alt" style="font-size: 22px;"></i>&nbsp;Date Created</label>
-                                <input class="form-control" id="sltDate" type="date" name="Date">
+                                <label for="dateCreated"><i class="far fa-calendar-alt" style="font-size: 22px;"></i>&nbsp;Date Created</label>
+                                <input class="form-control" id="dateCreated" type="date" value="2020-01-01" name="dateCreated" asp-for="dateCreated">
+                                <span asp-validation-for="dateCreated" class="text-danger" />
                             </div>
                             <div class="form-group" style="text-align: left;">
                                 <label for="notes"><i class="far fa-clipboard" style="font-size: 22px;"></i>&nbsp;Notes</label>
