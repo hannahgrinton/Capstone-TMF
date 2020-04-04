@@ -39,5 +39,7 @@ namespace TMFadmin.Models
         [MaxLength(10)]
         [Display(Name="Address Type")]
         public string type {get; set;}
+
+        //
     }
 }
