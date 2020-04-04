@@ -121,7 +121,14 @@ namespace TMFadmin.Models
             int id = advert.adId;
             return id;
         }
-
+        //get ad by id
+        public Advertisement getAdvertisement(int id) {
+            return advertisement.Single(item => item.adId == id);
+        }
+        //get sponsor relation
+        public AdvertRelations getAdvertRelations(int id) {
+            return advertRels.Single(item => item.adId == id);
+        }
 
         //----------------------------------------------------------------- Donation Work
         //get list of donations, sorted by date
@@ -154,7 +161,10 @@ namespace TMFadmin.Models
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
             return award;
         }
-
+        //get award by id
+        public Award getAward(int id) {
+            return awards.Single(item => item.awardId == id);
+        }
 
         //----------------------------------------------------------------- Fund Work
         //get list of funds, sorted by ID
@@ -190,6 +200,9 @@ namespace TMFadmin.Models
         //get newest address
         public Address newestAddress() {
             return address.Last();
+        }
+        public Address getAddress(int id) {
+            return address.Single(item => item.addressId == id);
         }
     }
 }

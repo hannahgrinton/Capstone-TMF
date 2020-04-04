@@ -161,6 +161,23 @@ namespace TMFadmin.Controllers
             
             
         }
+        [HttpPost]
+        public IActionResult DeleteAdvertisement(int myAdId) {
+            //redirect to delete Advertisement page
+            Advertisement advertisement = new Advertisement();
+            advertisement = revenueManager.getAdvertisement(myAdId);
+            return View(advertisement);
+        }
+        [HttpPost]
+        public IActionResult DeleteAdvertisementSubmit(Advertisement myAdvertisement) {
+            //delete Advertisement
+            revenueManager.Remove(myAdvertisement);
+            AdvertRelations rel = new AdvertRelations();
+            rel = revenueManager.getAdvertRelations(myAdvertisement.adId);
+            revenueManager.Remove(rel);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewAdvertisements");
+        } 
         //---------------------------------------------------------------------- Donations Work
         public IActionResult ViewDonations() {
             //view all donations
@@ -238,6 +255,21 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges(); 
             return RedirectToAction("ViewAwards");
         }
+        [HttpPost]
+        public IActionResult DeleteAward(int myAwardId) {
+            //redirect to delete fund page
+            Award award = new Award();
+            award = revenueManager.getAward(myAwardId);
+            return View(award);
+        }
+        [HttpPost]
+        public IActionResult DeleteAwardSubmit(Award myAward) {
+            //delete Fund
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myAward);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
 
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
@@ -256,7 +288,21 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewFunds");
         }
-
+        [HttpPost]
+        public IActionResult DeleteFund(int myFundId) {
+            //redirect to delete fund page
+            Fund fund = new Fund();
+            fund = revenueManager.getFund(myFundId);
+            return View(fund);
+        }
+        [HttpPost]
+        public IActionResult DeleteFundSubmit(Fund myFund) {
+            //delete Fund
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myFund);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
         //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {
             //view all addresses
@@ -285,7 +331,21 @@ namespace TMFadmin.Controllers
             
             return RedirectToAction("ViewAddresses");
         }
-
+        [HttpPost]
+        public IActionResult DeleteAddress(int myAddressId) {
+            //redirect to delete address page
+            Address address = new Address();
+            address = revenueManager.getAddress(myAddressId);
+            return View(address);
+        }
+        [HttpPost]
+        public IActionResult DeleteAddressSubmit(Address myAddress) {
+            //delete address
+            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            revenueManager.Remove(myAddress);
+            revenueManager.SaveChanges();
+            return RedirectToAction("Index");
+        } 
 
         //------------------------------------------------------------------------ Login Page Work
         // check out login page
