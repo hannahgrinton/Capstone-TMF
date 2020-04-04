@@ -8,7 +8,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Notes</th>
                 <th scope="col">Image</th>
-                <th scope="col">Ad Size</th>
+                <th scope="col">Size</th>
                 <th scope="col">Cost</th>
                 <th scope="col">Paid</th>
                 <th scope="col">Balance</th>
@@ -22,12 +22,12 @@
                     <tr>
                         <td>@item.adId</td>
                         <td>@item.date</td>
-                        <td>@item.notes</td>
-                        <td>@item.imgFile</td>
+                        <td style="max-width: 160px;">@item.notes</td>
+                        <td style="max-width: 160px;">@item.imgFile</td>
                         <td>@item.adSize</td>
-                        <td>@item.cost</td>
-                        <td>@item.paid</td>
-                        <td>@item.due</td>
+                        <td style="text-align: left;">$@item.cost</td>
+                        <td style="text-align: left;">$@item.paid</td>
+                        <td style="text-align: left;">$@item.due</td>
                         <td>
                             <form method="post">
                                 <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewAdvertisement" value="@item.adId" name="myAdId" hidden></label>

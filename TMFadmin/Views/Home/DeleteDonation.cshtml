@@ -1,0 +1,18 @@
+@model TMFadmin.Models.Donation
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Delete Donation</h1>
+    <div class="row" style="margin-bottom:20px;">
+        <div class="col-sm-12">
+            <div style="margin-bottom:10px">Are you sure you want to delete the following donation?</div>
+            <p><b>
+                @Model.date  $@Model.amount @Model.notes
+            </b></p>
+            <form method="post">
+                <div class="form-group">
+                    <input type="hidden" asp-for="donId">
+                    <input type="submit" asp-controller="Home" asp-action="DeleteDonationSubmit" class="btn btn-danger" value="Delete" />
+                    <input type="submit" asp-controller="Home" asp-action="ViewDonations" class="btn btn-warning" value="Cancel" />
+                </div>
+            </form>
+        </div>
+</div>

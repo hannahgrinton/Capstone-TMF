@@ -79,9 +79,9 @@ namespace TMFadmin.Models
                 return ImageManager.ERROR_NO_FILE;
             }
         }
-        public bool deleteImage(Advertisement advert) {
+        public bool deleteImage(String file) {
             //get the full path of the image to delete
-            string imagePath = environment.WebRootPath + "/" + targetFolder + "/" + advert.imgFile;
+            string imagePath = environment.WebRootPath + "/" + targetFolder + "/" + file;
             if (File.Exists(imagePath)) {
                 //if it exists, delete it, and pass a true bool back to other method, to continue
                 File.Delete(imagePath);

@@ -19,13 +19,13 @@
                 foreach (var item in Model.alphaSponsorLname())
                 {
                     <tr>
-                        <td>@item.sponsorId</td>
+                        <td style="max-width: 30px;">@item.sponsorId</td>
                         <td>@item.company</td>
                         <td>@item.phone</td>
                         <td>@item.fax</td>
                         <td>@item.email</td>
                         <td>@item.activity</td>
-                        <td>@item.notes</td>
+                        <td style="max-width: 180px;">@item.notes</td>
                         <td>
                             <form method="post">
                                 <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewSponsor" value="@item.sponsorId" name="mySponsorId" hidden></label>

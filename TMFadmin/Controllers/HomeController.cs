@@ -96,13 +96,33 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteSponsorSubmit(Sponsor sponsor) {
+            //remove donation relations
+            foreach(var item in revenueManager.getSponsorDonRels(sponsor.sponsorId)) {
+                revenueManager.Remove(item);
+                revenueManager.SaveChanges();
+            }
+            //remove advert relations
+            foreach(var item in revenueManager.getSponsorAdRels(sponsor.sponsorId)) {
+                revenueManager.Remove(item);
+                revenueManager.SaveChanges();
+            }
+            //remove address relations
+            foreach(var item in revenueManager.getSponsorAddressRels(sponsor.sponsorId)) {
+                revenueManager.Remove(item);
+                revenueManager.SaveChanges();
+            }
+            //remove addresses
+            revenueManager.getSponsorAddresses(sponsor.sponsorId);
+            foreach(var item in revenueManager.addresses) {
+                revenueManager.Remove(item);
+                revenueManager.SaveChanges();
+            }
             //delete sponsor
-            if (!ModelState.IsValid) return RedirectToAction("Index");
             revenueManager.Remove(sponsor);
             revenueManager.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewSponsors");
         } 
-        //---------------------------------------------------------------------- Sponsor Work
+        //---------------------------------------------------------------------- Advert Work
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
@@ -155,27 +175,35 @@ namespace TMFadmin.Controllers
                 default:
                     ViewData["feedback"] = "No File Selected";
                     return RedirectToAction("AddAdvertisement");
-            }
-            
-
-            
-            
+            }  
         }
         [HttpPost]
         public IActionResult DeleteAdvertisement(int myAdId) {
             //redirect to delete Advertisement page
             Advertisement advertisement = new Advertisement();
             advertisement = revenueManager.getAdvertisement(myAdId);
+            Console.WriteLine("\n\nImage file: " + advertisement.imgFile);
             return View(advertisement);
         }
         [HttpPost]
         public IActionResult DeleteAdvertisementSubmit(Advertisement myAdvertisement) {
             //delete Advertisement
-            revenueManager.Remove(myAdvertisement);
-            AdvertRelations rel = new AdvertRelations();
-            rel = revenueManager.getAdvertRelations(myAdvertisement.adId);
-            revenueManager.Remove(rel);
-            revenueManager.SaveChanges();
+            
+            ImageManager imageManager = new ImageManager(environment, "images");
+            bool result = imageManager.deleteImage(myAdvertisement.imgFile);
+            if (result) {
+                try {
+                    AdvertRelations rel = new AdvertRelations();
+                    rel = revenueManager.getAdvertRelations(myAdvertisement.adId);
+                    revenueManager.Remove(rel);
+                    revenueManager.SaveChanges();
+                } catch {}
+                revenueManager.Remove(myAdvertisement);
+                revenueManager.SaveChanges();
+            } else {
+                Console.WriteLine("\n\n\n***There has been an error deleting the imagefile!***\n\n\n");
+            }
+            
             return RedirectToAction("ViewAdvertisements");
         } 
         //---------------------------------------------------------------------- Donations Work
@@ -216,20 +244,22 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewDonations");
         }
         [HttpPost]
-        public IActionResult DeleteDonation(int myDonationId) {
+        public IActionResult DeleteDonation(int myDonId) {
             //redirect to delete Donation page
             Donation donation = new Donation();
-            donation = revenueManager.getDonation(myDonationId);
+            donation = revenueManager.getDonation(myDonId);
             return View(donation);
         }
         [HttpPost]
         public IActionResult DeleteDonationSubmit(Donation donation) {
             //delete Donation
-            if (!ModelState.IsValid) return RedirectToAction("Index");
-            revenueManager.Remove(donation);
             DonationRelations rel = new DonationRelations();
-            rel = revenueManager.getDonationRelations(donation.donId);
-            revenueManager.Remove(rel);
+            try {
+                rel = revenueManager.getDonationRelations(donation.donId);
+                revenueManager.Remove(rel);
+                revenueManager.SaveChanges();
+            } catch {}
+            revenueManager.Remove(donation);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewDonations");
         }        
@@ -247,9 +277,7 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult AddAwardSubmit(Award myAward, int myFundId) {
             if (!ModelState.IsValid) return RedirectToAction("AddAward");
-            if (myFundId != 0) {
-               myAward.fundId = myFundId; 
-            }
+            myAward.fundId = myFundId;
             //add award
             revenueManager.Add(myAward);
             revenueManager.SaveChanges(); 
@@ -265,10 +293,9 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult DeleteAwardSubmit(Award myAward) {
             //delete Fund
-            //if (!ModelState.IsValid) return RedirectToAction("Index");
             revenueManager.Remove(myAward);
             revenueManager.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAwards");
         } 
 
         //---------------------------------------------------------------------- Funds Work
@@ -298,10 +325,19 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult DeleteFundSubmit(Fund myFund) {
             //delete Fund
-            //if (!ModelState.IsValid) return RedirectToAction("Index");
+            foreach(var item in revenueManager.getFundedAwards(myFund.fundId)) {
+                item.fundId = 0;
+                revenueManager.Update(item);
+                revenueManager.SaveChanges();
+            }
+            foreach(var item in revenueManager.getFundDonations(myFund.fundId)) {
+                item.fundId = 0;
+                revenueManager.Update(item);
+                revenueManager.SaveChanges();
+            }
             revenueManager.Remove(myFund);
             revenueManager.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewFunds");
         } 
         //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {

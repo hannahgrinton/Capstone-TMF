@@ -1,0 +1,18 @@
+@model TMFadmin.Models.Fund
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4">Delete Fund</h1>
+    <div class="row" style="margin-bottom:20px;">
+        <div class="col-sm-12">
+            <div style="margin-bottom:10px">Are you sure you want to delete the following fund ?</div>
+            <p><b>
+                @Model.fundName  
+            </b></p>
+            <form method="post">
+                <div class="form-group">
+                    <input type="hidden" asp-for="fundId">
+                    <input type="submit" asp-controller="Home" asp-action="DeleteFundSubmit" class="btn btn-danger" value="Delete" />
+                    <input type="submit" asp-controller="Home" asp-action="ViewFunds" class="btn btn-warning" value="Cancel" />
+                </div>
+            </form>
+        </div>
+</div>

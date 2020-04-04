@@ -76,6 +76,11 @@ namespace TMFadmin.Models
                 donations.Add(myDonation);
             }
         }
+        //get list of relations between sponsor and donation
+        public List<DonationRelations> getSponsorDonRels(int mySponsorId) {
+            List<DonationRelations> rels = donRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            return rels;
+        }
         //get list of ads of sponsor
         public void getSponsorAd(int mySponsorId) {
             //list of relations that pertain to sponsor
@@ -89,6 +94,11 @@ namespace TMFadmin.Models
                 advert = advertisement.Single(ad => ad.adId == item.adId);
                 adverts.Add(advert);
             }
+        }
+        //get list of relations between sponsor and donation
+        public List<AdvertRelations> getSponsorAdRels(int mySponsorId) {
+            List<AdvertRelations> rels = advertRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            return rels;
         }
         //get list of addresses of sponsor
         public void getSponsorAddresses(int mySponsorId) {
@@ -104,7 +114,11 @@ namespace TMFadmin.Models
                 addresses.Add(myAddress);
             }
         }
-
+        //get list of relations between sponsor and address
+        public List<AddressRelations> getSponsorAddressRels(int mySponsorId) {
+            List<AddressRelations> rels = addressRels.Where(item => item.sponsorId == mySponsorId).ToList();
+            return rels;
+        }
         //----------------------------------------------------------------- Advertisement Work
         //get list of adverts, sorted by ID
         public List<Advertisement> getAdvertisementsById() {
@@ -169,17 +183,12 @@ namespace TMFadmin.Models
         //----------------------------------------------------------------- Fund Work
         //get list of funds, sorted by ID
         public List<Fund> getFundsById() {
-            List<Fund> funds = fund.OrderBy(l => l.fundId).ToList();
+            List<Fund> funds = fund.OrderBy(l => l.fundId).Where(f => f.fundId > 0).ToList();
             return funds;
         }
         //get select list of funds, set default to N/A     
         public SelectList getFundList() {
             List<Fund> listData = fund.OrderBy(c => c.fundId).ToList();
-            Fund blank = new Fund();
-            blank.fundId = 0;
-            blank.fundName = "N/A";
-            blank.dateCreated = DateTime.Now;
-            listData.Add(blank);
             SelectList myList = new SelectList(listData, "fundId", "fundName");
             var selected = myList.Where(x => x.Value == "0").First();
             selected.Selected = true;
@@ -189,8 +198,16 @@ namespace TMFadmin.Models
         public Fund getFund(int id) {
             return fund.Single(item => item.fundId == id);
         }
-        
-        
+        //get list of awards with matching fund id
+        public List<Award> getFundedAwards(int fundId) {
+            List<Award> myAwards = awards.Where(item => item.fundId == fundId).ToList();
+            return myAwards;
+        }
+        //get list of donations with matching fund id
+        public List<Donation> getFundDonations(int fundId) {
+            List<Donation> myDonations = donation.Where(item => item.fundId == fundId).ToList();
+            return myDonations;
+        }
         //----------------------------------------------------------------- Address Work
         //get list of addresses sorted by ID
         public List<Address> getAddressesById() {

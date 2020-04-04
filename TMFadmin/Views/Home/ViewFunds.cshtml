@@ -21,7 +21,7 @@
                         <td>@item.fundName</td>
                         <td>@item.creator</td>
                         <td>@item.dateCreated</td>
-                        <td>@item.notes</td>
+                        <td style="max-width: 200px;">@item.notes</td>
                         <td>
                             <form method="post">
                                 <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewFund" value="@item.fundId" name="myFundId" hidden></label>
