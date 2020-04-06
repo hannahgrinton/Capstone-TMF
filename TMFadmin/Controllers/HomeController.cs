@@ -85,7 +85,7 @@ namespace TMFadmin.Controllers
             if (!ModelState.IsValid) return RedirectToAction("Index");
             revenueManager.Update(sponsor);
             revenueManager.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewSponsor");
         }
         [HttpPost]
         public IActionResult DeleteSponsor(int mySponsorId) {

@@ -19,7 +19,7 @@ namespace TMFadmin.Controllers {
             //do I have access?
             if (webLogin.unlock()) {
                 //access granted
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Home");
             } else {
                 //access denied
                 ViewData["feedback"] = "Incorrect login. Please try again...";
