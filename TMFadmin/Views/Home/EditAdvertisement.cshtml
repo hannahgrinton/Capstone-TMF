@@ -1,8 +1,8 @@
 @model TMFadmin.Models.Advertisement
 <div class="text-center" style="margin-top: 100px;">
-    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Advertisement</h1>
+    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Advertisement</h1>
     <div class="container text-center">    
-    <form enctype="multipart/form-data" style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddAdvertisementSubmit">
+    <form enctype="multipart/form-data" style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="EditAdvertisementSubmit">
         <div role="tablist" id="adAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
             <div class="card">
                 <div class="card-header" role="tab">
@@ -23,15 +23,27 @@
                         <div class="form-group" style="text-align: left;">
                             <label id="lblSize"><i class="fas fa-crop-alt" style="font-size: 22px;"></i>&nbsp;Advertisement Size</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="formCheck-2" name="adSize" value="full" checked>
+                                @if (Model.adSize == "full") {
+                                    <input class="form-check-input" type="radio" id="formCheck-2" name="adSize" value="full" checked>
+                                } else {
+                                    <input class="form-check-input" type="radio" id="formCheck-2" name="adSize" value="full">
+                                }
                                 <label class="form-check-label" for="radSize1">Full Page</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="formCheck-1" name="adSize" value="half">
+                                @if(Model.adSize == "half") {
+                                    <input class="form-check-input" type="radio" id="formCheck-1" name="adSize" value="half" checked>
+                                } else {
+                                    <input class="form-check-input" type="radio" id="formCheck-1" name="adSize" value="half">
+                                }
                                 <label class="form-check-label" for="radSize2">Half Page</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="radSize3" name="adSize" value="quarter">
+                                @if(Model.adSize == "quarter") {
+                                    <input class="form-check-input" type="radio" id="radSize3" name="adSize" value="quarter" checked>
+                                } else {
+                                    <input class="form-check-input" type="radio" id="radSize3" name="adSize" value="quarter">
+                                }
                                 <label class="form-check-label" for="radSize3">Quarter Page</label>
                             </div>
                         </div>
@@ -40,15 +52,15 @@
                             <label for="imgFile"><i class="fas fa-image" style="font-size: 22px;"></i>&nbsp;Image file for advertisement</label>
                             <div class="form-group">
                                 <label class="btn btn-light" style="cursor: pointer;">
-                                    Browse<input type="file" id="imgFile" name="imgFile" hidden>
+                                    Browse<input type="file" id="imgFile" name="newImgFile" hidden>
                                 </label>
-                                <span>Selected File: <span id="message" class="text-primary">No File Selected</span></span>
+                                <span>Selected File: <span id="message" class="text-primary">@Model.imgFile</span></span>
                                 <span asp-validation-for="imgFile" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group" style="text-align: left;">
                             <label for="notes"><i class="far fa-clipboard" style="font-size: 22px;"></i>&nbsp;Notes</label>
-                            <textarea class="form-control" id="notes" type="text" name="notes" asp-for="notes" maxlength="250" rows="4"></textarea>
+                            <textarea class="form-control" id="notes" type="text" name="notes" maxlength="250" rows="4" asp-for="notes"></textarea>
                             <span asp-validation-for="notes" class="text-danger"></span>
                         </div>
                     </div>
@@ -84,9 +96,12 @@
             </div>
         </div>
         <div class="form-group" style="width: 580px;">
+            <input type="hidden" asp-for="adId">
+            <input type="hidden" asp-for="imgFile">
+            <input type="hidden" asp-for="adSize">
             <input style="margin:15px; float: right;"
                 class="btn btn-primary btn-submit" 
-                type="submit" value="Add Advertisement">
+                type="submit" value="Save Edits">
         </div>
     </form>
     </div>

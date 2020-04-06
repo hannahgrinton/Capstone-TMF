@@ -31,7 +31,7 @@
                         <td>
                             <form method="post">
                                 <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewAdvertisement" value="@item.adId" name="myAdId" hidden></label>
-                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAdvertisement" value="@item.adId" name="myAdId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditAdvertisement" value="@item.adId" name="adId" hidden></label>
                                 <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteAdvertisement" value="@item.adId" name="myAdId" hidden></label>
                             </form>
                             

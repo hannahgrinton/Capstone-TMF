@@ -82,7 +82,7 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult EditSponsorSubmit(Sponsor sponsor) {
             //submit edited sponsor
-            if (!ModelState.IsValid) return RedirectToAction("Index");
+            if (!ModelState.IsValid) return RedirectToAction("EditSponsor", sponsor.sponsorId);
             revenueManager.Update(sponsor);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsor");
@@ -176,6 +176,82 @@ namespace TMFadmin.Controllers
                     ViewData["feedback"] = "No File Selected";
                     return RedirectToAction("AddAdvertisement");
             }  
+        }
+        [HttpPost]
+        public IActionResult EditAdvertisement(int adId) {
+            Advertisement ad = new Advertisement();
+            ad = revenueManager.getAdvertisement(adId);
+            ViewBag.selectList = revenueManager.getList();
+            return View(ad);
+        }
+        [HttpPost]
+        public IActionResult EditAdvertisementSubmit(Advertisement ad, int mySponsorId, String adSize, IFormFile newImgFile) {
+            ImageManager imageManager = new ImageManager(environment, "images");
+            if (!ModelState.IsValid) return RedirectToAction("EditAdvertisement", ad.adId);
+            //check if sponsor is changed
+            try {
+                AdvertRelations oldRel = new AdvertRelations();
+                oldRel = revenueManager.getAdvertRelations(ad.adId);
+                if (oldRel.sponsorId != mySponsorId) {
+                    revenueManager.Remove(oldRel);
+                    revenueManager.SaveChanges();
+                    AdvertRelations newRel = new AdvertRelations();
+                    newRel.sponsorId = mySponsorId;
+                    newRel.adId = revenueManager.newAdId();
+                    revenueManager.Add(newRel);
+                    revenueManager.SaveChanges();
+                }     
+            } catch {}
+            //change adSize
+            if (adSize == "full") {
+                ad.adSize = "full";
+            } else if (adSize == "half") {
+                ad.adSize = "half";
+            } else if (adSize == "quarter") {
+                ad.adSize = "quarter";
+            }
+            //upload new image if changed
+            Console.WriteLine("\n\n\n***Image file of ad, currently: " + ad.imgFile);
+            if((newImgFile != null) && (newImgFile.FileName != "") && (ad.imgFile != newImgFile.FileName)) {
+                bool delete = imageManager.deleteImage(ad.imgFile);
+                if (delete) {
+                    int result = imageManager.uploadImage(newImgFile);
+                    switch (result) {
+                        case 1:
+                            ViewData["feedback"] = "Wrong File Type";
+                            return RedirectToAction("EditAdvertisement", ad.adId);
+                        case 2:
+                            ViewData["feedback"] = "File Too Large";
+                            return RedirectToAction("EditAdvertisement", ad.adId);
+                        case 3:
+                            ViewData["feedback"] = "File Name Too Long";
+                            return RedirectToAction("EditAdvertisement", ad.adId);
+                        case 4:
+                            ViewData["feedback"] = "Error Saving File";
+                            return RedirectToAction("EditAdvertisement", ad.adId);
+                        case 5:
+                            //image has been replaced
+                            ViewData["feedback"] = "Success";
+                            Console.WriteLine("\n\n\n***Successfully uploaded image to server!***");
+                            ad.imgFile = imageManager.fileName;
+                            revenueManager.Update(ad);
+                            revenueManager.SaveChanges();
+                            return RedirectToAction("ViewAdvertisements");
+                        default:
+                            ViewData["feedback"] = "No File Selected";
+                            return RedirectToAction("EditAdvertisement", ad.adId);
+                    }
+                } else {
+                    Console.WriteLine("\n\n\n***There has been an error deleting old image file!***");
+                    return RedirectToAction("EditAdvertisement", ad.adId);
+                }
+                
+            } else {
+                //image not changed -> save changes to ad
+                revenueManager.Update(ad);
+                revenueManager.SaveChanges();
+                return RedirectToAction("ViewAdvertisements");
+            }
         }
         [HttpPost]
         public IActionResult DeleteAdvertisement(int myAdId) {
