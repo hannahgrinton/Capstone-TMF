@@ -1,0 +1,67 @@
+@model TMFadmin.Models.Advertisement
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4"><a asp-controller="Home" asp-action="ViewAdvertisements" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>View Advertisement</h1>
+    <div class="alert alert-primary" role="alert" style="margin-top: 20px; margin-bottom: 20px;"><i class="fas fa-sticky-note" style="font-size: 26px; float: left;"></i>&nbsp;@Model.notes</div>
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingInfo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                        Advertisment Information
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseInfo" class="collapse show" aria-labelledby="headingInfo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <span><i class="far fa-address-card" style="font-size: 26px;"></i>&nbsp;@ViewBag.sponsor</span>
+                        
+                        <span><i class="fas fa-crop-alt" style="font-size: 26px;"></i>&nbsp;@Model.adSize</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Transaction Information
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <span><i class="fas fa-dollar-sign" style="font-size: 26px;"></i>&nbsp;Total Cost: $@Model.cost</span>
+                        
+                        <span><i class="fas fa-money-check-alt" style="font-size: 26px;"></i>&nbsp;Amount Paid: $@Model.paid</span>
+                        
+                        <span><i class="fas fa-file-invoice-dollar" style="font-size: 26px;"></i>&nbsp;Balance Due: $@Model.due</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                    Image
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body" style="display: flex; flex-flow: column nowrap; align-items: center;">
+                    <img src="~/images/@Model.imgFile" class="advertImage">
+                    <span>@Model.imgFile</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" style="float: right; margin-top: 20px;">
+        <label class="btn btn-primary" style="cursor: pointer;">Edit<input type="submit" value="@Model.adId" asp-controller="Home" asp-action="EditAdvertisement" name="adId" hidden></label>
+        <label class="btn btn-danger" style="cursor: pointer;">Delete<input type="submit" value="@Model.adId" asp-controller="Home" asp-action="DeleteAdvertisement" name="myAdId" hidden></label>
+    </form>
+</div>

@@ -127,6 +127,16 @@ namespace TMFadmin.Controllers
             //view all advertisements
             return View(revenueManager);
         }
+        public IActionResult ViewAdvertisement(int myAdId) {
+            Advertisement advertisement = new Advertisement();
+            advertisement = revenueManager.getAdvertisement(myAdId);
+            Sponsor sponsor = new Sponsor();
+            AdvertRelations rel = new AdvertRelations();
+            rel = revenueManager.getAdvertRelations(myAdId);
+            sponsor = revenueManager.getSponsor(rel.sponsorId);
+            ViewBag.sponsor = sponsor.company;
+            return View(advertisement);
+        }
         public IActionResult AddAdvertisement() {
             //redirect to add ad form
             Advertisement advertisement = new Advertisement();

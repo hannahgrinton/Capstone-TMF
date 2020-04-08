@@ -81,3 +81,6 @@ body {
   justify-content: flex-end;
   margin-bottom: 10px;
 }
+.advertImage {
+  max-width: 400px;
+}
