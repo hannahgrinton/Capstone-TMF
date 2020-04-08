@@ -107,3 +107,18 @@ body {
 .sort-link{  
   color: #ffffff;
 }
+
+.filter-menu{
+  background-color: black;
+  z-index: 10000;
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 55px;
+  color: #fff;
+}
+
+.filter-menu--hidden{
+  right: -100%;
+}

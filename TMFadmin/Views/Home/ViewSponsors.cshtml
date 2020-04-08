@@ -61,9 +61,19 @@
             }
         </tbody>
     </table>
+@*
+    @{ 
+        bool filterMenuHidden = true;
+  
 
-
-    <div class="debugFb">@ViewData["mySorting"]</div>
-
-
+    @functions{
+        public void toggleFilterMenu(){
+        filterMenuHidden = !filterMenuHidden;
+        }
+        
+    }  
+    <a>FILTER</a>
+    <div class="debugFb filter-menu @(filterMenuHidden ? "filter-menu--hidden" : "")">@ViewData["mySorting"]</div>
+    }
+*@
 </div>
