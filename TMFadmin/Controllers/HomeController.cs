@@ -378,6 +378,14 @@ namespace TMFadmin.Controllers
             //view all awards
             return View(revenueManager);
         }
+        public IActionResult ViewAward(int myAwardId) {
+            Award award = new Award();
+            award = revenueManager.getAward(myAwardId);
+            Fund  fund = new Fund();
+            fund = revenueManager.getFund(award.fundId);
+            ViewBag.fund = fund.fundName;
+            return View(award);
+        }
         public IActionResult AddAward() {
             //redirect to add fund form
             Award award = new Award();

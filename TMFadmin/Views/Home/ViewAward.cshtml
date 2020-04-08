@@ -1,0 +1,47 @@
+@model TMFadmin.Models.Award
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4"><a asp-controller="Home" asp-action="ViewAwards" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>View Award</h1>
+    @* <div class="alert alert-primary" role="alert" style="margin-top: 20px; margin-bottom: 20px;"><i class="fas fa-sticky-note" style="font-size: 26px; float: left;"></i>&nbsp;@Model.notes</div> *@
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingInfo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                        Award Information
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseInfo" class="collapse show" aria-labelledby="headingInfo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex justify-content-around">
+                        <span><i class="fas fa-award" style="font-size: 26px;"></i>&nbsp;@Model.recipient</span>
+                        
+                        <span><i class="far fa-calendar-alt" style="font-size: 26px;"></i>&nbsp;@Model.year</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Fund Information
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <span><i class="fas fa-funnel-dollar" style="font-size: 22px;"></i>&nbsp;@ViewBag.fund</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <form method="post" style="float: right; margin-top: 20px;">
+        <label class="btn btn-primary" style="cursor: pointer;">Edit<input type="submit" value="@Model.awardId" asp-controller="Home" asp-action="EditAward" name="myAwardId" hidden></label>
+        <label class="btn btn-danger" style="cursor: pointer;">Delete<input type="submit" value="@Model.awardId" asp-controller="Home" asp-action="DeleteAward" name="myAwardId" hidden></label>
+    </form>
+</div>

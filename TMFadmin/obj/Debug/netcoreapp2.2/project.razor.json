@@ -3076,6 +3076,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAward.cshtml",
+      "TargetPath": "Views\\Home\\ViewAward.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAdvertisements.cshtml",
       "TargetPath": "Views\\Home\\ViewAdvertisements.cshtml",
       "FileKind": "mvc"
