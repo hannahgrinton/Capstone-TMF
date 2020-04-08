@@ -2971,6 +2971,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewFund.cshtml",
+      "TargetPath": "Views\\Home\\ViewFund.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/AddFund.cshtml",
       "TargetPath": "Views\\Home\\AddFund.cshtml",
       "FileKind": "mvc"
@@ -3078,6 +3083,11 @@
     {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewAward.cshtml",
       "TargetPath": "Views\\Home\\ViewAward.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/ViewDonation.cshtml",
+      "TargetPath": "Views\\Home\\ViewDonation.cshtml",
       "FileKind": "mvc"
     },
     {

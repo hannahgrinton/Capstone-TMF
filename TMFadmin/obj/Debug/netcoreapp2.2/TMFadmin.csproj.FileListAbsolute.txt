@@ -101,3 +101,5 @@
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/EditFund.g.cshtml.cs
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/EditAddress.g.cshtml.cs
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewAward.g.cshtml.cs
+/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewFund.g.cshtml.cs
+/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/ViewDonation.g.cshtml.cs

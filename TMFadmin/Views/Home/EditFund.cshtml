@@ -1,6 +1,6 @@
 @model TMFadmin.Models.Fund
 <div class="text-center" style="margin-top: 100px;">
-    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Fund</h1>
+    <h1 class="display-4"><a asp-controller="Home" asp-action="ViewFunds" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Fund</h1>
     <div class="container text-center">
         <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="EditFundSubmit">
             <div role="tablist" id="fundAccordion" class="accordion text-center" style="width: 550px; align-self: center;">

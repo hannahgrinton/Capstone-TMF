@@ -149,15 +149,19 @@ namespace TMFadmin.Controllers
             int result = imageManager.uploadImage(imgFile);
             switch (result) {
                 case 1:
+                    Console.WriteLine("\n\n\n*** Wrong File Type! ***");
                     ViewData["feedback"] = "Wrong File Type";
                     return RedirectToAction("AddAdvertisement");
                 case 2:
+                    Console.WriteLine("\n\n\n*** File Too Large! ***");
                     ViewData["feedback"] = "File Too Large";
                     return RedirectToAction("AddAdvertisement");
                 case 3:
+                    Console.WriteLine("\n\n\n*** File Name Too Long! ***");
                     ViewData["feedback"] = "File Name Too Long";
                     return RedirectToAction("AddAdvertisement");
                 case 4:
+                    Console.WriteLine("\n\n\n*** Error Saving File! ***");
                     ViewData["feedback"] = "Error Saving File";
                     return RedirectToAction("AddAdvertisement");
                 case 5:
@@ -173,6 +177,7 @@ namespace TMFadmin.Controllers
                     revenueManager.SaveChanges();
                     return RedirectToAction("ViewAdvertisements");
                 default:
+                    Console.WriteLine("\n\n\n*** No File Selected! ***");
                     ViewData["feedback"] = "No File Selected";
                     return RedirectToAction("AddAdvertisement");
             }  
@@ -286,6 +291,20 @@ namespace TMFadmin.Controllers
         public IActionResult ViewDonations() {
             //view all donations
             return View(revenueManager);
+        }
+        public IActionResult ViewDonation(int myDonId) {
+            Donation donation = new Donation();
+            donation = revenueManager.getDonation(myDonId);
+            DonationRelations rel = new DonationRelations();
+            rel = revenueManager.getDonationRelations(myDonId);
+            Sponsor sponsor = new Sponsor();
+            sponsor = revenueManager.getSponsor(rel.sponsorId);
+            ViewBag.sponsor = sponsor.company;
+            Fund  fund = new Fund();
+            int fundId = donation.fundId ?? default(int);
+            fund = revenueManager.getFund(fundId);
+            ViewBag.fund = fund.fundName;
+            return View(donation);
         }
         public IActionResult AddDonation() {
             //redirect to add donation form
@@ -434,6 +453,11 @@ namespace TMFadmin.Controllers
         public IActionResult ViewFunds() {
             //view all funds
             return View(revenueManager);
+        }
+        public IActionResult ViewFund(int myFundId) {
+            Fund fund = new Fund();
+            fund = revenueManager.getFund(myFundId);
+            return View(fund);
         }
         public IActionResult AddFund() {
             //redirect to add fund form

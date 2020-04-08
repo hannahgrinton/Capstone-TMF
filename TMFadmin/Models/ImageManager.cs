@@ -27,7 +27,7 @@ namespace TMFadmin.Models
         //filename string passed in
         public string fileName { get; set; } = "";
         IHostingEnvironment environment; 
-        private String[] targetExtensions = new String[]{".png",".jpg", ".gif"};
+        private String[] targetExtensions = new String[]{".png", ".jpg", ".gif", ".jpeg"};
 
         public ImageManager(IHostingEnvironment env, string myTargetFolder) {
             //file info

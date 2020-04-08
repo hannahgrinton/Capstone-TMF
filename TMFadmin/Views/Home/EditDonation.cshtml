@@ -1,7 +1,7 @@
 @model TMFadmin.Models.Donation
 <div class="text-center" style="margin-top: 100px;">
-    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Donation</h1>
-    <div class="container text-center">     
+    <h1 class="display-4"><a asp-controller="Home" asp-action="ViewDonations" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Donation</h1>
+    <div class="container text-center"> 
         <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="EditDonationSubmit">
             <div role="tablist" id="donationAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
                 <div class="card">
