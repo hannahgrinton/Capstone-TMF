@@ -1,8 +1,8 @@
 @model TMFadmin.Models.Award
 <div class="text-center" style="margin-top: 100px;">
-    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Add Award</h1>
+    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit Award</h1>
     <div class="container text-center">
-        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="AddAwardSubmit">
+        <form style="width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="post" asp-controller="Home" asp-action="EditAwardSubmit">
             <div role="tablist" id="awardAccordion" class="accordion text-center" style="width: 550px; align-self: center;">
                 <div class="card">
                     <div class="card-header" role="tab">
@@ -48,9 +48,10 @@
                 </div>
             </div>
             <div class="form-group" style="width: 580px;">
+                <input type="hidden" asp-for="awardId">
                 <input style="margin:15px; float: right;"
                     class="btn btn-primary btn-submit" 
-                    type="submit" value="Add Award">
+                    type="submit" value="Save Edits">
             </div>
         </form>
     </div>

@@ -221,5 +221,9 @@ namespace TMFadmin.Models
         public Address getAddress(int id) {
             return address.Single(item => item.addressId == id);
         }
+                //get relation with sponsor based on the id of the address
+        public AddressRelations getAddressRelations(int myAddressId) {
+            return addressRels.Single(item => item.addressId == myAddressId);
+        }
     }
 }

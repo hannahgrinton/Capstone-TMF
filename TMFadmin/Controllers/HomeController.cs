@@ -407,7 +407,21 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewAwards");
         } 
-
+        [HttpPost]
+        public IActionResult EditAward(int myAwardId) {
+            Award award = new Award();
+            award = revenueManager.getAward(myAwardId);
+            ViewBag.fundList = revenueManager.getFundList();
+            return View(award);
+        }                
+        [HttpPost]
+        public IActionResult EditAwardSubmit(Award award, int myFundId) {
+            if (!ModelState.IsValid) return RedirectToAction("EditAward", award.awardId);
+            award.fundId = myFundId;
+            revenueManager.Update(award);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewAwards");
+        }        
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
             //view all funds
@@ -449,6 +463,19 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewFunds");
         } 
+        [HttpPost]
+        public IActionResult EditFund(int myFundId) {
+            Fund fund = new Fund();
+            fund = revenueManager.getFund(myFundId);
+            return View(fund);
+        }
+        [HttpPost]
+        public IActionResult EditFundSubmit(Fund fund) {
+            if (!ModelState.IsValid) return RedirectToAction("EditFund", fund.fundId);
+            revenueManager.Update(fund);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewFunds");
+        }
         //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {
             //view all addresses
@@ -475,7 +502,7 @@ namespace TMFadmin.Controllers
             revenueManager.Add(rel);
             revenueManager.SaveChanges();
             
-            return RedirectToAction("ViewAddresses");
+            return RedirectToAction("ViewSponsor", new { mySponsorId = rel.sponsorId });
         }
         [HttpPost]
         public IActionResult DeleteAddress(int myAddressId) {
@@ -488,11 +515,43 @@ namespace TMFadmin.Controllers
         public IActionResult DeleteAddressSubmit(Address myAddress) {
             //delete address
             //if (!ModelState.IsValid) return RedirectToAction("Index");
+            AddressRelations rel = new AddressRelations();
+            rel = revenueManager.getAddressRelations(myAddress.addressId);
+            revenueManager.Remove(rel);
+            revenueManager.SaveChanges();
             revenueManager.Remove(myAddress);
             revenueManager.SaveChanges();
             return RedirectToAction("Index");
         } 
-
+        [HttpPost]
+        public IActionResult EditAddress(int myAddressId) {
+            Address address = new Address();
+            address = revenueManager.getAddress(myAddressId);
+            AddressRelations rel = new AddressRelations();
+            rel = revenueManager.getAddressRelations(myAddressId);
+            ViewBag.selectList = revenueManager.getList(rel.sponsorId);
+            return View(address);
+        }
+        [HttpPost]
+        public IActionResult EditAddressSubmit(Address myAddress, int mySponsorId) {
+            if (!ModelState.IsValid) return RedirectToAction("EditAddress", myAddress.addressId);
+            AddressRelations oldRel = new AddressRelations();
+            AddressRelations newRel = new AddressRelations();
+            oldRel = revenueManager.getAddressRelations(myAddress.addressId);
+            if (oldRel.sponsorId != mySponsorId) {
+                revenueManager.Remove(oldRel);
+                revenueManager.SaveChanges();
+                newRel.sponsorId = mySponsorId;
+                newRel.addressId = myAddress.addressId;
+                revenueManager.Add(newRel);
+                revenueManager.SaveChanges();
+            } else {
+                newRel = oldRel;
+            } 
+            revenueManager.Update(myAddress);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewSponsor", new { mySponsorId = newRel.sponsorId });
+        }
         //------------------------------------------------------------------------ Login Page Work
         // check out login page
         public IActionResult LandingLogin() {
