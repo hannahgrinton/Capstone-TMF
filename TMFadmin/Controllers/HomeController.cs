@@ -85,7 +85,7 @@ namespace TMFadmin.Controllers
             if (!ModelState.IsValid) return RedirectToAction("EditSponsor", sponsor.sponsorId);
             revenueManager.Update(sponsor);
             revenueManager.SaveChanges();
-            return RedirectToAction("ViewSponsor");
+            return RedirectToAction("ViewSponsor", new { mySponsorId = sponsor.sponsorId });
         }
         [HttpPost]
         public IActionResult DeleteSponsor(int mySponsorId) {
@@ -197,7 +197,7 @@ namespace TMFadmin.Controllers
                     revenueManager.SaveChanges();
                     AdvertRelations newRel = new AdvertRelations();
                     newRel.sponsorId = mySponsorId;
-                    newRel.adId = revenueManager.newAdId();
+                    newRel.adId = ad.adId;
                     revenueManager.Add(newRel);
                     revenueManager.SaveChanges();
                 }     
@@ -304,9 +304,9 @@ namespace TMFadmin.Controllers
             } else {
                 myDonation.receipt = 0;
             }
-            if (myFundId != 0) {
-               myDonation.fundId = myFundId; 
-            }
+            
+            myDonation.fundId = myFundId; 
+            
             //add donation
             revenueManager.Add(myDonation);
             revenueManager.SaveChanges();
@@ -338,7 +338,41 @@ namespace TMFadmin.Controllers
             revenueManager.Remove(donation);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewDonations");
-        }        
+        }
+        [HttpPost]
+        public IActionResult EditDonation(int donId) {
+            Donation don = new Donation();
+            don = revenueManager.getDonation(donId);
+            ViewBag.selectList = revenueManager.getList();
+            ViewBag.fundList = revenueManager.getFundList();
+            return View(don);
+        }    
+        [HttpPost]
+        public IActionResult EditDonationSubmit(Donation donation, int mySponsorId, int myFundId, String receipt) {
+            if (!ModelState.IsValid) return RedirectToAction("EditDonation", donation.donId);
+            try {
+                DonationRelations oldRel = new DonationRelations();
+                oldRel = revenueManager.getDonationRelations(donation.donId);
+                if (oldRel.sponsorId != mySponsorId) {
+                    revenueManager.Remove(oldRel);
+                    revenueManager.SaveChanges();
+                    DonationRelations newRel = new DonationRelations();
+                    newRel.sponsorId = mySponsorId;
+                    newRel.donId = donation.donId;
+                    revenueManager.Add(newRel);
+                    revenueManager.SaveChanges();
+                }     
+            } catch {}
+            if (receipt == "1") {
+                donation.receipt = 1;
+            } else {
+                donation.receipt = 0;
+            }
+            donation.fundId = myFundId;
+            revenueManager.Update(donation);
+            revenueManager.SaveChanges();
+            return RedirectToAction("ViewDonations");
+        }
         //---------------------------------------------------------------------- Awards Work
         public IActionResult ViewAwards() {
             //view all awards

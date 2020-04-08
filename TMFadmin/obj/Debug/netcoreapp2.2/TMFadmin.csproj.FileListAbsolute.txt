@@ -96,3 +96,4 @@
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/DeleteSponsor.g.cshtml.cs
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/EditSponsor.g.cshtml.cs
 /Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/EditAdvertisement.g.cshtml.cs
+/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/Debug/netcoreapp2.2/Razor/Views/Home/EditDonation.g.cshtml.cs

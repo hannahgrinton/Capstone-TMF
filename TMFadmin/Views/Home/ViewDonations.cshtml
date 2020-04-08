@@ -27,7 +27,7 @@
                         <td>
                             <form method="post">
                                 <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewDonation" value="@item.donId" name="myDonId" hidden></label>
-                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditDonation" value="@item.donId" name="myDonId" hidden></label>
+                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditDonation" value="@item.donId" name="donId" hidden></label>
                                 <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteDonation" value="@item.donId" name="myDonId" hidden></label>
                             </form>
                             
