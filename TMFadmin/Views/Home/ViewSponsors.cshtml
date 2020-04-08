@@ -1,22 +1,44 @@
 @model TMFadmin.Models.RevenueManager
+@{string mySorting=(string)ViewData["mySorting"];}
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Contacts</h1>
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name (Company/Individual)</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Fax</th>
-                <th scope="col">Email</th>
-                <th scope="col">Activity</th>
-                <th scope="col">Notes</th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</a>
+                    <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name (Company/Individual)</a>
+                    <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "phone_asc" ? "phone_desc" : "phone_asc")">Phone</a>
+                    <i class="sort-icon fas @(mySorting == "phone_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "phone_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "fax_asc" ? "fax_desc" : "fax_asc")">Fax</a>
+                    <i class="sort-icon fas @(mySorting == "fax_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fax_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "email_asc" ? "email_desc" : "email_asc")">Email</a>
+                    <i class="sort-icon fas @(mySorting == "email_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "email_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "activity_asc" ? "activity_desc" : "activity_asc")">Activity</a>
+                    <i class="sort-icon fas @(mySorting == "activity_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "activity_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</a>
+                    <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")" style=""></i>
+                </th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
         <tbody>
-            @{
-                foreach (var item in Model.alphaSponsorLname())
+            @{  
+                foreach (var item in Model.sortSponsorsByMe(mySorting))
                 {
                     <tr>
                         <td style="max-width: 30px;">@item.sponsorId</td>
@@ -39,4 +61,9 @@
             }
         </tbody>
     </table>
+
+
+    <div class="debugFb">@ViewData["mySorting"]</div>
+
+
 </div>

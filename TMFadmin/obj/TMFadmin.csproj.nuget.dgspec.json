@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {}
+    "/home/fuzzbox/localDev/TMF-Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {}
   },
   "projects": {
-    "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {
+    "/home/fuzzbox/localDev/TMF-Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
+        "projectUniqueName": "/home/fuzzbox/localDev/TMF-Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
         "projectName": "TMFadmin",
-        "projectPath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
-        "packagesPath": "/Users/hannahgrinton/.nuget/packages/",
-        "outputPath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/obj/",
+        "projectPath": "/home/fuzzbox/localDev/TMF-Capstone/Capstone-TMF/TMFadmin/TMFadmin.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/home/fuzzbox/localDev/TMF-Capstone/Capstone-TMF/TMFadmin/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/hannahgrinton/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"

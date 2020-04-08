@@ -27,7 +27,16 @@ namespace TMFadmin.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
         }
-        //------------------------------------------------------------- Sponsor Work
+
+        /*
+        *
+        *   Sponsor Work
+        *
+        */
+
+
+
+        
         //get current sponsor
         public Sponsor getSponsor(int mySponsorId) {
             return sponsor.Single(item => item.sponsorId == mySponsorId);
@@ -42,12 +51,71 @@ namespace TMFadmin.Models
             int id = sponsor.sponsorId;
             return id;
         }
+        /*   ** POSSIBLY OBSOLETE **
         //alphabetize by lastname
         public List<Sponsor> alphaSponsorLname() {
             List<Sponsor> sponsors = sponsor.OrderBy(l => l.company).ToList();
             return sponsors;
         }
-        //get select list of sponsor names
+        */
+
+        //---
+        // sort list by input
+        public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc") {
+            
+            List<Sponsor> listData;
+            switch(mySorting)
+                {
+                case "id_asc":
+                    listData = sponsor.OrderBy(s => s.sponsorId).ToList();
+                    break;
+                case "id_desc":
+                    listData = sponsor.OrderByDescending(s => s.sponsorId).ToList();
+                    break;
+                case "name_asc":
+                    listData = sponsor.OrderBy(s => s.company).ToList();
+                    break;
+                case "name_desc":
+                    listData = sponsor.OrderByDescending(s => s.company).ToList();
+                    break;
+                case "phone_asc":
+                    listData = sponsor.OrderBy(s => s.phone).ToList();
+                    break;
+                case "phone_desc":
+                    listData = sponsor.OrderByDescending(s => s.phone).ToList();
+                    break;
+                case "fax_asc":
+                    listData = sponsor.OrderBy(s => s.fax).ToList();
+                    break;
+                case "fax_desc":
+                    listData = sponsor.OrderByDescending(s => s.fax).ToList();
+                    break;
+                case "email_asc":
+                    listData = sponsor.OrderBy(s => s.email).ToList();
+                    break;
+                case "email_desc":
+                    listData = sponsor.OrderByDescending(s => s.email).ToList();
+                    break;
+                case "activity_asc":
+                    listData = sponsor.OrderBy(s => s.activity).ToList();
+                    break;
+                case "activity_desc":
+                    listData = sponsor.OrderByDescending(s => s.activity).ToList();
+                    break;
+                case "notes_asc":
+                    listData = sponsor.OrderBy(s => s.notes).ToList();
+                    break;
+                case "notes_desc":
+                    listData = sponsor.OrderByDescending(s => s.notes).ToList();
+                    break;
+                default:
+                    listData = sponsor.OrderBy(s => s.sponsorId).ToList();
+                    break;
+                
+            }
+            return listData;
+        }
+
         public SelectList getList() {
             List<Sponsor> listData = sponsor.OrderBy(c => c.company).ToList();
             return new SelectList(listData, "sponsorId", "company");
@@ -119,7 +187,12 @@ namespace TMFadmin.Models
             List<AddressRelations> rels = addressRels.Where(item => item.sponsorId == mySponsorId).ToList();
             return rels;
         }
-        //----------------------------------------------------------------- Advertisement Work
+        /*
+        *
+        * Advertisement Work
+        * 
+        */
+
         //get list of adverts, sorted by ID
         public List<Advertisement> getAdvertisementsById() {
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
@@ -143,8 +216,11 @@ namespace TMFadmin.Models
         public AdvertRelations getAdvertRelations(int id) {
             return advertRels.Single(item => item.adId == id);
         }
-
-        //----------------------------------------------------------------- Donation Work
+        /*
+        *
+        *   Donation Work
+        *
+        */
         //get list of donations, sorted by date
         public List<Donation> getDonationsByDate() {
             List<Donation> donations = donation.OrderBy(l => l.date).ToList();
@@ -168,8 +244,11 @@ namespace TMFadmin.Models
         public DonationRelations getDonationRelations(int myDonationId) {
             return donRels.Single(item => item.donId == myDonationId);
         }
-
-        //----------------------------------------------------------------- Award Work
+        /*
+        *
+        *   Award Work
+        *
+        */
         //get list of awards, sorted by ID
         public List<Award> getAwardsById() {
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
@@ -179,8 +258,11 @@ namespace TMFadmin.Models
         public Award getAward(int id) {
             return awards.Single(item => item.awardId == id);
         }
-
-        //----------------------------------------------------------------- Fund Work
+        /*
+        *
+        *   Fund Work
+        *
+        */
         //get list of funds, sorted by ID
         public List<Fund> getFundsById() {
             List<Fund> funds = fund.OrderBy(l => l.fundId).Where(f => f.fundId > 0).ToList();
@@ -208,7 +290,11 @@ namespace TMFadmin.Models
             List<Donation> myDonations = donation.Where(item => item.fundId == fundId).ToList();
             return myDonations;
         }
-        //----------------------------------------------------------------- Address Work
+        /*
+        *
+        *   Address Work
+        *
+        */
         //get list of addresses sorted by ID
         public List<Address> getAddressesById() {
             List<Address> addresses = address.OrderBy(l => l.addressId).ToList();

@@ -38,7 +38,12 @@ namespace TMFadmin.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         //---------------------------------------------------------------------- Sponsor Work
-        public IActionResult ViewSponsors() {
+        public IActionResult ViewSponsors(string mySorting = "id_asc") {
+            //view all sponsors
+            ViewData["mySorting"] = mySorting;
+            return View(revenueManager);
+        } 
+        public IActionResult FilterSponsors() {
             //view all sponsors
             return View(revenueManager);
         }

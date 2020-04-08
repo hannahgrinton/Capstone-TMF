@@ -1,96 +1,80 @@
 ﻿@model TMFadmin.Models.RevenueManager
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Welcome</h1>
-    <div class="d-flex justify-content-around" style="margin-top: 40px;">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+    <div class="d-flex justify-content-around card-container--mod" style="margin-top: 40px;">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Contact</h5>
-                <p class="card-text">Add a new contact to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddSponsor" class="btn btn-primary">Go</a>
         
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Donation</h5>
-                <p class="card-text">Add a new donation to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddDonation" class="btn btn-primary">Go</a>
             </div>
         </div>  
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Advertisement</h5>
-                <p class="card-text">Add a new advertisement to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddAdvertisement" class="btn btn-primary">Go</a>
             </div>
         </div>   
-    </div>
-    <div class="d-flex justify-content-around" style="margin-top: 40px;">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Award</h5>
-                <p class="card-text">Add a new award to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddAward" class="btn btn-primary">Go</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Fund</h5>
-                <p class="card-text">Add a new fund to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddFund" class="btn btn-primary">Go</a>
             </div>
         </div>
-        @* <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        @* <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">Add Address</h5>
-                <p class="card-text">Add a new address to the database via a form.</p>
                 <a asp-controller="Home" asp-action="AddAddress" asp-route-id="@Model.newID()" class="btn btn-primary">Go</a>
             </div>
         </div> *@
     </div>
     <hr style="border-top: 2px dashed grey; margin-top: 40px;">
-    <div class="d-flex justify-content-around" style="margin-top: 40px;">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+    <div class="d-flex justify-content-around card-container--mod" style="margin-top: 40px;">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Contacts</h5>
-                <p class="card-text">View all contacts in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewSponsors" class="btn btn-primary">Go</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Donations</h5>
-                <p class="card-text">View all donations in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewDonations" class="btn btn-primary">Go</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Advertisements</h5>
-                <p class="card-text">View all advertisements in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewAdvertisements" class="btn btn-primary">Go</a>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-around" style="margin-top: 40px;">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Awards</h5>
-                <p class="card-text">View all awards in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewAwards" class="btn btn-primary">Go</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Funds</h5>
-                <p class="card-text">View all funds in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewFunds" class="btn btn-primary">Go</a>
             </div>
         </div>
-        @* <div class="card" style="width: 18rem;">
-            <div class="card-body">
+        @* <div class="card card--mod" style="width: 18rem;">
+            <div class="card-body card-body--mod">
                 <h5 class="card-title">View Addresses</h5>
-                <p class="card-text">View all advertisements in database arranged in a table.</p>
                 <a asp-controller="Home" asp-action="ViewAddresses" class="btn btn-primary">Go</a>
             </div>
         </div> *@

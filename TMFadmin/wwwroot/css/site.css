@@ -64,6 +64,10 @@ body {
   color: #0056b3;
 }
 
+.card-container--mod{
+  flex-wrap: wrap-reverse;
+}
+
 .accHead{
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -80,4 +84,26 @@ body {
   flex-flow: column;
   justify-content: flex-end;
   margin-bottom: 10px;
+}
+
+
+.card--mod{
+  max-width: min-content;
+  height: min-content;
+  flex: 1 0 auto;
+}
+
+.card-body--mod{
+  padding: 5px;
+  width: 200px;
+  margin: 10px;
+}
+
+.sort-icon{
+  margin-left:5px; 
+  font-size: 12px;
+}
+
+.sort-link{  
+  color: #ffffff;
 }
