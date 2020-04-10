@@ -21,15 +21,21 @@ namespace TMFadmin.Controllers
         //---------------------------------------------------------------------- Main Work
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             return View(revenueManager);
         }
         public IActionResult Logout() {
             //logs user out and reqirects to login page
-            //HttpContext.Session.SetString("auth", "false");
+            HttpContext.Session.SetString("auth", "false");
             return RedirectToAction("Index", "Login");
         }
         public IActionResult Privacy()
         {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -38,18 +44,27 @@ namespace TMFadmin.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         public IActionResult Settings() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             settings.getUsers(HttpContext);
             return View(settings);
         }
         [Route("/EditUser/{userId}")]
         public IActionResult EditUser(int userId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             settings.getUser(HttpContext, userId);
             return View(settings);
         }
         [HttpPost]
         public IActionResult EditUserSubmit(int userId, string username, string role, string password) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             settings.username = username;
             if (password != "" || password != null) {
@@ -61,12 +76,18 @@ namespace TMFadmin.Controllers
         }
         [Route("/DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             settings.getUser(HttpContext, userId);
             return View(settings);
         }
         [HttpPost]
         public IActionResult DeleteUserSubmit(int userId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             if (settings.delete(userId)) {
                 return RedirectToAction("Settings");
@@ -75,11 +96,17 @@ namespace TMFadmin.Controllers
             }
         }
         public IActionResult AddUser() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             return View(settings);
         }
         [HttpPost]
         public IActionResult AddUserSubmit(string username, string role, string password) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             SettingsManager settings = new SettingsManager();
             settings.username = username;
             settings.password = password;
@@ -89,11 +116,17 @@ namespace TMFadmin.Controllers
         }
         //---------------------------------------------------------------------- Sponsor Work
         public IActionResult ViewSponsors() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all sponsors
             return View(revenueManager);
         }
         //[HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view sponsor in detail
             Sponsor sponsor = new Sponsor();
             sponsor = revenueManager.getSponsor(mySponsorId);
@@ -107,12 +140,18 @@ namespace TMFadmin.Controllers
             return View(sponsor);
         }
         public IActionResult AddSponsor() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to add sponsor form
             Sponsor sponsor = new Sponsor();
             return View(sponsor);
         }
         [HttpPost]
         public IActionResult AddSponsorSubmit(Sponsor mySponsor) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //submit new sponsor to db
             if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
             revenueManager.Add(mySponsor);
@@ -124,6 +163,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditSponsor(int mySponsorId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to edit sponsor form
             Sponsor sponsor = new Sponsor();
             sponsor = revenueManager.getSponsor(mySponsorId);
@@ -131,6 +173,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditSponsorSubmit(Sponsor sponsor) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //submit edited sponsor
             if (!ModelState.IsValid) return RedirectToAction("EditSponsor", sponsor.sponsorId);
             revenueManager.Update(sponsor);
@@ -139,6 +184,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteSponsor(int mySponsorId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete sponsor page
             Sponsor sponsor = new Sponsor();
             sponsor = revenueManager.getSponsor(mySponsorId);
@@ -146,6 +194,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteSponsorSubmit(Sponsor sponsor) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //remove donation relations
             foreach(var item in revenueManager.getSponsorDonRels(sponsor.sponsorId)) {
                 revenueManager.Remove(item);
@@ -174,10 +225,16 @@ namespace TMFadmin.Controllers
         } 
         //---------------------------------------------------------------------- Advert Work
         public IActionResult ViewAdvertisements() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all advertisements
             return View(revenueManager);
         }
         public IActionResult ViewAdvertisement(int myAdId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Advertisement advertisement = new Advertisement();
             advertisement = revenueManager.getAdvertisement(myAdId);
             Sponsor sponsor = new Sponsor();
@@ -188,6 +245,9 @@ namespace TMFadmin.Controllers
             return View(advertisement);
         }
         public IActionResult AddAdvertisement() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to add ad form
             Advertisement advertisement = new Advertisement();
             ViewBag.selectList = revenueManager.getList();
@@ -195,6 +255,9 @@ namespace TMFadmin.Controllers
         }        
         [HttpPost]
         public IActionResult AddAdvertisementSubmit(Advertisement myAdvertisement, int mySponsorId, String adSize, IFormFile imgFile) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             ImageManager imageManager = new ImageManager(environment, "images");
             if (!ModelState.IsValid) return RedirectToAction("AddAdvertisement");
             //submit new ad to db
@@ -244,6 +307,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditAdvertisement(int adId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Advertisement ad = new Advertisement();
             ad = revenueManager.getAdvertisement(adId);
             ViewBag.selectList = revenueManager.getList();
@@ -251,6 +317,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditAdvertisementSubmit(Advertisement ad, int mySponsorId, String adSize, IFormFile newImgFile) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             ImageManager imageManager = new ImageManager(environment, "images");
             if (!ModelState.IsValid) return RedirectToAction("EditAdvertisement", ad.adId);
             //check if sponsor is changed
@@ -320,6 +389,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAdvertisement(int myAdId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete Advertisement page
             Advertisement advertisement = new Advertisement();
             advertisement = revenueManager.getAdvertisement(myAdId);
@@ -328,6 +400,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAdvertisementSubmit(Advertisement myAdvertisement) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //delete Advertisement
             
             ImageManager imageManager = new ImageManager(environment, "images");
@@ -349,10 +424,16 @@ namespace TMFadmin.Controllers
         } 
         //---------------------------------------------------------------------- Donations Work
         public IActionResult ViewDonations() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all donations
             return View(revenueManager);
         }
         public IActionResult ViewDonation(int myDonId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Donation donation = new Donation();
             donation = revenueManager.getDonation(myDonId);
             DonationRelations rel = new DonationRelations();
@@ -367,6 +448,9 @@ namespace TMFadmin.Controllers
             return View(donation);
         }
         public IActionResult AddDonation() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to add donation form
             Donation donation = new Donation();
             ViewBag.selectList = revenueManager.getList();
@@ -375,6 +459,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult AddDonationSubmit(Donation myDonation, int mySponsorId, int myFundId, String receipt) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //submit new donation to db
             if (!ModelState.IsValid) return RedirectToAction("AddSponsor");
             myDonation.date = DateTime.Now;
@@ -400,6 +487,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteDonation(int myDonId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete Donation page
             Donation donation = new Donation();
             donation = revenueManager.getDonation(myDonId);
@@ -407,6 +497,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteDonationSubmit(Donation donation) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //delete Donation
             DonationRelations rel = new DonationRelations();
             try {
@@ -420,6 +513,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditDonation(int donId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Donation don = new Donation();
             don = revenueManager.getDonation(donId);
             ViewBag.selectList = revenueManager.getList();
@@ -428,6 +524,9 @@ namespace TMFadmin.Controllers
         }    
         [HttpPost]
         public IActionResult EditDonationSubmit(Donation donation, int mySponsorId, int myFundId, String receipt) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("EditDonation", donation.donId);
             try {
                 DonationRelations oldRel = new DonationRelations();
@@ -454,10 +553,16 @@ namespace TMFadmin.Controllers
         }
         //---------------------------------------------------------------------- Awards Work
         public IActionResult ViewAwards() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all awards
             return View(revenueManager);
         }
         public IActionResult ViewAward(int myAwardId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Award award = new Award();
             award = revenueManager.getAward(myAwardId);
             Fund  fund = new Fund();
@@ -466,6 +571,9 @@ namespace TMFadmin.Controllers
             return View(award);
         }
         public IActionResult AddAward() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to add fund form
             Award award = new Award();
             ViewBag.fundList = revenueManager.getFundList();
@@ -473,6 +581,9 @@ namespace TMFadmin.Controllers
         }                
         [HttpPost]
         public IActionResult AddAwardSubmit(Award myAward, int myFundId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("AddAward");
             myAward.fundId = myFundId;
             //add award
@@ -482,6 +593,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAward(int myAwardId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete fund page
             Award award = new Award();
             award = revenueManager.getAward(myAwardId);
@@ -489,6 +603,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAwardSubmit(Award myAward) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //delete Fund
             revenueManager.Remove(myAward);
             revenueManager.SaveChanges();
@@ -496,6 +613,9 @@ namespace TMFadmin.Controllers
         } 
         [HttpPost]
         public IActionResult EditAward(int myAwardId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Award award = new Award();
             award = revenueManager.getAward(myAwardId);
             ViewBag.fundList = revenueManager.getFundList();
@@ -503,6 +623,9 @@ namespace TMFadmin.Controllers
         }                
         [HttpPost]
         public IActionResult EditAwardSubmit(Award award, int myFundId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("EditAward", award.awardId);
             award.fundId = myFundId;
             revenueManager.Update(award);
@@ -511,21 +634,33 @@ namespace TMFadmin.Controllers
         }        
         //---------------------------------------------------------------------- Funds Work
         public IActionResult ViewFunds() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all funds
             return View(revenueManager);
         }
         public IActionResult ViewFund(int myFundId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Fund fund = new Fund();
             fund = revenueManager.getFund(myFundId);
             return View(fund);
         }
         public IActionResult AddFund() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to add fund form
             Fund fund = new Fund();
             return View(fund);
         }
         [HttpPost]
         public IActionResult AddFundSubmit(Fund myFund) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("AddFund");
             revenueManager.Add(myFund);
             revenueManager.SaveChanges();
@@ -533,6 +668,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteFund(int myFundId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete fund page
             Fund fund = new Fund();
             fund = revenueManager.getFund(myFundId);
@@ -540,6 +678,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteFundSubmit(Fund myFund) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //delete Fund
             foreach(var item in revenueManager.getFundedAwards(myFund.fundId)) {
                 item.fundId = 0;
@@ -557,12 +698,18 @@ namespace TMFadmin.Controllers
         } 
         [HttpPost]
         public IActionResult EditFund(int myFundId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Fund fund = new Fund();
             fund = revenueManager.getFund(myFundId);
             return View(fund);
         }
         [HttpPost]
         public IActionResult EditFundSubmit(Fund fund) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("EditFund", fund.fundId);
             revenueManager.Update(fund);
             revenueManager.SaveChanges();
@@ -570,17 +717,26 @@ namespace TMFadmin.Controllers
         }
         //---------------------------------------------------------------------- Address Work
         public IActionResult ViewAddresses() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //view all addresses
             return View(revenueManager);
         }
         [Route("/AddAddress/{id}")]
         public IActionResult AddAddress(int id) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Address address = new Address();
             ViewBag.selectList = revenueManager.getList(id);
             return View(address);
         }
         [HttpPost]
         public IActionResult AddAddressSubmit(Address myAddress, int mySponsorId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //submit new address to db
             if (!ModelState.IsValid) return RedirectToAction("AddAddress");
             revenueManager.Add(myAddress);
@@ -598,6 +754,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAddress(int myAddressId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //redirect to delete address page
             Address address = new Address();
             address = revenueManager.getAddress(myAddressId);
@@ -605,6 +764,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult DeleteAddressSubmit(Address myAddress) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //delete address
             //if (!ModelState.IsValid) return RedirectToAction("Index");
             AddressRelations rel = new AddressRelations();
@@ -617,6 +779,9 @@ namespace TMFadmin.Controllers
         } 
         [HttpPost]
         public IActionResult EditAddress(int myAddressId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             Address address = new Address();
             address = revenueManager.getAddress(myAddressId);
             AddressRelations rel = new AddressRelations();
@@ -626,6 +791,9 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult EditAddressSubmit(Address myAddress, int mySponsorId) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             if (!ModelState.IsValid) return RedirectToAction("EditAddress", myAddress.addressId);
             AddressRelations oldRel = new AddressRelations();
             AddressRelations newRel = new AddressRelations();
@@ -643,12 +811,6 @@ namespace TMFadmin.Controllers
             revenueManager.Update(myAddress);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsor", new { mySponsorId = newRel.sponsorId });
-        }
-        //------------------------------------------------------------------------ Login Page Work
-        // check out login page
-        public IActionResult LandingLogin() {
-            //redirect to add login
-            return View(revenueManager);
         }
     }
 }
