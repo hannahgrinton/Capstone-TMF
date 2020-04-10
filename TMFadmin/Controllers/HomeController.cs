@@ -27,8 +27,12 @@ namespace TMFadmin.Controllers
             return View(revenueManager);
         }
         public IActionResult Logout() {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //logs user out and reqirects to login page
             HttpContext.Session.SetString("auth", "false");
+            
             return RedirectToAction("Index", "Login");
         }
         public IActionResult Privacy()
