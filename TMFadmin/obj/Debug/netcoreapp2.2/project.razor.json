@@ -3081,6 +3081,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/DeleteUser.cshtml",
+      "TargetPath": "Views\\Home\\DeleteUser.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/hannahgrinton/Development/Capstone/Capstone-TMF/TMFadmin/Views/Home/DeleteAdvertisement.cshtml",
       "TargetPath": "Views\\Home\\DeleteAdvertisement.cshtml",
       "FileKind": "mvc"

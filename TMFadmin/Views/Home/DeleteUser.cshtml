@@ -1,0 +1,16 @@
+@model TMFadmin.Models.SettingsManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Delete User: @Model.username</h1>
+    <div class="container text-center" style="width: 300px;">
+        <form style="margin-top: 20px; width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="POST" asp-controller="Home" asp-action="DeleteUserSubmit">
+            <span class="text-secondary">Are you sure you wish to permanently delete this user?</span>
+            <small class="text-warning">This action cannot be undone!</small>
+            <div class="form-group" style="margin-top: 20px;">
+                <input type='hidden' asp-for="userId">
+                <input class="btn btn-danger btn-submit" type="submit" value="Delete User">
+            </div>
+        </form>
+
+    </div>
+
+</div>
