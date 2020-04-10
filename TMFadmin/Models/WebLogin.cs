@@ -56,7 +56,7 @@ namespace TMFadmin.Models {
 			try {
 				dbConnection = new MySqlConnection(connectionString);
 				dbConnection.Open();
-				dbCommand = new MySqlCommand("SELECT password, salt FROM tblLogin WHERE username=?username", dbConnection);
+				dbCommand = new MySqlCommand("SELECT password, salt FROM login WHERE username=?username", dbConnection);
 				dbCommand.Parameters.AddWithValue("?username", _username);
 				dbReader = dbCommand.ExecuteReader();
 				//username exists?
@@ -79,14 +79,23 @@ namespace TMFadmin.Models {
 			}
 			return _access;
 		}
-		public void addUser() {
+		public string addUser(string salt) {
 			// //assume no access
 			// _access = false;
 			//server side validation
-			_username = truncate(_username, 10);
+			//_username = truncate(_username, 10);
 			_password = truncate(_password, 10);
-			string mySalt = getSalt();
-			string hashbrownsSalted = getHashed(_password, mySalt);
+			//string mySalt = getSalt();
+			string hashbrownsSalted = getHashed(_password, salt);
+			return hashbrownsSalted;
+		}
+		public string getMySalt() {
+			return getSalt();
+		}
+		public string changePassword(string newPassword,  string mySalt) {
+			newPassword = truncate(newPassword, 10);
+			string hashbrownsSalted = getHashed(newPassword, mySalt);
+			return hashbrownsSalted;
 		}
 		// ------------------------------------------------------- private methods
 		private string getSalt() {

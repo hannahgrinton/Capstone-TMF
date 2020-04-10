@@ -1,0 +1,29 @@
+@model TMFadmin.Models.SettingsManager
+<div class="text-center" style="margin-top: 100px;">
+    <h1 class="display-4"><a onclick="history.go(-1)" style="cursor: pointer;" class="text-primary"><i class="fas fa-arrow-left" style="font-size: 34px; float: left;"></i></a>Edit User: @Model.username</h1>
+    <div class="container text-center" style="width: 300px;">
+        <form style="margin-top: 20px; width: 100%; display: flex; flex-flow: column nowrap; align-items: center;" method="POST" asp-controller="Home" asp-action="EditUserSubmit">
+            <div class="form-group" style="text-align: left;">
+                <label for="username"><i class="fas fa-user" style="font-size: 22px;"></i>&nbsp;Username</label>
+                <input class="form-control" type="text" id="username" maxlength="200" asp-for="username" style="width: 300px;">
+            </div>
+            <div class="form-group" style="text-align: left;">
+                <label for="role"><i class="fas fa-user-tag" style="font-size: 22px;"></i>&nbsp;Role</label>
+                <input class="form-control" type="text" id="role" maxlength="200" asp-for="role" style="width: 300px;">
+            </div>
+            <div class="form-group" style="text-align: left;">
+                <label id="lblCompany" for="password">New Password</label>
+                <br><small>If you do not wish to change the password, leave this field blank</small>
+                <input class="form-control" type="text" id="password" maxlength="200" asp-for="password" style="width: 300px;">
+            </div>
+            <div class="form-group" style="width: 325px;">
+                <input type='hidden' asp-for="userId">
+                <input style="margin:15px; float: right;"
+                    class="btn btn-primary btn-submit" 
+                    type="submit" value="Save Edits">
+            </div>
+        </form>
+
+    </div>
+
+</div>

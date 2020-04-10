@@ -37,6 +37,56 @@ namespace TMFadmin.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult Settings() {
+            SettingsManager settings = new SettingsManager();
+            settings.getUsers(HttpContext);
+            return View(settings);
+        }
+        [Route("/EditUser/{userId}")]
+        public IActionResult EditUser(int userId) {
+            SettingsManager settings = new SettingsManager();
+            settings.getUser(HttpContext, userId);
+            return View(settings);
+        }
+        [HttpPost]
+        public IActionResult EditUserSubmit(int userId, string username, string role, string password) {
+            SettingsManager settings = new SettingsManager();
+            settings.username = username;
+            if (password != "" || password != null) {
+               settings.password = password;
+            }
+            settings.role = role;
+            settings.updateUser(HttpContext, userId);
+            return RedirectToAction("Settings");
+        }
+        [Route("/DeleteUser/{userId}")]
+        public IActionResult DeleteUser(int userId) {
+            SettingsManager settings = new SettingsManager();
+            settings.getUser(HttpContext, userId);
+            return View(settings);
+        }
+        [HttpPost]
+        public IActionResult DeleteUserSubmit(int userId) {
+            SettingsManager settings = new SettingsManager();
+            if (settings.delete(userId)) {
+                return RedirectToAction("Settings");
+            } else {
+                return RedirectToAction("DeleteUser", userId);
+            }
+        }
+        public IActionResult AddUser() {
+            SettingsManager settings = new SettingsManager();
+            return View(settings);
+        }
+        [HttpPost]
+        public IActionResult AddUserSubmit(string username, string role, string password) {
+            SettingsManager settings = new SettingsManager();
+            settings.username = username;
+            settings.password = password;
+            settings.role = role;
+            settings.addUser(HttpContext);
+            return RedirectToAction("Settings");
+        }
         //---------------------------------------------------------------------- Sponsor Work
         public IActionResult ViewSponsors() {
             //view all sponsors

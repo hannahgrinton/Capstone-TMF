@@ -13,7 +13,7 @@ namespace TMFadmin.Controllers {
 
         public IActionResult Submit(string myUsername, string myPassword) {
             // WebLogin webLogin = new WebLogin("Server=localhost;Database=login;Uid=hannah;Pwd=grinton;SslMode=none;", HttpContext);
-            WebLogin webLogin = new WebLogin("Server=localhost;Database=login;Uid=root;Pwd=;SslMode=none;", HttpContext);
+            WebLogin webLogin = new WebLogin("Server=localhost;Database=dbTMF;Uid=root;Pwd=;SslMode=none;", HttpContext);
             webLogin.username = myUsername;
             webLogin.password = myPassword;
             //do I have access?
