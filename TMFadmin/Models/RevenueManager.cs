@@ -61,9 +61,19 @@ namespace TMFadmin.Models
 
         //---
         // sort list by input
-        public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc") {
-            
+        public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc", string[] myFilter=null) {
+            //List<string> searchString = new List<string>(){"Jam Inc/","Not Jam","Baby Blue"};
+            List<string> searchString = new List<string>();
+            if(myFilter!=null){
+
+            foreach(var filter in myFilter){
+                searchString.Add(filter);
+            } 
+            }
+
+            List<Sponsor> filteredSponsor;
             List<Sponsor> listData;
+            
             switch(mySorting)
                 {
                 case "id_asc":
@@ -113,7 +123,22 @@ namespace TMFadmin.Models
                     break;
                 
             }
-            return listData;
+
+
+
+
+            if (myFilter!=null)
+            {
+                //filteredSponsor = sponsor.Where(s => s.company.Contains(searchString[0]) || 
+                //s.company.Contains(searchString[1]));
+                //filteredSponsor = sponsor.Where(s => s.company.Contains(searchString));
+
+
+                filteredSponsor = listData.Where(item => searchString.Contains(item.company)).ToList();
+            } else{
+                filteredSponsor = listData;
+            }
+            return filteredSponsor;
         }
 
         public SelectList getList() {

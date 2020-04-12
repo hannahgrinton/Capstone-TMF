@@ -1,5 +1,15 @@
 @model TMFadmin.Models.RevenueManager
-@{string mySorting=(string)ViewData["mySorting"];}
+@{
+    string mySorting=(string)ViewData["mySorting"];
+    string[] names = ViewData["names"] as string[];
+    var sortedList = new List<Sponsor>();
+    if(names!=null){
+        sortedList = Model.sortSponsorsByMe(mySorting, names);
+                }else {
+
+                    sortedList = Model.sortSponsorsByMe(mySorting);
+                }
+}
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Contacts</h1>
     <table class="table table-hover table-striped" style="margin-top: 40px;">
@@ -38,7 +48,12 @@
         </thead>
         <tbody>
             @{  
-                foreach (var item in Model.sortSponsorsByMe(mySorting))
+                if(names!=null){
+                    foreach(var name in names){
+                    <b>@name</b>
+                    }
+                }
+                foreach(var item in sortedList)
                 {
                     <tr>
                         <td style="max-width: 30px;">@item.sponsorId</td>
@@ -61,19 +76,83 @@
             }
         </tbody>
     </table>
-@*
-    @{ 
-        bool filterMenuHidden = true;
-  
 
-    @functions{
-        public void toggleFilterMenu(){
-        filterMenuHidden = !filterMenuHidden;
-        }
-        
-    }  
-    <a>FILTER</a>
-    <div class="debugFb filter-menu @(filterMenuHidden ? "filter-menu--hidden" : "")">@ViewData["mySorting"]</div>
-    }
-*@
+@{ 
+    List<string> filterListName = new List<string>();
+    List<string> filterListPhone = new List<string>();
+    List<string> filterListEmail = new List<string>();
+    
+    <a href="#" class="filter-menu-toggle">FILTER</a>
+    <div id="filter-menu" class="debugFb filter-menu" style="display: none">
+    
+    <div class="container">
+        <a href="#" class="filter-menu-toggle">Back</a>
+        <a class="" asp-controller="Home" asp-action="ViewSponsors">Reset</a>
+    
+        <h4>Filter</h4>
+        <hr>
+
+        <form asp-controller="Home" asp-action="FilterSponsors" method="post" class="filter-menu-form--mod">
+
+            @foreach(var item in sortedList){
+                if(!filterListName.Contains(@item.company)){
+                    filterListName.Add(@item.company);
+                    filterListName.Sort();
+                }
+
+                if(!filterListPhone.Contains(@item.phone)){
+                    filterListPhone.Add(@item.phone);
+                    filterListPhone.Sort();
+                }
+
+                if(!filterListEmail.Contains(@item.email)){
+                    filterListEmail.Add(@item.email);
+                    filterListEmail.Sort();
+                }
+            }
+            
+            <h5>Name</h5>
+            @for(var i = 0; i < filterListName.Count;i++){
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="name[]" id="name-@i" value="@filterListName[i]">
+                        @filterListName[i]
+                    </label>
+                </div>
+            }
+            <hr>
+
+            <h5>Phone</h5>
+            @for(var i = 0; i < filterListPhone.Count;i++){
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="phone[]" id="phone-@i" value="@filterListPhone[i]">
+                        @filterListPhone[i]
+                    </label>
+                </div>
+            }
+            <hr>
+
+            <h5>Email</h5>
+            @for(var i = 0; i < filterListEmail.Count;i++){
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="email[]" id="email-@i" value="@filterListEmail[i]">
+                        @filterListEmail[i]
+                    </label>
+                </div>
+            }
+            <hr>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    </div>
+}
+
 </div>
+

@@ -18,7 +18,11 @@ namespace TMFadmin.Controllers
             revenueManager = myManager;
             environment = env;
         }
-        //---------------------------------------------------------------------- Main Work
+        /**
+        **
+        **  Main Work
+        **
+        ***/
         public IActionResult Index()
         {
             return View(revenueManager);
@@ -37,15 +41,24 @@ namespace TMFadmin.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //---------------------------------------------------------------------- Sponsor Work
+        /**
+        **
+        **  Sponsor Work
+        **
+        ***/
         public IActionResult ViewSponsors(string mySorting = "id_asc") {
             //view all sponsors
             ViewData["mySorting"] = mySorting;
+            
             return View(revenueManager);
         } 
-        public IActionResult FilterSponsors() {
+        [HttpPost]
+        public IActionResult FilterSponsors(string[] name = null, string mySorting = "id_asc") {
             //view all sponsors
-            return View(revenueManager);
+            ViewData["mySorting"] = mySorting;
+            ViewData["names"] = name;
+            Console.WriteLine(name);
+            return View("ViewSponsors",revenueManager);
         }
         //[HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
@@ -127,7 +140,11 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsors");
         } 
-        //---------------------------------------------------------------------- Advert Work
+        /**
+        **
+        **  Advert Work
+        **
+        ***/
         public IActionResult ViewAdvertisements() {
             //view all advertisements
             return View(revenueManager);
@@ -210,8 +227,12 @@ namespace TMFadmin.Controllers
             }
             
             return RedirectToAction("ViewAdvertisements");
-        } 
-        //---------------------------------------------------------------------- Donations Work
+        }
+        /**
+        **
+        **  Donations Work
+        **
+        ***/
         public IActionResult ViewDonations() {
             //view all donations
             return View(revenueManager);
@@ -234,7 +255,7 @@ namespace TMFadmin.Controllers
                 myDonation.receipt = 0;
             }
             if (myFundId != 0) {
-               myDonation.fundId = myFundId; 
+                myDonation.fundId = myFundId; 
             }
             //add donation
             revenueManager.Add(myDonation);
@@ -267,8 +288,12 @@ namespace TMFadmin.Controllers
             revenueManager.Remove(donation);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewDonations");
-        }        
-        //---------------------------------------------------------------------- Awards Work
+        }    
+        /**
+        **
+        **  Awards Work
+        **
+        ***/
         public IActionResult ViewAwards() {
             //view all awards
             return View(revenueManager);
@@ -303,7 +328,11 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewAwards");
         } 
 
-        //---------------------------------------------------------------------- Funds Work
+        /**
+        **
+        **  Funds Work
+        **
+        ***/
         public IActionResult ViewFunds() {
             //view all funds
             return View(revenueManager);
@@ -344,7 +373,11 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewFunds");
         } 
-        //---------------------------------------------------------------------- Address Work
+        /**
+        **
+        **  Address Work
+        **
+        ***/
         public IActionResult ViewAddresses() {
             //view all addresses
             return View(revenueManager);
@@ -388,7 +421,11 @@ namespace TMFadmin.Controllers
             return RedirectToAction("Index");
         } 
 
-        //------------------------------------------------------------------------ Login Page Work
+        /**
+        **
+        **  Login Page Work
+        **
+        ***/
         // check out login page
         public IActionResult LandingLogin() {
             //redirect to add login
