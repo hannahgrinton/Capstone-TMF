@@ -49,17 +49,24 @@ namespace TMFadmin.Controllers
         public IActionResult ViewSponsors(string mySorting = "id_asc") {
             //view all sponsors
             ViewData["mySorting"] = mySorting;
-            
             return View(revenueManager);
         } 
         [HttpPost]
-        public IActionResult FilterSponsors(string[] name = null, string mySorting = "id_asc") {
+        public IActionResult ViewSponsors(string mySorting = "id_asc", string[] name = null
+                                            , string[] phone = null, string[] fax = null, string[] email = null
+                                            , string[] activity = null, string[] notes = null) {
             //view all sponsors
             ViewData["mySorting"] = mySorting;
-            ViewData["names"] = name;
-            Console.WriteLine(name);
-            return View("ViewSponsors",revenueManager);
-        }
+            ViewData["name"] = name;
+            ViewData["phone"] = phone;
+            ViewData["fax"] = fax;
+            ViewData["email"] = email;
+            ViewData["activity"] = activity;
+            ViewData["notes"] = notes;
+            
+            return View(revenueManager);
+        } 
+        
         //[HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
             //view sponsor in detail
@@ -233,10 +240,24 @@ namespace TMFadmin.Controllers
         **  Donations Work
         **
         ***/
-        public IActionResult ViewDonations() {
+        public IActionResult ViewDonations(string mySorting = "id_asc") {
             //view all donations
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
+        
+        [HttpPost]
+        public IActionResult ViewDonations(string mySorting = "id_asc", string[] date = null
+                                            , string[] notes = null, string[] receipt = null, string[] amount = null) {
+            //view all donations
+            ViewData["mySorting"] = mySorting;
+            ViewData["date"] = date;
+            ViewData["notes"] = notes;
+            ViewData["receipt"] = receipt;
+            ViewData["amount"] = amount;
+            
+            return View(revenueManager);
+        } 
         public IActionResult AddDonation() {
             //redirect to add donation form
             Donation donation = new Donation();

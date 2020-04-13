@@ -1,4 +1,53 @@
 @model TMFadmin.Models.RevenueManager
+
+@{
+    // store sorting and filtering data locally
+    string mySorting=ViewData["mySorting"] as string;
+    string[] filteredDates = ViewData["date"] as string[];
+    string[] filteredNotes = ViewData["notes"] as string[];
+    string[] filteredReceipt = ViewData["receipt"] as string[];
+    string[] filteredAmount = ViewData["amount"] as string[];
+
+    // declare local sorted and filtered lists
+    var sortedList = new List<Donation>();
+    var filteredList = new List<Donation>();
+
+    // get sorted list 
+    sortedList = Model.sortDonationsByMe(mySorting);
+
+    // check for posted filters, get filtered list. if no filters posted, build default filter to show all list entries
+    if(filteredDates!=null){
+
+        filteredDates = Model.convertOnToNull(filteredDates);
+        filteredNotes = Model.convertOnToNull(filteredNotes);
+        filteredReceipt = Model.convertOnToNull(filteredReceipt);
+        filteredAmount = Model.convertOnToNull(filteredAmount);
+
+        filteredList = Model.filterDonationList(sortedList, filteredDates, filteredNotes, filteredReceipt
+                                                , filteredAmount);
+    }else{
+        filteredDates = new string[sortedList.Count];
+        filteredNotes = new string[sortedList.Count];
+        filteredReceipt = new string[sortedList.Count];
+        filteredAmount = new string[sortedList.Count];
+
+        for(var i = 0; i < sortedList.Count; i++){
+            filteredDates[i] = sortedList[i].date.ToString();
+            filteredNotes[i] = sortedList[i].notes;
+            filteredReceipt[i] = sortedList[i].receipt.ToString();
+            filteredAmount[i] = sortedList[i].amount.ToString();
+        }
+
+
+        filteredList = sortedList;
+    }
+}
+
+
+
+
+
+
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Donations</h1>
     <table class="table table-hover table-striped" style="margin-top: 40px;">
@@ -15,7 +64,7 @@
         </thead>
         <tbody>
             @{
-                foreach (var item in Model.getDonationsByDate())
+                foreach (var item in filteredList)
                 {
                     <tr>
                         <td>@item.donId</td>
@@ -37,4 +86,101 @@
             }
         </tbody>
     </table>
+
+
+@{ 
+    List<string> filterListDate = new List<string>();
+    List<string> filterListNotes = new List<string>();
+    List<string> filterListReceipt = new List<string>();
+    List<string> filterListAmount = new List<string>();
+
+    <a href="#" class="filter-menu-toggle">FILTER</a>
+    <div id="filter-menu" class="debugFb filter-menu" style="display: none">
+        
+        <div class="container filter-menu-container">
+            <a href="#" class="filter-menu-toggle">Back</a>
+            <a class="" asp-controller="Home" asp-action="ViewDonations">Reset</a>
+        
+            <h4>Filter</h4>
+            <hr>
+
+            <form asp-controller="Home" asp-action="ViewDonations" method="post" class="filter-menu-form--mod">
+                <input type="hidden" name="mySorting" value="@mySorting">
+                @foreach(var item in sortedList){
+                    if(!filterListDate.Contains(@item.date.ToString())){
+                        filterListDate.Add(@item.date.ToString());
+                        filterListDate.Sort();
+                    }
+
+                    if(!filterListNotes.Contains(@item.notes)){
+                        filterListNotes.Add(@item.notes);
+                        filterListNotes.Sort();
+                    }
+                    if(!filterListReceipt.Contains(@item.receipt.ToString())){
+                        filterListReceipt.Add(@item.receipt.ToString());
+                        filterListReceipt.Sort();
+                    }
+
+                    if(!filterListAmount.Contains(@item.amount.ToString())){
+                        filterListAmount.Add(@item.amount.ToString());
+                        filterListAmount.Sort();
+                    }
+                }
+                
+                <h5>Date</h5>
+                @for(var i = 0; i < filterListDate.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredDates.Contains(@filterListDate[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="date[]" id="date-@i" value="@filterListDate[i]">
+                            @filterListDate[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Notes</h5>
+                @for(var i = 0; i < filterListNotes.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredNotes.Contains(@filterListNotes[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="notes[]" id="notes-@i" value="@filterListNotes[i]">
+                            @filterListNotes[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Receipt</h5>
+                @for(var i = 0; i < filterListReceipt.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredReceipt.Contains(@filterListReceipt[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="receipt[]" id="receipt-@i" value="@filterListReceipt[i]">
+                            @filterListReceipt[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Amount</h5>
+                @for(var i = 0; i < filterListAmount.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredAmount.Contains(@filterListAmount[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="amount[]" id="amount-@i" value="@filterListAmount[i]">
+                            @filterListAmount[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+}
+
+
 </div>

@@ -120,9 +120,12 @@ body {
 
 .sort-link {
     color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    text-decoration: none;
 }
 
-.filter-menu {
+#filter-menu {
     background-color: black;
     z-index: 10000;
     width: 300px;
@@ -130,10 +133,10 @@ body {
     position: fixed;
     right: 0px;
     top: 0;
-    color: #fff;
+    color: #ffffff;
     padding-top: 60px;
-    transition: 0.5s;
-    opacity: 0.9;
+    opacity: 0.95;
+    overflow: auto;
 }
 
 .filter-menu--hidden {

@@ -51,29 +51,24 @@ namespace TMFadmin.Models
             int id = sponsor.sponsorId;
             return id;
         }
-        /*   ** POSSIBLY OBSOLETE **
-        //alphabetize by lastname
-        public List<Sponsor> alphaSponsorLname() {
-            List<Sponsor> sponsors = sponsor.OrderBy(l => l.company).ToList();
-            return sponsors;
-        }
-        */
 
         //---
-        // sort list by input
-        public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc", string[] myFilter=null) {
-            //List<string> searchString = new List<string>(){"Jam Inc/","Not Jam","Baby Blue"};
-            List<string> searchString = new List<string>();
-            if(myFilter!=null){
-
-            foreach(var filter in myFilter){
-                searchString.Add(filter);
-            } 
+        // converts 'on' value set by null value checkbox post, replacing it with empty string
+        public string[] convertOnToNull(string[] myStrings){
+            for(var i = 0; i < myStrings.Length; i++){
+                if(myStrings[i]=="on"){
+                    myStrings[i] = "";
+                }
             }
+            return myStrings;
+        }
 
-            List<Sponsor> filteredSponsor;
-            List<Sponsor> listData;
-            
+
+        // return a list of all sponsors in database, sorted by provided string value
+        public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc") {
+
+            List<Sponsor> listData;            
+
             switch(mySorting)
                 {
                 case "id_asc":
@@ -124,21 +119,47 @@ namespace TMFadmin.Models
                 
             }
 
+            return listData;
+
+        }
+
+
+        public List<Sponsor> filterSponsorList(List<Sponsor> mySponsors, string[] myNames, string[] myPhones
+                                                , string[] myFaxes, string[] myEmails, string[] myActivities, string[] myNotes=null){
+            //List<string> searchString = new List<string>(){"Jam Inc/","Not Jam","Baby Blue"};
+            List<string> searchNames = new List<string>();
+            List<string> searchPhones = new List<string>();
+            List<string> searchFaxes = new List<string>();
+            List<string> searchEmails = new List<string>();
+            List<string> searchActivities = new List<string>();
+            List<string> searchNotes = new List<string>();
+            List<Sponsor> filteredSponsor;
 
 
 
-            if (myFilter!=null)
+            // Create lists from arrays
+            if(myNotes!=null){                
+                searchNames=myNames.ToList();
+                searchPhones=myPhones.ToList();
+                searchFaxes=myFaxes.ToList();
+                searchEmails=myEmails.ToList();
+                searchActivities=myActivities.ToList();
+                searchNotes=myNotes.ToList();
+            }  
+            // apply filter to sponsors list, return filtered list of sponsors
+            if (myNotes!=null)
             {
-                //filteredSponsor = sponsor.Where(s => s.company.Contains(searchString[0]) || 
-                //s.company.Contains(searchString[1]));
-                //filteredSponsor = sponsor.Where(s => s.company.Contains(searchString));
-
-
-                filteredSponsor = listData.Where(item => searchString.Contains(item.company)).ToList();
+                filteredSponsor = mySponsors.Where(s => (searchNames.Contains(s.company) || (string.IsNullOrEmpty(s.company) && searchNames.Contains(string.Empty))) &&
+                                                        (searchPhones.Contains(s.phone) || (string.IsNullOrEmpty(s.phone) && searchPhones.Contains(string.Empty))) &&
+                                                        (searchFaxes.Contains(s.fax) || (string.IsNullOrEmpty(s.fax) && searchFaxes.Contains(string.Empty))) &&
+                                                        (searchEmails.Contains(s.email) || (string.IsNullOrEmpty(s.email) && searchEmails.Contains(string.Empty))) &&
+                                                        (searchActivities.Contains(s.activity) || (string.IsNullOrEmpty(s.activity) && searchActivities.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(s.notes) || (string.IsNullOrEmpty(s.notes) && searchNotes.Contains(string.Empty)))
+                                                        ).ToList();
             } else{
-                filteredSponsor = listData;
+                filteredSponsor = mySponsors;
             }
-            return filteredSponsor;
+            return filteredSponsor;            
         }
 
         public SelectList getList() {
@@ -269,6 +290,91 @@ namespace TMFadmin.Models
         public DonationRelations getDonationRelations(int myDonationId) {
             return donRels.Single(item => item.donId == myDonationId);
         }
+
+        // ------------------------------ SORT / FILTER----------------------
+
+        // return a list of all sponsors in database, sorted by provided string value
+        public List<Donation> sortDonationsByMe(string mySorting="id_asc") {
+
+            List<Donation> listData;            
+
+            switch(mySorting)
+                {
+                case "id_asc":
+                    listData = donation.OrderBy(d => d.donId).ToList();
+                    break;
+                case "id_desc":
+                    listData = donation.OrderByDescending(d => d.donId).ToList();
+                    break;
+                case "date_asc":
+                    listData = donation.OrderBy(d => d.date).ToList();
+                    break;
+                case "date_desc":
+                    listData = donation.OrderByDescending(d => d.date).ToList();
+                    break;
+                case "notes_asc":
+                    listData = donation.OrderBy(d => d.notes).ToList();
+                    break;
+                case "notes_desc":
+                    listData = donation.OrderByDescending(d => d.notes).ToList();
+                    break;
+                case "receipt_asc":
+                    listData = donation.OrderBy(d => d.receipt).ToList();
+                    break;
+                case "receipt_desc":
+                    listData = donation.OrderByDescending(d => d.receipt).ToList();
+                    break;
+                case "amount_asc":
+                    listData = donation.OrderBy(d => d.amount).ToList();
+                    break;
+                case "amount_desc":
+                    listData = donation.OrderByDescending(d => d.amount).ToList();
+                    break;
+                default:
+                    listData = donation.OrderBy(d => d.donId).ToList();
+                    break;
+                
+            }
+
+            return listData;
+
+        }
+
+
+        public List<Donation> filterDonationList(List<Donation> myDonations, string[] myDates, string[] myNotes
+                                                , string[] myReceipts, string[] myAmounts=null){
+            List<string> searchDates = new List<string>();
+            List<string> searchNotes = new List<string>();
+            List<string> searchReceipts = new List<string>();
+            List<string> searchAmounts = new List<string>();
+            List<Donation> filteredDonation;
+            Console.WriteLine(">>>>>>>>>"+myDonations);
+
+
+
+            // Create lists from arrays
+            if(myNotes!=null){                
+                searchDates=myDates.ToList();
+                searchNotes=myNotes.ToList();
+                searchReceipts=myReceipts.ToList();
+                searchAmounts=myAmounts.ToList();
+            }  
+            // apply filter to sponsors list, return filtered list of sponsors
+            if (myAmounts!=null)
+            {
+                filteredDonation = myDonations.Where(
+                    d => (searchDates.Contains(d.date.ToString()) || (string.IsNullOrEmpty(d.date.ToString()) && searchDates.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(d.notes) || (string.IsNullOrEmpty(d.notes) && searchNotes.Contains(string.Empty))) &&
+                                                        (searchReceipts.Contains(d.receipt.ToString()) || (string.IsNullOrEmpty(d.receipt.ToString()) && searchReceipts.Contains(string.Empty))) &&
+                                                        (searchAmounts.Contains(d.amount.ToString()) || (string.IsNullOrEmpty(d.amount.ToString()) && searchAmounts.Contains(string.Empty)))
+                                                        ).ToList();
+            } else{
+                filteredDonation = myDonations;
+            }
+            return filteredDonation;            
+        }
+
+
         /*
         *
         *   Award Work

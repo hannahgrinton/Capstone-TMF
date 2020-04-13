@@ -1,59 +1,132 @@
 @model TMFadmin.Models.RevenueManager
 @{
-    string mySorting=(string)ViewData["mySorting"];
-    string[] names = ViewData["names"] as string[];
-    var sortedList = new List<Sponsor>();
-    if(names!=null){
-        sortedList = Model.sortSponsorsByMe(mySorting, names);
-                }else {
+    // store sorting and filtering data locally
+    string mySorting=ViewData["mySorting"] as string;
+    string[] filteredNames = ViewData["name"] as string[];
+    string[] filteredPhones = ViewData["phone"] as string[];
+    string[] filteredFaxes = ViewData["fax"] as string[];
+    string[] filteredEmails = ViewData["email"] as string[];
+    string[] filteredActivities = ViewData["activity"] as string[];
+    string[] filteredNotes = ViewData["notes"] as string[];
 
-                    sortedList = Model.sortSponsorsByMe(mySorting);
-                }
+    // declare local sorted and filtered lists
+    var sortedList = new List<Sponsor>();
+    var filteredList = new List<Sponsor>();
+
+    // get sorted list 
+    sortedList = Model.sortSponsorsByMe(mySorting);
+
+    // check for posted filters, get filtered list. if no filters posted, build default filter to show all list entries
+    if(filteredNames!=null){
+
+        filteredNames = Model.convertOnToNull(filteredNames);
+        filteredPhones = Model.convertOnToNull(filteredPhones);
+        filteredFaxes = Model.convertOnToNull(filteredFaxes);
+        filteredEmails = Model.convertOnToNull(filteredEmails);
+        filteredActivities = Model.convertOnToNull(filteredActivities);
+        filteredNotes = Model.convertOnToNull(filteredNotes);
+
+        filteredList = Model.filterSponsorList(sortedList, filteredNames, filteredPhones, filteredFaxes
+                                                , filteredEmails, filteredActivities, filteredNotes);
+    }else{
+        filteredNames = new string[sortedList.Count];
+        filteredPhones = new string[sortedList.Count];
+        filteredFaxes = new string[sortedList.Count];
+        filteredEmails = new string[sortedList.Count];
+        filteredActivities = new string[sortedList.Count];
+        filteredNotes = new string[sortedList.Count];
+
+        for(var i = 0; i < sortedList.Count; i++){
+            filteredNames[i] = sortedList[i].company;
+            filteredPhones[i] = sortedList[i].phone;
+            filteredFaxes[i] = sortedList[i].fax;
+            filteredEmails[i] = sortedList[i].email;
+            filteredActivities[i] = sortedList[i].activity;
+            filteredNotes[i] = sortedList[i].notes;
+        }
+
+
+        filteredList = sortedList;
+    }
 }
+
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Contacts</h1>
+        
     <table class="table table-hover table-striped" style="margin-top: 40px;">
+        
+        <form asp-controller="Home" asp-action="ViewSponsors" method="post" class="">
+            @{
+                if(filteredNames!=null){
+                    foreach(var item in filteredNames){
+                    <input type="hidden" name="name[]" id="name-@item" value="@item">
+                    }
+                }
+                if(filteredPhones!=null){
+                    foreach(var item in filteredPhones){
+                    <input type="hidden" name="phone[]" id="phone-@item" value="@item">
+                    }
+                }
+                if(filteredFaxes!=null){
+                    foreach(var item in filteredFaxes){
+                    <input type="hidden" name="fax[]" id="fax-@item" value="@item">
+                    }
+                }
+                if(filteredEmails!=null){
+                    foreach(var item in filteredEmails){
+                    <input type="hidden" name="email[]" id="email-@item" value="@item">
+                    }
+                }
+                if(filteredActivities!=null){
+                    foreach(var item in filteredActivities){
+                    <input type="hidden" name="activity[]" id="activity-@item" value="@item">
+                    }
+                }
+                if(filteredNotes!=null){
+                    foreach(var item in filteredNotes){
+                    <input type="hidden" name="notes[]" id="note-@item" value="@item">
+                    }
+                }
+            }
+
         <thead class="thead-dark">
             <tr>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name (Company/Individual)</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name (Company/Individual)</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "phone_asc" ? "phone_desc" : "phone_asc")">Phone</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "phone_asc" ? "phone_desc" : "phone_asc")">Phone</button>
                     <i class="sort-icon fas @(mySorting == "phone_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "phone_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "fax_asc" ? "fax_desc" : "fax_asc")">Fax</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "fax_asc" ? "fax_desc" : "fax_asc")">Fax</button>
                     <i class="sort-icon fas @(mySorting == "fax_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fax_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "email_asc" ? "email_desc" : "email_asc")">Email</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "email_asc" ? "email_desc" : "email_asc")">Email</button>
                     <i class="sort-icon fas @(mySorting == "email_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "email_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "activity_asc" ? "activity_desc" : "activity_asc")">Activity</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "activity_asc" ? "activity_desc" : "activity_asc")">Activity</button>
                     <i class="sort-icon fas @(mySorting == "activity_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "activity_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <a class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</a>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
                     <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")" style=""></i>
                 </th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
+        </form>
         <tbody>
+
             @{  
-                if(names!=null){
-                    foreach(var name in names){
-                    <b>@name</b>
-                    }
-                }
-                foreach(var item in sortedList)
+                foreach(var item in filteredList)
                 {
                     <tr>
                         <td style="max-width: 30px;">@item.sponsorId</td>
@@ -80,76 +153,127 @@
 @{ 
     List<string> filterListName = new List<string>();
     List<string> filterListPhone = new List<string>();
+    List<string> filterListFax = new List<string>();
     List<string> filterListEmail = new List<string>();
-    
+    List<string> filterListActivity = new List<string>();
+    List<string> filterListNotes = new List<string>();
+
     <a href="#" class="filter-menu-toggle">FILTER</a>
     <div id="filter-menu" class="debugFb filter-menu" style="display: none">
-    
-    <div class="container">
-        <a href="#" class="filter-menu-toggle">Back</a>
-        <a class="" asp-controller="Home" asp-action="ViewSponsors">Reset</a>
-    
-        <h4>Filter</h4>
-        <hr>
-
-        <form asp-controller="Home" asp-action="FilterSponsors" method="post" class="filter-menu-form--mod">
-
-            @foreach(var item in sortedList){
-                if(!filterListName.Contains(@item.company)){
-                    filterListName.Add(@item.company);
-                    filterListName.Sort();
-                }
-
-                if(!filterListPhone.Contains(@item.phone)){
-                    filterListPhone.Add(@item.phone);
-                    filterListPhone.Sort();
-                }
-
-                if(!filterListEmail.Contains(@item.email)){
-                    filterListEmail.Add(@item.email);
-                    filterListEmail.Sort();
-                }
-            }
-            
-            <h5>Name</h5>
-            @for(var i = 0; i < filterListName.Count;i++){
-
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="name[]" id="name-@i" value="@filterListName[i]">
-                        @filterListName[i]
-                    </label>
-                </div>
-            }
+        
+        <div class="container filter-menu-container">
+            <a href="#" class="filter-menu-toggle">Back</a>
+            <a class="" asp-controller="Home" asp-action="ViewDonations">Reset</a>
+        
+            <h4>Filter</h4>
             <hr>
 
-            <h5>Phone</h5>
-            @for(var i = 0; i < filterListPhone.Count;i++){
+            <form asp-controller="Home" asp-action="ViewSponsors" method="post" class="filter-menu-form--mod">
+                <input type="hidden" name="mySorting" value="@mySorting">
+                @foreach(var item in sortedList){
+                    if(!filterListName.Contains(@item.company)){
+                        filterListName.Add(@item.company);
+                        filterListName.Sort();
+                    }
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="phone[]" id="phone-@i" value="@filterListPhone[i]">
-                        @filterListPhone[i]
-                    </label>
-                </div>
-            }
-            <hr>
+                    if(!filterListPhone.Contains(@item.phone)){
+                        filterListPhone.Add(@item.phone);
+                        filterListPhone.Sort();
+                    }
+                    if(!filterListFax.Contains(@item.fax)){
+                        filterListFax.Add(@item.fax);
+                        filterListFax.Sort();
+                    }
 
-            <h5>Email</h5>
-            @for(var i = 0; i < filterListEmail.Count;i++){
+                    if(!filterListEmail.Contains(@item.email)){
+                        filterListEmail.Add(@item.email);
+                        filterListEmail.Sort();
+                    }
+                    if(!filterListActivity.Contains(@item.activity)){
+                        filterListActivity.Add(@item.activity);
+                        filterListActivity.Sort();
+                    }
+                    if(!filterListNotes.Contains(@item.notes)){
+                        filterListNotes.Add(@item.notes);
+                        filterListNotes.Sort();
+                    }
+                }
+                
+                <h5>Name</h5>
+                @for(var i = 0; i < filterListName.Count;i++){
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="email[]" id="email-@i" value="@filterListEmail[i]">
-                        @filterListEmail[i]
-                    </label>
-                </div>
-            }
-            <hr>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredNames.Contains(@filterListName[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="name[]" id="name-@i" value="@filterListName[i]">
+                            @filterListName[i]
+                        </label>
+                    </div>
+                }
+                <hr>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+                <h5>Phone</h5>
+                @for(var i = 0; i < filterListPhone.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredPhones.Contains(@filterListPhone[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="phone[]" id="phone-@i" value="@filterListPhone[i]">
+                            @filterListPhone[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Fax</h5>
+                @for(var i = 0; i < filterListFax.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredFaxes.Contains(@filterListFax[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="fax[]" id="fax-@i" value="@filterListFax[i]">
+                            @filterListFax[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Email</h5>
+                @for(var i = 0; i < filterListEmail.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredEmails.Contains(@filterListEmail[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="email[]" id="email-@i" value="@filterListEmail[i]">
+                            @filterListEmail[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Activity</h5>
+                @for(var i = 0; i < filterListActivity.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredActivities.Contains(@filterListActivity[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="activity[]" id="activity-@i" value="@filterListActivity[i]">
+                            @filterListActivity[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Notes</h5>
+                @for(var i = 0; i < filterListNotes.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input @(filteredNotes.Contains(@filterListNotes[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="notes[]" id="notes-@i" value="@filterListNotes[i]">
+                            @filterListNotes[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
     </div>
 }
