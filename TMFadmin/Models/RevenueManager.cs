@@ -598,6 +598,90 @@ namespace TMFadmin.Models
         *   Fund Work
         *
         */
+
+        //------------------ sort / filter
+
+
+        // return a list of all sponsors in database, sorted by provided string value
+        public List<Fund> sortFundsByMe(string mySorting="id_asc") {
+
+            List<Fund> listData;            
+
+            switch(mySorting)
+                {
+                case "id_asc":
+                    listData = fund.OrderBy(f => f.fundId).ToList();
+                    break;
+                case "id_desc":
+                    listData = fund.OrderByDescending(f => f.fundId).ToList();
+                    break;
+                case "name_asc":
+                    listData = fund.OrderBy(f => f.fundName).ToList();
+                    break;
+                case "name_desc":
+                    listData = fund.OrderByDescending(f => f.fundName).ToList();
+                    break;
+                case "creator_asc":
+                    listData = fund.OrderBy(f => f.creator).ToList();
+                    break;
+                case "creator_desc":
+                    listData = fund.OrderByDescending(f => f.creator).ToList();
+                    break;
+                case "date_asc":
+                    listData = fund.OrderBy(f => f.dateCreated).ToList();
+                    break;
+                case "date_desc":
+                    listData = fund.OrderByDescending(f => f.dateCreated).ToList();
+                    break;
+                case "notes_asc":
+                    listData = fund.OrderBy(f => f.notes).ToList();
+                    break;
+                case "notes_desc":
+                    listData = fund.OrderByDescending(f => f.notes).ToList();
+                    break;
+                default:
+                    listData = fund.OrderBy(f => f.fundId).ToList();
+                    break;
+                
+            }
+
+            return listData;
+
+        }
+
+
+        public List<Fund> filterFundList(List<Fund> myFunds, string[] myFundNames, string[] myCreators
+                                                , string[] myDates, string[] myNotes=null){
+            List<string> searchFundNames = new List<string>();
+            List<string> searchCreators = new List<string>();
+            List<string> searchDates = new List<string>();
+            List<string> searchNotes = new List<string>();
+            List<Fund> filteredFund;
+
+
+
+            // Create lists from arrays
+            if(myNotes!=null){                
+                searchFundNames=myFundNames.ToList();
+                searchCreators=myCreators.ToList();
+                searchDates=myDates.ToList();
+                searchNotes=myNotes.ToList();
+            }  
+            // apply filter to funds list, return filtered list of funds
+            if (myNotes!=null)
+            {
+                filteredFund = myFunds.Where(f => (searchFundNames.Contains(f.fundName) || (string.IsNullOrEmpty(f.fundName) && searchFundNames.Contains(string.Empty))) &&
+                                                        (searchCreators.Contains(f.creator) || (string.IsNullOrEmpty(f.creator) && searchCreators.Contains(string.Empty))) &&
+                                                        (searchDates.Contains(f.dateCreated.ToString()) || (string.IsNullOrEmpty(f.dateCreated.ToString()) && searchDates.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(f.notes) || (string.IsNullOrEmpty(f.notes) && searchNotes.Contains(string.Empty)))
+                                                        ).ToList();
+            } else{
+                filteredFund = myFunds;
+            }
+            return filteredFund;            
+        }
+
+        // --------
         //get list of funds, sorted by ID
         public List<Fund> getFundsById() {
             List<Fund> funds = fund.OrderBy(l => l.fundId).Where(f => f.fundId > 0).ToList();

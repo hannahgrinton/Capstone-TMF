@@ -1,20 +1,112 @@
 @model TMFadmin.Models.RevenueManager
+
+
+
+@{
+    // store sorting and filtering data locally
+    string mySorting=ViewData["mySorting"] as string;
+    string[] filteredName = ViewData["fundName"] as string[];
+    string[] filteredCreator = ViewData["creator"] as string[];
+    string[] filteredDate = ViewData["dateCreated"] as string[];
+    string[] filteredNotes = ViewData["notes"] as string[];
+
+    // declare local sorted and filtered lists
+    var sortedList = new List<Fund>();
+    var filteredList = new List<Fund>();
+
+    // get sorted list 
+    sortedList = Model.sortFundsByMe(mySorting);
+
+    // check for posted filters, get filtered list. if no filters posted, build default filter to show all list entries
+    if(filteredName!=null){
+
+        filteredName = Model.convertOnToNull(filteredName);
+        filteredCreator = Model.convertOnToNull(filteredCreator);
+        filteredDate = Model.convertOnToNull(filteredDate);
+        filteredNotes = Model.convertOnToNull(filteredNotes);
+
+        filteredList = Model.filterFundList(sortedList, filteredName, filteredCreator, filteredDate
+                                                , filteredNotes);
+    }else{
+        filteredName = new string[sortedList.Count];
+        filteredCreator = new string[sortedList.Count];
+        filteredDate = new string[sortedList.Count];
+        filteredNotes = new string[sortedList.Count];
+
+        for(var i = 0; i < sortedList.Count; i++){
+            filteredName[i] = sortedList[i].fundName;
+            filteredCreator[i] = sortedList[i].creator;
+            filteredDate[i] = sortedList[i].dateCreated.ToString();
+            filteredNotes[i] = sortedList[i].notes;
+        }
+
+
+        filteredList = sortedList;
+    }
+}
+
+
+
+
+
+
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Funds</h1>
     <table class="table table-hover table-striped" style="margin-top: 40px;">
+        
+        <form asp-controller="Home" asp-action="ViewFunds" method="post" class="">
+            @{
+                if(filteredName!=null){
+                    foreach(var item in filteredName){
+                    <input type="hidden" name="fundName[]" id="fundName-@item" value="@item">
+                    }
+                }
+                if(filteredCreator!=null){
+                    foreach(var item in filteredCreator){
+                    <input type="hidden" name="creator[]" id="creator-@item" value="@item">
+                    }
+                }
+                if(filteredDate!=null){
+                    foreach(var item in filteredDate){
+                    <input type="hidden" name="dateCreated[]" id="dateCreated-@item" value="@item">
+                    }
+                }
+                if(filteredNotes!=null){
+                    foreach(var item in filteredNotes){
+                    <input type="hidden" name="notes[]" id="notes-@item" value="@item">
+                    }
+                }
+            }
+
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Creator</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Notes</th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
+                    <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Fund Name</button>
+                    <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "creator_asc" ? "creator_desc" : "creator_asc")">Creator</button>
+                    <i class="sort-icon fas @(mySorting == "creator_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "creator_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "date_asc" ? "date_desc" : "date_asc")">Date Created</button>
+                    <i class="sort-icon fas @(mySorting == "date_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "date_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
+                    <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
+        </form>
         <tbody>
             @{
-                foreach (var item in Model.getFundsById())
+                foreach (var item in filteredList)
                 {
                     <tr>
                         <td>@item.fundId</td>
@@ -35,4 +127,102 @@
             }
         </tbody>
     </table>
+
+
+
+@{ 
+    List<string> filterListFundName = new List<string>();
+    List<string> filterListCreator = new List<string>();
+    List<string> filterListDate = new List<string>();
+    List<string> filterListNotes = new List<string>();
+
+    <a href="#" class="filter-menu-toggle">FILTER</a>
+    <div id="filter-menu" class="debugFb filter-menu" style="display: none">
+        
+        <div class="container filter-menu-container">
+            <a href="#" class="filter-menu-toggle">Back</a>
+            <a class="" asp-controller="Home" asp-action="ViewFunds">Reset</a>
+        
+            <h4>Filter</h4>
+            <hr>
+
+            <form asp-controller="Home" asp-action="ViewFunds" method="post" class="filter-menu-form--mod">
+                <input type="hidden" name="mySorting" value="@mySorting">
+                @foreach(var item in sortedList){
+                    if(!filterListFundName.Contains(@item.fundName)){
+                        filterListFundName.Add(@item.fundName);
+                        filterListFundName.Sort();
+                    }
+
+                    if(!filterListCreator.Contains(@item.creator)){
+                        filterListCreator.Add(@item.creator);
+                        filterListCreator.Sort();
+                    }
+                    if(!filterListDate.Contains(@item.dateCreated.ToString())){
+                        filterListDate.Add(@item.dateCreated.ToString());
+                        filterListDate.Sort();
+                    }
+
+                    if(!filterListNotes.Contains(@item.notes)){
+                        filterListNotes.Add(@item.notes);
+                        filterListNotes.Sort();
+                    }
+                }
+                
+                <h5>Fund Name</h5>
+                @for(var i = 0; i < filterListFundName.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label filter-menu-label">
+                            <input @(filteredName.Contains(@filterListFundName[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="fundName[]" id="fundName-@i" value="@filterListFundName[i]">
+                            @filterListFundName[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Creator</h5>
+                @for(var i = 0; i < filterListCreator.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label filter-menu-label">
+                            <input @(filteredCreator.Contains(@filterListCreator[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="creator[]" id="creator-@i" value="@filterListCreator[i]">
+                            @filterListCreator[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Date Created</h5>
+                @for(var i = 0; i < filterListDate.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label filter-menu-label">
+                            <input @(filteredDate.Contains(@filterListDate[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="dateCreated[]" id="dateCreated-@i" value="@filterListDate[i]">
+                            @filterListDate[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Notes</h5>
+                @for(var i = 0; i < filterListNotes.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label filter-menu-label">
+                            <input @(filteredNotes.Contains(@filterListNotes[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="notes[]" id="notes-@i" value="@filterListNotes[i]">
+                            @filterListNotes[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+}
+
+
 </div>

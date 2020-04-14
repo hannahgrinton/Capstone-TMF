@@ -756,13 +756,33 @@ namespace TMFadmin.Controllers
         **  Funds Work
         **
         ***/
-        public IActionResult ViewFunds() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+        public IActionResult ViewFunds(string mySorting = "id_asc") {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all funds
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
+
+
+        [HttpPost]
+        public IActionResult ViewFunds(string mySorting = "id_asc", string[] fundName = null
+                                            , string[] creator = null, string[] dateCreated = null, string[] notes = null) 
+                                            {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
+            //view all funds
+            ViewData["mySorting"] = mySorting;
+            ViewData["fundName"] = fundName;
+            ViewData["creator"] = creator;
+            ViewData["dateCreated"] = dateCreated;
+            ViewData["notes"] = notes;
+            
+            return View(revenueManager);
+        } 
+
         public IActionResult ViewFund(int myFundId) {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -772,18 +792,18 @@ namespace TMFadmin.Controllers
             return View(fund);
         }
         public IActionResult AddFund() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //redirect to add fund form
             Fund fund = new Fund();
             return View(fund);
         }
         [HttpPost]
         public IActionResult AddFundSubmit(Fund myFund) {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             if (!ModelState.IsValid) return RedirectToAction("AddFund");
             revenueManager.Add(myFund);
             revenueManager.SaveChanges();
