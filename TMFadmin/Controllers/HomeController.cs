@@ -18,7 +18,11 @@ namespace TMFadmin.Controllers
             revenueManager = myManager;
             environment = env;
         }
-        //---------------------------------------------------------------------- Main Work
+        /**
+        **
+        **  Main Work
+        **
+        ***/
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("auth") != "true") {
@@ -72,7 +76,7 @@ namespace TMFadmin.Controllers
             SettingsManager settings = new SettingsManager();
             settings.username = username;
             if (password != "" || password != null) {
-               settings.password = password;
+                settings.password = password;
             }
             settings.role = role;
             settings.updateUser(HttpContext, userId);
@@ -119,13 +123,37 @@ namespace TMFadmin.Controllers
             return RedirectToAction("Settings");
         }
         //---------------------------------------------------------------------- Sponsor Work
-        public IActionResult ViewSponsors() {
+
+            
+        /**
+        **
+        **  Sponsor Work
+        **
+        ***/
+        public IActionResult ViewSponsors(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
             }
             //view all sponsors
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
-        }
+        } 
+        [HttpPost]
+        public IActionResult ViewSponsors(string mySorting = "id_asc", string[] name = null
+                                            , string[] phone = null, string[] fax = null, string[] email = null
+                                            , string[] activity = null, string[] notes = null) {
+            //view all sponsors
+            ViewData["mySorting"] = mySorting;
+            ViewData["name"] = name;
+            ViewData["phone"] = phone;
+            ViewData["fax"] = fax;
+            ViewData["email"] = email;
+            ViewData["activity"] = activity;
+            ViewData["notes"] = notes;
+            
+            return View(revenueManager);
+        } 
+        
         //[HttpPost]
         public IActionResult ViewSponsor(int mySponsorId) {
             if (HttpContext.Session.GetString("auth") != "true") {
@@ -227,7 +255,11 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsors");
         } 
-        //---------------------------------------------------------------------- Advert Work
+        /**
+        **
+        **  Advert Work
+        **
+        ***/
         public IActionResult ViewAdvertisements() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -425,13 +457,18 @@ namespace TMFadmin.Controllers
             }
             
             return RedirectToAction("ViewAdvertisements");
-        } 
-        //---------------------------------------------------------------------- Donations Work
-        public IActionResult ViewDonations() {
+        }
+        /**
+        **
+        **  Donations Work
+        **
+        ***/
+        public IActionResult ViewDonations(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
             }
             //view all donations
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
         public IActionResult ViewDonation(int myDonId) {
@@ -451,6 +488,19 @@ namespace TMFadmin.Controllers
             ViewBag.fund = fund.fundName;
             return View(donation);
         }
+        
+        [HttpPost]
+        public IActionResult ViewDonations(string mySorting = "id_asc", string[] date = null
+                                            , string[] notes = null, string[] receipt = null, string[] amount = null) {
+            //view all donations
+            ViewData["mySorting"] = mySorting;
+            ViewData["date"] = date;
+            ViewData["notes"] = notes;
+            ViewData["receipt"] = receipt;
+            ViewData["amount"] = amount;
+            
+            return View(revenueManager);
+        } 
         public IActionResult AddDonation() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -474,9 +524,9 @@ namespace TMFadmin.Controllers
             } else {
                 myDonation.receipt = 0;
             }
-            
-            myDonation.fundId = myFundId; 
-            
+            if (myFundId != 0) {
+                myDonation.fundId = myFundId; 
+            }
             //add donation
             revenueManager.Add(myDonation);
             revenueManager.SaveChanges();
@@ -556,6 +606,12 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewDonations");
         }
         //---------------------------------------------------------------------- Awards Work
+            
+        /**
+        **
+        **  Awards Work
+        **
+        ***/
         public IActionResult ViewAwards() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -637,6 +693,12 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewAwards");
         }        
         //---------------------------------------------------------------------- Funds Work
+
+        /**
+        **
+        **  Funds Work
+        **
+        ***/
         public IActionResult ViewFunds() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -720,6 +782,11 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewFunds");
         }
         //---------------------------------------------------------------------- Address Work
+        /**
+        **
+        **  Address Work
+        **
+        ***/
         public IActionResult ViewAddresses() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -815,6 +882,16 @@ namespace TMFadmin.Controllers
             revenueManager.Update(myAddress);
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsor", new { mySponsorId = newRel.sponsorId });
+        }
+        /**
+        **
+        **  Login Page Work
+        **
+        ***/
+        // check out login page
+        public IActionResult LandingLogin() {
+            //redirect to add login
+            return View(revenueManager);
         }
     }
 }

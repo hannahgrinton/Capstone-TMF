@@ -2,85 +2,161 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+    /* Vertically center the text there */
 }
+
 .ico-button {
-  margin: 3px; 
-  all: unset;
-  color: #007bff;
-  cursor: pointer;
+    margin: 3px;
+    all: unset;
+    color: #007bff;
+    cursor: pointer;
 }
+
 .ico-button:hover {
-  color: #0056b3;
+    color: #0056b3;
 }
 
-.accHead{
-  background-color: rgba(0, 0, 0, 0.8);
-}
-.accHead>a{  
-  color:white;
+.card-container--mod {
+    flex-wrap: wrap-reverse;
 }
 
-.btnSubmit{
-  margin: 5px;
+.accHead {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.accHead>a {
+    color: white;
+}
+
+.btnSubmit {
+    margin: 5px;
 }
 
 .address-button-box {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    margin-bottom: 10px;
 }
+
 .advertImage {
-  max-width: 400px;
+    max-width: 400px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.card--mod {
+    max-width: min-content;
+    height: min-content;
+    flex: 1 0 auto;
+    margin: 2px;
+}
+
+.card-body--mod {
+    padding: 5px;
+    width: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.sort-icon {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.sort-link {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    text-decoration: none;
+}
+
+#filter-menu {
+    background-color: black;
+    z-index: 10000;
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    right: 0px;
+    top: 0;
+    color: #ffffff;
+    padding-top: 60px;
+    opacity: 0.95;
+    overflow: auto;
+}
+
+.filter-menu--hidden {
+    right: -100%;
+    display: none;
+}
+
+.filter-menu-form--mod {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    z-index: 100000;
 }

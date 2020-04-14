@@ -25,3 +25,13 @@ $("#paid").keyup(function() {
     var due = cost - paid;
     $("#due").val(due);
 });
+
+
+var menuHidden = true;
+
+$(".filter-menu-toggle").click(function() {
+
+        $("#filter-menu").toggle();
+    }
+
+);
