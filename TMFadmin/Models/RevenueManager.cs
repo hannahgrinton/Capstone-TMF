@@ -63,6 +63,15 @@ namespace TMFadmin.Models
             return myStrings;
         }
 
+        public string[] convertOnOrNullToEmpty(string[] myStrings){
+            for(var i = 0; i < myStrings.Length; i++){
+                if(myStrings[i]=="on" || string.IsNullOrEmpty(myStrings[i])){
+                    myStrings[i] = "";
+                }
+            }
+            return myStrings;
+        }
+
 
         // return a list of all sponsors in database, sorted by provided string value
         public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc") {
@@ -440,6 +449,12 @@ namespace TMFadmin.Models
                 case "amount_desc":
                     listData = donation.OrderByDescending(d => d.amount).ToList();
                     break;
+                case "fund_asc":
+                    listData = donation.OrderBy(d => d.fundId).ToList();
+                    break;
+                case "fund_desc":
+                    listData = donation.OrderByDescending(d => d.fundId).ToList();
+                    break;
                 default:
                     listData = donation.OrderBy(d => d.donId).ToList();
                     break;
@@ -452,30 +467,33 @@ namespace TMFadmin.Models
 
 
         public List<Donation> filterDonationList(List<Donation> myDonations, string[] myDates, string[] myNotes
-                                                , string[] myReceipts, string[] myAmounts=null){
+                                                , string[] myReceipts, string[] myAmounts, string[] myFundIds=null){
             List<string> searchDates = new List<string>();
             List<string> searchNotes = new List<string>();
             List<string> searchReceipts = new List<string>();
             List<string> searchAmounts = new List<string>();
+            List<string> searchFundIds = new List<string>();
+            
             List<Donation> filteredDonation;
 
 
 
             // Create lists from arrays
-            if(myNotes!=null){                
+            if(myFundIds!=null){                
                 searchDates=myDates.ToList();
                 searchNotes=myNotes.ToList();
                 searchReceipts=myReceipts.ToList();
                 searchAmounts=myAmounts.ToList();
+                searchFundIds=myFundIds.ToList();
             }  
             // apply filter to sponsors list, return filtered list of sponsors
-            if (myAmounts!=null)
+            if (myFundIds!=null)
             {
-                filteredDonation = myDonations.Where(
-                    d => (searchDates.Contains(d.date.ToString()) || (string.IsNullOrEmpty(d.date.ToString()) && searchDates.Contains(string.Empty))) &&
+                filteredDonation = myDonations.Where(d=>(searchDates.Contains(d.date.ToString()) || (string.IsNullOrEmpty(d.date.ToString()) && searchDates.Contains(string.Empty))) &&
                                                         (searchNotes.Contains(d.notes) || (string.IsNullOrEmpty(d.notes) && searchNotes.Contains(string.Empty))) &&
                                                         (searchReceipts.Contains(d.receipt.ToString()) || (string.IsNullOrEmpty(d.receipt.ToString()) && searchReceipts.Contains(string.Empty))) &&
-                                                        (searchAmounts.Contains(d.amount.ToString()) || (string.IsNullOrEmpty(d.amount.ToString()) && searchAmounts.Contains(string.Empty)))
+                                                        (searchAmounts.Contains(d.amount.ToString()) || (string.IsNullOrEmpty(d.amount.ToString()) && searchAmounts.Contains(string.Empty))) &&
+                                                        (searchFundIds.Contains(d.fundId.ToString()) || (string.IsNullOrEmpty(d.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
                                                         ).ToList();
             } else{
                 filteredDonation = myDonations;
@@ -490,6 +508,83 @@ namespace TMFadmin.Models
         *
         */
         //get list of awards, sorted by ID
+
+
+
+
+        // return a list of all awards in database, sorted by provided string value
+        public List<Award> sortAwardsByMe(string mySorting="id_asc") {
+
+            List<Award> listData;            
+
+            switch(mySorting)
+                {
+                case "id_asc":
+                    listData = awards.OrderBy(a => a.awardId).ToList();
+                    break;
+                case "id_desc":
+                    listData = awards.OrderByDescending(a => a.awardId).ToList();
+                    break;
+                case "name_asc":
+                    listData = awards.OrderBy(a => a.recipient).ToList();
+                    break;
+                case "name_desc":
+                    listData = awards.OrderByDescending(a => a.recipient).ToList();
+                    break;
+                case "year_asc":
+                    listData = awards.OrderBy(a => a.year).ToList();
+                    break;
+                case "year_desc":
+                    listData = awards.OrderByDescending(a => a.year).ToList();
+                    break;
+                case "fund_asc":
+                    listData = awards.OrderBy(a => a.fundId).ToList();
+                    break;
+                case "fund_desc":
+                    listData = awards.OrderByDescending(a => a.fundId).ToList();
+                    break;
+                default:
+                    listData = awards.OrderBy(a => a.awardId).ToList();
+                    break;
+                
+            }
+
+            return listData;
+
+        }
+
+
+        public List<Award> filterAwardList(List<Award> myAwards, string[] myRecipient, string[] myYear
+                                                , string[] myFundId=null){
+            List<string> searchRecipients = new List<string>();
+            List<string> searchYears = new List<string>();
+            List<string> searchFundIds = new List<string>();
+            List<Award> filteredAward;
+
+
+
+            // Create lists from arrays
+            if(myFundId!=null){                
+                searchRecipients=myRecipient.ToList();
+                searchYears=myYear.ToList();
+                searchFundIds=myFundId.ToList();
+            }  
+            // apply filter to sponsors list, return filtered list of sponsors
+            if (myFundId!=null)
+            {
+                filteredAward = myAwards.Where(a => (searchRecipients.Contains(a.recipient) || (string.IsNullOrEmpty(a.recipient) && searchRecipients.Contains(string.Empty))) &&
+                                                        (searchYears.Contains(a.year) || (string.IsNullOrEmpty(a.year) && searchYears.Contains(string.Empty))) &&
+                                                        (searchFundIds.Contains(a.fundId.ToString()) || (string.IsNullOrEmpty(a.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
+                                                        ).ToList();
+            } else{
+                filteredAward = myAwards;
+            }
+            return filteredAward;            
+        }
+
+
+
+        
         public List<Award> getAwardsById() {
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
             return award;

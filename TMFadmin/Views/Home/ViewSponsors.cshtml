@@ -163,7 +163,7 @@
         
         <div class="container filter-menu-container">
             <a href="#" class="filter-menu-toggle">Back</a>
-            <a class="" asp-controller="Home" asp-action="ViewDonations">Reset</a>
+            <a class="" asp-controller="Home" asp-action="ViewSponsors">Reset</a>
         
             <h4>Filter</h4>
             <hr>
@@ -203,7 +203,7 @@
                 @for(var i = 0; i < filterListName.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredNames.Contains(@filterListName[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="name[]" id="name-@i" value="@filterListName[i]">
                             @filterListName[i]
                         </label>
@@ -215,7 +215,7 @@
                 @for(var i = 0; i < filterListPhone.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredPhones.Contains(@filterListPhone[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="phone[]" id="phone-@i" value="@filterListPhone[i]">
                             @filterListPhone[i]
                         </label>
@@ -227,7 +227,7 @@
                 @for(var i = 0; i < filterListFax.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredFaxes.Contains(@filterListFax[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="fax[]" id="fax-@i" value="@filterListFax[i]">
                             @filterListFax[i]
                         </label>
@@ -239,7 +239,7 @@
                 @for(var i = 0; i < filterListEmail.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredEmails.Contains(@filterListEmail[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="email[]" id="email-@i" value="@filterListEmail[i]">
                             @filterListEmail[i]
                         </label>
@@ -251,7 +251,7 @@
                 @for(var i = 0; i < filterListActivity.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredActivities.Contains(@filterListActivity[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="activity[]" id="activity-@i" value="@filterListActivity[i]">
                             @filterListActivity[i]
                         </label>
@@ -263,7 +263,7 @@
                 @for(var i = 0; i < filterListNotes.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredNotes.Contains(@filterListNotes[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="notes[]" id="notes-@i" value="@filterListNotes[i]">
                             @filterListNotes[i]
                         </label>

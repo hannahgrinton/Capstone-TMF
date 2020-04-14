@@ -524,7 +524,8 @@ namespace TMFadmin.Controllers
         
         [HttpPost]
         public IActionResult ViewDonations(string mySorting = "id_asc", string[] date = null
-                                            , string[] notes = null, string[] receipt = null, string[] amount = null) 
+                                            , string[] notes = null, string[] receipt = null
+                                            , string[] amount = null, string[] fundId = null) 
                                             {
             // if (HttpContext.Session.GetString("auth") != "true") {
             //     return RedirectToAction("Index", "Login");
@@ -535,6 +536,8 @@ namespace TMFadmin.Controllers
             ViewData["notes"] = notes;
             ViewData["receipt"] = receipt;
             ViewData["amount"] = amount;
+            ViewData["fundId"] = fundId;
+
             
             return View(revenueManager);
         } 
@@ -649,13 +652,30 @@ namespace TMFadmin.Controllers
         **  Awards Work
         **
         ***/
-        public IActionResult ViewAwards() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+        public IActionResult ViewAwards(string mySorting = "id_asc") {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all awards
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
+        [HttpPost]
+        public IActionResult ViewAwards(string mySorting = "id_asc", string[] recipient = null
+                                            , string[] year = null, string[] fundId = null) 
+                                            {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
+            //view all sponsors
+            ViewData["mySorting"] = mySorting;
+            ViewData["recipient"] = recipient;
+            ViewData["year"] = year;
+            ViewData["fundId"] = fundId;
+            
+            return View(revenueManager);
+        } 
+        
         public IActionResult ViewAward(int myAwardId) {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -668,9 +688,9 @@ namespace TMFadmin.Controllers
             return View(award);
         }
         public IActionResult AddAward() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //redirect to add fund form
             Award award = new Award();
             ViewBag.fundList = revenueManager.getFundList();
@@ -678,9 +698,9 @@ namespace TMFadmin.Controllers
         }                
         [HttpPost]
         public IActionResult AddAwardSubmit(Award myAward, int myFundId) {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             if (!ModelState.IsValid) return RedirectToAction("AddAward");
             myAward.fundId = myFundId;
             //add award

@@ -7,6 +7,7 @@
     string[] filteredNotes = ViewData["notes"] as string[];
     string[] filteredReceipt = ViewData["receipt"] as string[];
     string[] filteredAmount = ViewData["amount"] as string[];
+    string[] filteredFundId = ViewData["fundId"] as string[];
 
     // declare local sorted and filtered lists
     var sortedList = new List<Donation>();
@@ -22,20 +23,23 @@
         filteredNotes = Model.convertOnToNull(filteredNotes);
         filteredReceipt = Model.convertOnToNull(filteredReceipt);
         filteredAmount = Model.convertOnToNull(filteredAmount);
+        filteredFundId = Model.convertOnOrNullToEmpty(filteredFundId);
 
         filteredList = Model.filterDonationList(sortedList, filteredDates, filteredNotes, filteredReceipt
-                                                , filteredAmount);
+                                                , filteredAmount, filteredFundId);
     }else{
         filteredDates = new string[sortedList.Count];
         filteredNotes = new string[sortedList.Count];
         filteredReceipt = new string[sortedList.Count];
         filteredAmount = new string[sortedList.Count];
+        filteredFundId = new string[sortedList.Count];
 
         for(var i = 0; i < sortedList.Count; i++){
             filteredDates[i] = sortedList[i].date.ToString();
             filteredNotes[i] = sortedList[i].notes;
             filteredReceipt[i] = sortedList[i].receipt.ToString();
             filteredAmount[i] = sortedList[i].amount.ToString();
+            filteredFundId[i] = sortedList[i].fundId.ToString();
         }
 
 
@@ -73,6 +77,11 @@
                     <input type="hidden" name="amount[]" id="amount-@item" value="@item">
                     }
                 }
+                if(filteredFundId!=null){
+                    foreach(var item in filteredFundId){
+                    <input type="hidden" name="fundId[]" id="fundId-@item" value="@item">
+                    }
+                }
             }
 
 
@@ -99,7 +108,7 @@
                     <i class="sort-icon fas @(mySorting == "amount_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "amount_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <button disabled type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "fund_asc" ? "fund_desc" : "fund_asc")">Fund</button>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "fund_asc" ? "fund_desc" : "fund_asc")">Fund</button>
                     <i class="sort-icon fas @(mySorting == "fund_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fund_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">Options</th>
@@ -138,6 +147,7 @@
     List<string> filterListNotes = new List<string>();
     List<string> filterListReceipt = new List<string>();
     List<string> filterListAmount = new List<string>();
+    List<string> filterListFundId = new List<string>();
 
     <a href="#" class="filter-menu-toggle">FILTER</a>
     <div id="filter-menu" class="debugFb filter-menu" style="display: none">
@@ -170,13 +180,18 @@
                         filterListAmount.Add(@item.amount.ToString());
                         filterListAmount.Sort();
                     }
+
+                    if(!filterListFundId.Contains(@item.fundId.ToString())){
+                        filterListFundId.Add(@item.fundId.ToString());
+                        filterListFundId.Sort();
+                    }
                 }
                 
                 <h5>Date</h5>
                 @for(var i = 0; i < filterListDate.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredDates.Contains(@filterListDate[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="date[]" id="date-@i" value="@filterListDate[i]">
                             @filterListDate[i]
                         </label>
@@ -188,7 +203,7 @@
                 @for(var i = 0; i < filterListNotes.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredNotes.Contains(@filterListNotes[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="notes[]" id="notes-@i" value="@filterListNotes[i]">
                             @filterListNotes[i]
                         </label>
@@ -200,7 +215,7 @@
                 @for(var i = 0; i < filterListReceipt.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredReceipt.Contains(@filterListReceipt[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="receipt[]" id="receipt-@i" value="@filterListReceipt[i]">
                             @filterListReceipt[i]
                         </label>
@@ -212,9 +227,21 @@
                 @for(var i = 0; i < filterListAmount.Count;i++){
 
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label">
+                        <label class="form-check-label filter-menu-label">
                             <input @(filteredAmount.Contains(@filterListAmount[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="amount[]" id="amount-@i" value="@filterListAmount[i]">
                             @filterListAmount[i]
+                        </label>
+                    </div>
+                }
+                <hr>
+
+                <h5>Fund ID</h5>
+                @for(var i = 0; i < filterListFundId.Count;i++){
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label filter-menu-label">
+                            <input @(filteredFundId.Contains(@filterListFundId[i]) ? "checked" : "") class="form-check-input" type="checkbox" name="fundId[]" id="fundId-@i" value="@filterListFundId[i]">
+                            @filterListFundId[i]
                         </label>
                     </div>
                 }
