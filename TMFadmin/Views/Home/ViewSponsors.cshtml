@@ -96,7 +96,7 @@
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">
-                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name (Company/Individual)</button>
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
                 </th>
                 <th scope="col">

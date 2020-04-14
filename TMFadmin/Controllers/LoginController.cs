@@ -14,9 +14,9 @@ namespace TMFadmin.Controllers {
         }
 
         public IActionResult Submit(string myUsername, string myPassword) {
-            WebLogin webLogin = new WebLogin("Server=localhost;Database=tmf-capstone;Uid=fuzzbox;Pwd=threejams;SslMode=none;", HttpContext);
+            //WebLogin webLogin = new WebLogin("Server=localhost;Database=tmf-capstone;Uid=fuzzbox;Pwd=threejams;SslMode=none;", HttpContext);
             
-            //WebLogin webLogin = new WebLogin("Server=localhost;Database=dbTMF;Uid=root;Pwd=;SslMode=none;", HttpContext);
+            WebLogin webLogin = new WebLogin("Server=localhost;Database=dbTMF;Uid=root;Pwd=;SslMode=none;", HttpContext);
             webLogin.username = myUsername;
             webLogin.password = myPassword;
             //do I have access?
