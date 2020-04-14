@@ -51,17 +51,62 @@
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Donations</h1>
     <table class="table table-hover table-striped" style="margin-top: 40px;">
+        <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
+            @{
+                if(filteredDates!=null){
+                    foreach(var item in filteredDates){
+                    <input type="hidden" name="date[]" id="date-@item" value="@item">
+                    }
+                }
+                if(filteredNotes!=null){
+                    foreach(var item in filteredNotes){
+                    <input type="hidden" name="notes[]" id="notes-@item" value="@item">
+                    }
+                }
+                if(filteredReceipt!=null){
+                    foreach(var item in filteredReceipt){
+                    <input type="hidden" name="receipt[]" id="receipt-@item" value="@item">
+                    }
+                }
+                if(filteredAmount!=null){
+                    foreach(var item in filteredAmount){
+                    <input type="hidden" name="amount[]" id="amount-@item" value="@item">
+                    }
+                }
+            }
+
+
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Notes</th>
-                <th scope="col">Receipt Sent</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Fund</th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
+                    <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "date_asc" ? "date_desc" : "date_asc")">Date</button>
+                    <i class="sort-icon fas @(mySorting == "date_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "date_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
+                    <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "receipt_asc" ? "receipt_desc" : "receipt_asc")">Receipt Sent</button>
+                    <i class="sort-icon fas @(mySorting == "receipt_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "receipt_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "amount_asc" ? "amount_desc" : "amount_asc")">Amount</button>
+                    <i class="sort-icon fas @(mySorting == "amount_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "amount_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
+                <th scope="col">
+                    <button disabled type=submit class="sort-link" asp-controller="Home" asp-action="ViewDonations" asp-route-mySorting="@(mySorting == "fund_asc" ? "fund_desc" : "fund_asc")">Fund</button>
+                    <i class="sort-icon fas @(mySorting == "fund_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fund_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </th>
                 <th scope="col">Options</th>
             </tr>
+
         </thead>
+        </form>
         <tbody>
             @{
                 foreach (var item in filteredList)
