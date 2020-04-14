@@ -19,7 +19,7 @@ namespace TMFadmin
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)            
-            .UseUrls("http://localhost:5200")  
+            //.UseUrls("http://localhost:5300")  
             .UseKestrel()  
             .UseStartup<Startup>();  
     }
