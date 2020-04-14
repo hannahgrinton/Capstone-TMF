@@ -25,15 +25,15 @@ namespace TMFadmin.Controllers
         ***/
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
-            return View(revenueManager);
-        }
-        public IActionResult Logout() {
             // if (HttpContext.Session.GetString("auth") != "true") {
             //     return RedirectToAction("Index", "Login");
             // }
+            return View(revenueManager);
+        }
+        public IActionResult Logout() {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
             //logs user out and reqirects to login page
             HttpContext.Session.SetString("auth", "false");
             
@@ -131,9 +131,9 @@ namespace TMFadmin.Controllers
         **
         ***/
         public IActionResult ViewSponsors(string mySorting = "id_asc") {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all sponsors
             ViewData["mySorting"] = mySorting;
             return View(revenueManager);
@@ -141,7 +141,11 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult ViewSponsors(string mySorting = "id_asc", string[] name = null
                                             , string[] phone = null, string[] fax = null, string[] email = null
-                                            , string[] activity = null, string[] notes = null) {
+                                            , string[] activity = null, string[] notes = null) 
+                                            {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all sponsors
             ViewData["mySorting"] = mySorting;
             ViewData["name"] = name;
@@ -260,13 +264,42 @@ namespace TMFadmin.Controllers
         **  Advert Work
         **
         ***/
-        public IActionResult ViewAdvertisements() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+        public IActionResult ViewAdvertisements(string mySorting = "id_asc") {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all advertisements
+            
+            ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
+
+
+        [HttpPost]
+        public IActionResult ViewAdvertisements(string mySorting = "id_asc", string[] date = null
+                                            , string[] notes = null, string[] imgFile = null, string[] adSize = null
+                                            , string[] cost = null, string[] paid = null, string[] due = null) 
+                                            {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
+            //view all ads
+            ViewData["mySorting"] = mySorting;
+            ViewData["date"] = date;
+            ViewData["notes"] = notes;
+            ViewData["imgFile"] = imgFile;
+            ViewData["adSize"] = adSize;
+            ViewData["cost"] = cost;
+            ViewData["paid"] = paid;
+            ViewData["due"] = due;
+            
+            return View(revenueManager);
+        } 
+        
+
+
+
+
         public IActionResult ViewAdvertisement(int myAdId) {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -281,9 +314,9 @@ namespace TMFadmin.Controllers
             return View(advertisement);
         }
         public IActionResult AddAdvertisement() {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //redirect to add ad form
             Advertisement advertisement = new Advertisement();
             ViewBag.selectList = revenueManager.getList();
@@ -291,9 +324,9 @@ namespace TMFadmin.Controllers
         }        
         [HttpPost]
         public IActionResult AddAdvertisementSubmit(Advertisement myAdvertisement, int mySponsorId, String adSize, IFormFile imgFile) {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             ImageManager imageManager = new ImageManager(environment, "images");
             if (!ModelState.IsValid) return RedirectToAction("AddAdvertisement");
             //submit new ad to db
@@ -464,9 +497,9 @@ namespace TMFadmin.Controllers
         **
         ***/
         public IActionResult ViewDonations(string mySorting = "id_asc") {
-            if (HttpContext.Session.GetString("auth") != "true") {
-                return RedirectToAction("Index", "Login");
-            }
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all donations
             ViewData["mySorting"] = mySorting;
             return View(revenueManager);
@@ -491,7 +524,11 @@ namespace TMFadmin.Controllers
         
         [HttpPost]
         public IActionResult ViewDonations(string mySorting = "id_asc", string[] date = null
-                                            , string[] notes = null, string[] receipt = null, string[] amount = null) {
+                                            , string[] notes = null, string[] receipt = null, string[] amount = null) 
+                                            {
+            // if (HttpContext.Session.GetString("auth") != "true") {
+            //     return RedirectToAction("Index", "Login");
+            // }
             //view all donations
             ViewData["mySorting"] = mySorting;
             ViewData["date"] = date;

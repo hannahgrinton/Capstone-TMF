@@ -239,6 +239,116 @@ namespace TMFadmin.Models
         * 
         */
 
+        // -------------------------------
+
+        // return a list of all advertisements in database, sorted by provided string value
+        public List<Advertisement> sortAdsByMe(string mySorting="id_asc") {
+
+            List<Advertisement> listData;            
+
+            switch(mySorting)
+                {
+                case "id_asc":
+                    listData = advertisement.OrderBy(a => a.adId).ToList();
+                    break;
+                case "id_desc":
+                    listData = advertisement.OrderByDescending(a => a.adId).ToList();
+                    break;
+                case "date_asc":
+                    listData = advertisement.OrderBy(a => a.date).ToList();
+                    break;
+                case "date_desc":
+                    listData = advertisement.OrderByDescending(a => a.date).ToList();
+                    break;
+                case "notes_asc":
+                    listData = advertisement.OrderBy(a => a.notes).ToList();
+                    break;
+                case "notes_desc":
+                    listData = advertisement.OrderByDescending(a => a.notes).ToList();
+                    break;
+                case "img_asc":
+                    listData = advertisement.OrderBy(a => a.imgFile).ToList();
+                    break;
+                case "img_desc":
+                    listData = advertisement.OrderByDescending(a => a.imgFile).ToList();
+                    break;
+                case "size_asc":
+                    listData = advertisement.OrderBy(a => a.adSize).ToList();
+                    break;
+                case "size_desc":
+                    listData = advertisement.OrderByDescending(a => a.adSize).ToList();
+                    break;
+                case "cost_asc":
+                    listData = advertisement.OrderBy(a => a.cost).ToList();
+                    break;
+                case "cost_desc":
+                    listData = advertisement.OrderByDescending(a => a.cost).ToList();
+                    break;
+                case "paid_asc":
+                    listData = advertisement.OrderBy(a => a.paid).ToList();
+                    break;
+                case "paid_desc":
+                    listData = advertisement.OrderByDescending(a => a.paid).ToList();
+                    break;
+                case "due_asc":
+                    listData = advertisement.OrderBy(a => a.due).ToList();
+                    break;
+                case "due_desc":
+                    listData = advertisement.OrderByDescending(a => a.due).ToList();
+                    break;
+                default:
+                    listData = advertisement.OrderBy(a => a.adId).ToList();
+                    break;
+                
+            }
+
+            return listData;
+
+        }
+
+
+        public List<Advertisement> filterAdList(List<Advertisement> myAds, string[] myDates, string[] myNotes
+                                                , string[] myImgFiles, string[] myAdSizes, string[] myCosts, 
+                                                string[] myPaid, string[] myDue=null)
+                                                {
+
+            List<string> searchDates = new List<string>();
+            List<string> searchNotes = new List<string>();
+            List<string> searchImgFiles = new List<string>();
+            List<string> searchAdSizes = new List<string>();
+            List<string> searchCosts = new List<string>();
+            List<string> searchPaid = new List<string>();
+            List<string> searchDue = new List<string>();
+            List<Advertisement> filteredAd;
+
+            // Create lists from arrays
+            if(myDue!=null){                
+                searchDates=myDates.ToList();
+                searchNotes=myNotes.ToList();
+                searchImgFiles=myImgFiles.ToList();
+                searchAdSizes=myAdSizes.ToList();
+                searchCosts=myCosts.ToList();
+                searchPaid=myPaid.ToList();
+                searchDue=myDue.ToList();
+            }  
+            // apply filter to ads list, return filtered list of sponsors
+            if (myDue!=null)
+            {
+                filteredAd = myAds.Where(a => (searchDates.Contains(a.date.ToString()) || (string.IsNullOrEmpty(a.date.ToString()) && searchDates.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(a.notes) || (string.IsNullOrEmpty(a.notes) && searchNotes.Contains(string.Empty))) &&
+                                                        (searchImgFiles.Contains(a.imgFile) || (string.IsNullOrEmpty(a.imgFile) && searchImgFiles.Contains(string.Empty))) &&
+                                                        (searchAdSizes.Contains(a.adSize) || (string.IsNullOrEmpty(a.adSize) && searchAdSizes.Contains(string.Empty))) &&
+                                                        (searchCosts.Contains(a.cost.ToString()) || (string.IsNullOrEmpty(a.cost.ToString()) && searchCosts.Contains(string.Empty))) &&
+                                                        (searchPaid.Contains(a.paid.ToString()) || (string.IsNullOrEmpty(a.paid.ToString()) && searchPaid.Contains(string.Empty))) &&
+                                                        (searchDue.Contains(a.due.ToString()) || (string.IsNullOrEmpty(a.due.ToString()) && searchDue.Contains(string.Empty)))
+                                                        ).ToList();
+            } else{
+                filteredAd = myAds;
+            }
+            return filteredAd;            
+        }
+        //-----------------
+
         //get list of adverts, sorted by ID
         public List<Advertisement> getAdvertisementsById() {
             List<Advertisement> advertisements = advertisement.OrderBy(l => l.adId).ToList();
@@ -348,7 +458,6 @@ namespace TMFadmin.Models
             List<string> searchReceipts = new List<string>();
             List<string> searchAmounts = new List<string>();
             List<Donation> filteredDonation;
-            Console.WriteLine(">>>>>>>>>"+myDonations);
 
 
 
