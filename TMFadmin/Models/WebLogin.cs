@@ -28,7 +28,7 @@ namespace TMFadmin.Models {
 			_password = "";
 			_access = false;
 			//clear out the sesion each time object is constructed
-			context.Session.Clear();
+			//context.Session.Clear();
 		}
 		// ------------------------------------------------------- gets/sets
 		public string username {
