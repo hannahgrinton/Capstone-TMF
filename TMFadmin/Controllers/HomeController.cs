@@ -18,11 +18,7 @@ namespace TMFadmin.Controllers
             revenueManager = myManager;
             environment = env;
         }
-        /**
-        **
-        **  Main Work
-        **
-        ***/
+        //---------------------------------------------------------------------- Main Work
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("auth") != "true") {
