@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMFadmin.Models;
 
+using System.Text;
+using System.IO;
 namespace TMFadmin.Controllers
 {
     public class HomeController : Controller
@@ -966,9 +968,27 @@ namespace TMFadmin.Controllers
         **
         ***/
         // check out login page
+        
         public IActionResult LandingLogin() {
             //redirect to add login
             return View(revenueManager);
         }
+
+
+
+        /**
+        **
+        ** File Export
+        **
+        ***/        
+[Route("{myStringToExport}")]
+        public IActionResult ExportCsv(string myStringToExport) {
+            if (HttpContext.Session.GetString("auth") != "true") {
+                return RedirectToAction("Index", "Login");
+            }
+            //return csv File
+            return File(Encoding.UTF8.GetBytes(myStringToExport),"text/csv","TMF_Export.csv");        
+        }
+
     }
 }

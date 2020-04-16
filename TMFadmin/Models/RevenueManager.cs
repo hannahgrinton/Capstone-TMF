@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Text;
+using System.IO;
+
+
 namespace TMFadmin.Models
 {
     public class RevenueManager : DbContext
@@ -36,7 +40,8 @@ namespace TMFadmin.Models
 
 
 
-        
+
+
         //get current sponsor
         public Sponsor getSponsor(int mySponsorId) {
             return sponsor.Single(item => item.sponsorId == mySponsorId);
@@ -730,5 +735,30 @@ namespace TMFadmin.Models
         public AddressRelations getAddressRelations(int myAddressId) {
             return addressRels.Single(item => item.addressId == myAddressId);
         }
+
+
+        /**
+        **
+        **
+        ** export csv
+        **
+        **
+        **
+        ***/
+
+
+        public string createCsvString(List<Sponsor> myExportList) {
+            //return csv filepublic File
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Name,Phone,Fax,Email,Activity,Notes");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.sponsorId},{item.company},{item.phone},{item.fax},{item.email},{item.activity},{item.notes}");
+            }
+            return builder.ToString();
+        
+        }
+
+
+
     }
 }
