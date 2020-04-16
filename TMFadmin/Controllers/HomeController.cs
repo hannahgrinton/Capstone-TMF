@@ -20,11 +20,7 @@ namespace TMFadmin.Controllers
             revenueManager = myManager;
             environment = env;
         }
-        /**
-        **
-        **  Main Work
-        **
-        ***/
+        //---------------------------------------------------------------------- Main Work
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("auth") != "true") {
@@ -125,13 +121,6 @@ namespace TMFadmin.Controllers
             return RedirectToAction("Settings");
         }
         //---------------------------------------------------------------------- Sponsor Work
-
-            
-        /**
-        **
-        **  Sponsor Work
-        **
-        ***/
         public IActionResult ViewSponsors(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -261,11 +250,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsors");
         } 
-        /**
-        **
-        **  Advert Work
-        **
-        ***/
+        //---------------------------------------------------------------------- Advert Work
         public IActionResult ViewAdvertisements(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -275,8 +260,6 @@ namespace TMFadmin.Controllers
             ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
-
-
         [HttpPost]
         public IActionResult ViewAdvertisements(string mySorting = "id_asc", string[] date = null
                                             , string[] notes = null, string[] imgFile = null, string[] adSize = null
@@ -297,12 +280,7 @@ namespace TMFadmin.Controllers
             
             return View(revenueManager);
         } 
-        
-
-
-
-
-        public IActionResult ViewAdvertisement(int myAdId) {
+       public IActionResult ViewAdvertisement(int myAdId) {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
             }
@@ -493,11 +471,7 @@ namespace TMFadmin.Controllers
             
             return RedirectToAction("ViewAdvertisements");
         }
-        /**
-        **
-        **  Donations Work
-        **
-        ***/
+        //---------------------------------------------------------------------- donation work
         public IActionResult ViewDonations(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -648,12 +622,6 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewDonations");
         }
         //---------------------------------------------------------------------- Awards Work
-            
-        /**
-        **
-        **  Awards Work
-        **
-        ***/
         public IActionResult ViewAwards(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -751,13 +719,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewAwards");
         }        
-        //---------------------------------------------------------------------- Funds Work
-
-        /**
-        **
-        **  Funds Work
-        **
-        ***/
+        //---------------------------------------------------------------------- Fund Work
         public IActionResult ViewFunds(string mySorting = "id_asc") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -766,8 +728,6 @@ namespace TMFadmin.Controllers
             ViewData["mySorting"] = mySorting;
             return View(revenueManager);
         }
-
-
         [HttpPost]
         public IActionResult ViewFunds(string mySorting = "id_asc", string[] fundName = null
                                             , string[] creator = null, string[] dateCreated = null, string[] notes = null) 
@@ -861,11 +821,6 @@ namespace TMFadmin.Controllers
             return RedirectToAction("ViewFunds");
         }
         //---------------------------------------------------------------------- Address Work
-        /**
-        **
-        **  Address Work
-        **
-        ***/
         public IActionResult ViewAddresses() {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
