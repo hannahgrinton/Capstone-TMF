@@ -145,6 +145,8 @@ body {
     padding-top: 60px;
     opacity: 0.95;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .filter-menu--hidden {
@@ -159,4 +161,12 @@ body {
 
 .navbar {
     z-index: 100000;
+}
+
+.function-links {
+    padding: 10px;
+}
+
+.filter-menu-label {
+    text-align: start;
 }

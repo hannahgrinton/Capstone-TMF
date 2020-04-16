@@ -10,6 +10,7 @@
     string[] filteredCosts = ViewData["cost"] as string[];
     string[] filteredPaid = ViewData["paid"] as string[];
     string[] filteredDue = ViewData["due"] as string[];
+    string csvExportString = "";
 
     // declare local sorted and filtered lists
     var sortedList = new List<Advertisement>();
@@ -21,6 +22,7 @@
     // check for posted filters, get filtered list. if no filters posted, build default filter to show all list entries
     if(filteredDates!=null){
 
+        // replace 'on' values left from post in filter list with null
         filteredDates = Model.convertOnToNull(filteredDates);
         filteredNotes = Model.convertOnToNull(filteredNotes);
         filteredImgFiles = Model.convertOnToNull(filteredImgFiles);
@@ -29,9 +31,11 @@
         filteredPaid = Model.convertOnToNull(filteredPaid);
         filteredDue = Model.convertOnToNull(filteredDue);
 
+        // filter sorted list according to filtering parameters
         filteredList = Model.filterAdList(sortedList, filteredDates, filteredNotes, filteredImgFiles
                                                 , filteredAdSizes, filteredCosts, filteredPaid, filteredDue);
     }else{
+        // create new filtered results lists
         filteredDates = new string[sortedList.Count];
         filteredNotes = new string[sortedList.Count];
         filteredImgFiles = new string[sortedList.Count];
@@ -40,6 +44,7 @@
         filteredPaid = new string[sortedList.Count];
         filteredDue = new string[sortedList.Count];
 
+        // populate filter lists with all results in sorted list 
         for(var i = 0; i < sortedList.Count; i++){
             filteredDates[i] = sortedList[i].date.ToString();
             filteredNotes[i] = sortedList[i].notes;
@@ -50,13 +55,20 @@
             filteredDue[i] = sortedList[i].due.ToString();
         }
 
+        // bypass filtering, make filter list equivalent to sorted list
 
         filteredList = sortedList;
     }
+    // create csv string from filtered list
+    csvExportString = Model.createCsvString(filteredList); 
+
 }
 
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Advertisements</h1>
+    <a href="#" class="filter-menu-toggle function-links">FILTER</a>
+    <a href="@Url.Action("ExportCsv", "Home", new { myStringToExport = csvExportString , myStringToName = "Advertisements"})" class="function-links">EXPORT</a>
+
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewAdvertisements" method="post" class="">
             @{
@@ -176,7 +188,6 @@
     List<string> filterListPaid = new List<string>();
     List<string> filterListDue = new List<string>();
 
-    <a href="#" class="filter-menu-toggle">FILTER</a>
     <div id="filter-menu" class="debugFb filter-menu" style="display: none">
         
         <div class="container filter-menu-container">

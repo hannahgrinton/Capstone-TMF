@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Text;
+using System.IO;
+
+
 namespace TMFadmin.Models
 {
     public class RevenueManager : DbContext
@@ -27,8 +31,7 @@ namespace TMFadmin.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
         }
-
-        //---------------------------------------------------------------------- sponsor work
+        //---------------------------------------------------------------------- Sponsor Work
         //get current sponsor
         public Sponsor getSponsor(int mySponsorId) {
             return sponsor.Single(item => item.sponsorId == mySponsorId);
@@ -677,5 +680,60 @@ namespace TMFadmin.Models
         public AddressRelations getAddressRelations(int myAddressId) {
             return addressRels.Single(item => item.addressId == myAddressId);
         }
+
+
+        /**
+        **
+        **
+        ** export csv
+        **
+        **
+        **
+        ***/
+
+            //  parse list<type> into csv string
+        public string createCsvString(List<Sponsor> myExportList) {
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Name,Phone,Fax,Email,Activity,Notes");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.sponsorId},{item.company},{item.phone},{item.fax},{item.email},{item.activity},{item.notes}");
+            }
+            return builder.ToString();        
+        }
+        public string createCsvString(List<Donation> myExportList) {
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Date,Notes,Receipt Sent,Amount,Fund Id");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.donId},{item.date.ToString("s")},{item.notes},{item.receipt},{item.amount},{item.fundId}");
+            }
+            return builder.ToString();        
+        }
+        public string createCsvString(List<Award> myExportList) {
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Recipient,Year,Fund Id");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.awardId},{item.recipient},{item.year},{item.fundId}");
+            }
+            return builder.ToString();        
+        }
+        public string createCsvString(List<Advertisement> myExportList) {
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Date,Notes,Image File,Ad Size,Cost,Paid,Balance");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.adId},{item.date.ToString("s")},{item.notes},{item.imgFile},{item.adSize},{item.cost},{item.paid},{item.due}");
+            }
+            return builder.ToString();        
+        }
+        public string createCsvString(List<Fund> myExportList) {
+            var builder = new StringBuilder();
+            builder.AppendLine("Id,Name,Creator,Date Created,Notes");
+            foreach(var item in myExportList){    
+            builder.AppendLine($"{item.fundId},{item.fundName},{item.creator},{item.dateCreated.ToString("s")},{item.notes}");
+            }
+            return builder.ToString();        
+        }
+
+
+
     }
 }

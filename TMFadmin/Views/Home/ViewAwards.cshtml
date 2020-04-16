@@ -7,7 +7,7 @@
     string[] filteredRecipients = ViewData["recipient"] as string[];
     string[] filteredYears = ViewData["year"] as string[];
     string[] filteredFundIds = ViewData["fundId"] as string[];
-
+    string csvExportString = "";
     // declare local sorted and filtered lists
     var sortedList = new List<Award>();
     var filteredList = new List<Award>();
@@ -18,30 +18,42 @@
     // check for posted filters, get filtered list. if no filters posted, build default filter to show all list entries
     if(filteredRecipients!=null){
 
+        // replace 'on' values left from post in filter list with null
         filteredRecipients = Model.convertOnToNull(filteredRecipients);
         filteredYears = Model.convertOnToNull(filteredYears);
         filteredFundIds = Model.convertOnToNull(filteredFundIds);
 
+        // filter sorted list according to filtering parameters
         filteredList = Model.filterAwardList(sortedList, filteredRecipients, filteredYears, filteredFundIds);
     }else{
+        // create new filtered results lists
         filteredRecipients = new string[sortedList.Count];
         filteredYears = new string[sortedList.Count];
         filteredFundIds = new string[sortedList.Count];
 
+        // populate filter lists with all results in sorted list 
         for(var i = 0; i < sortedList.Count; i++){
             filteredRecipients[i] = sortedList[i].recipient;
             filteredYears[i] = sortedList[i].year;
             filteredFundIds[i] = sortedList[i].fundId.ToString();
         }
 
+        // bypass filtering, make filter list equivalent to sorted list
 
         filteredList = sortedList;
     }
+     // create csv string from filtered list
+    csvExportString = Model.createCsvString(filteredList); 
+
 }
 
 
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Awards</h1>
+
+    <a href="#" class="filter-menu-toggle function-links">FILTER</a>
+    <a href="@Url.Action("ExportCsv", "Home", new { myStringToExport = csvExportString , myStringToName = "Awards"})" class="function-links">EXPORT</a>
+   
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
             @{
@@ -113,9 +125,7 @@
     List<string> filterListRecipient = new List<string>();
     List<string> filterListYear = new List<string>();
     List<string> filterListFundId = new List<string>();
-
-    <a href="#" class="filter-menu-toggle">FILTER</a>
-    <div id="filter-menu" class="debugFb filter-menu" style="display: none">
+ <div id="filter-menu" class="debugFb filter-menu" style="display: none">
         
         <div class="container filter-menu-container">
             <a href="#" class="filter-menu-toggle">Back</a>
