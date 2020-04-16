@@ -981,13 +981,13 @@ namespace TMFadmin.Controllers
         ** File Export
         **
         ***/        
-[Route("{myStringToExport}")]
-        public IActionResult ExportCsv(string myStringToExport) {
+[Route("{myStringToExport},{myStringToName}")]
+        public IActionResult ExportCsv(string myStringToExport="oops!",string myStringToName="") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
             }
             //return csv File
-            return File(Encoding.UTF8.GetBytes(myStringToExport),"text/csv","TMF_Export.csv");        
+            return File(Encoding.UTF8.GetBytes(myStringToExport),"text/csv","TMF_"+myStringToName+"_Export.csv");        
         }
 
     }
