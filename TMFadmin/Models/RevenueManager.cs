@@ -56,8 +56,6 @@ namespace TMFadmin.Models
             int id = sponsor.sponsorId;
             return id;
         }
-
-        //---
         // converts 'on' value set by null value checkbox post, replacing it with empty string
         public string[] convertOnToNull(string[] myStrings){
             for(var i = 0; i < myStrings.Length; i++){
@@ -76,8 +74,6 @@ namespace TMFadmin.Models
             }
             return myStrings;
         }
-
-
         // return a list of all sponsors in database, sorted by provided string value
         public List<Sponsor> sortSponsorsByMe(string mySorting="id_asc") {
 
@@ -136,8 +132,6 @@ namespace TMFadmin.Models
             return listData;
 
         }
-
-
         public List<Sponsor> filterSponsorList(List<Sponsor> mySponsors, string[] myNames, string[] myPhones
                                                 , string[] myFaxes, string[] myEmails, string[] myActivities, string[] myNotes=null){
             //List<string> searchString = new List<string>(){"Jam Inc/","Not Jam","Baby Blue"};
@@ -247,14 +241,7 @@ namespace TMFadmin.Models
             List<AddressRelations> rels = addressRels.Where(item => item.sponsorId == mySponsorId).ToList();
             return rels;
         }
-        /*
-        *
-        * Advertisement Work
-        * 
-        */
-
-        // -------------------------------
-
+        //---------------------------------------------------------------------- advert work
         // return a list of all advertisements in database, sorted by provided string value
         public List<Advertisement> sortAdsByMe(string mySorting="id_asc") {
 
@@ -319,8 +306,6 @@ namespace TMFadmin.Models
             return listData;
 
         }
-
-
         public List<Advertisement> filterAdList(List<Advertisement> myAds, string[] myDates, string[] myNotes
                                                 , string[] myImgFiles, string[] myAdSizes, string[] myCosts, 
                                                 string[] myPaid, string[] myDue=null)
@@ -361,7 +346,6 @@ namespace TMFadmin.Models
             }
             return filteredAd;            
         }
-        //-----------------
 
         //get list of adverts, sorted by ID
         public List<Advertisement> getAdvertisementsById() {
@@ -386,11 +370,7 @@ namespace TMFadmin.Models
         public AdvertRelations getAdvertRelations(int id) {
             return advertRels.Single(item => item.adId == id);
         }
-        /*
-        *
-        *   Donation Work
-        *
-        */
+        //---------------------------------------------------------------------- donation work
         //get list of donations, sorted by date
         public List<Donation> getDonationsByDate() {
             List<Donation> donations = donation.OrderBy(l => l.date).ToList();
@@ -416,7 +396,6 @@ namespace TMFadmin.Models
         }
 
         // ------------------------------ SORT / FILTER----------------------
-
         // return a list of all sponsors in database, sorted by provided string value
         public List<Donation> sortDonationsByMe(string mySorting="id_asc") {
 
@@ -507,16 +486,7 @@ namespace TMFadmin.Models
         }
 
 
-        /*
-        *
-        *   Award Work
-        *
-        */
-        //get list of awards, sorted by ID
-
-
-
-
+      //---------------------------------------------------------------------- award work
         // return a list of all awards in database, sorted by provided string value
         public List<Award> sortAwardsByMe(string mySorting="id_asc") {
 
@@ -586,9 +556,6 @@ namespace TMFadmin.Models
             }
             return filteredAward;            
         }
-
-
-
         
         public List<Award> getAwardsById() {
             List<Award> award = awards.OrderBy(l => l.awardId).ToList();
@@ -598,14 +565,7 @@ namespace TMFadmin.Models
         public Award getAward(int id) {
             return awards.Single(item => item.awardId == id);
         }
-        /*
-        *
-        *   Fund Work
-        *
-        */
-
-        //------------------ sort / filter
-
+       //---------------------------------------------------------------------- fund work
 
         // return a list of all sponsors in database, sorted by provided string value
         public List<Fund> sortFundsByMe(string mySorting="id_asc") {
@@ -686,7 +646,6 @@ namespace TMFadmin.Models
             return filteredFund;            
         }
 
-        // --------
         //get list of funds, sorted by ID
         public List<Fund> getFundsById() {
             List<Fund> funds = fund.OrderBy(l => l.fundId).Where(f => f.fundId > 0).ToList();
@@ -714,11 +673,7 @@ namespace TMFadmin.Models
             List<Donation> myDonations = donation.Where(item => item.fundId == fundId).ToList();
             return myDonations;
         }
-        /*
-        *
-        *   Address Work
-        *
-        */
+       //---------------------------------------------------------------------- address work
         //get list of addresses sorted by ID
         public List<Address> getAddressesById() {
             List<Address> addresses = address.OrderBy(l => l.addressId).ToList();

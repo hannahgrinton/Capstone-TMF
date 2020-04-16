@@ -36,24 +36,24 @@
                             <div class="form-row form-group">
                                 <div class="col" style="text-align: left;">
                                     <label id="lblFirstName" for="txtFirstName">First Name</label>
-                                    <input class="form-control" type="text" id="txtFirstName" name="firstName" asp-for="firstname" placeholder="First Name" maxlength="50">
+                                    <input class="form-control" type="text" id="txtFirstName" name="firstName" asp-for="firstname" placeholder="First Name" maxlength="50" required>
                                     <span asp-validation-for="firstname" class="text-danger" />
                                 </div>
                                 <div class="col" style="text-align: left;">
                                     <label id="lblLastName" for="txtLastName">Last Name</label>
-                                    <input class="form-control" type="text" id="txtLastName" name="lastName" asp-for="lastname" placeholder="Last Name" maxlength="50">
+                                    <input class="form-control" type="text" id="txtLastName" name="lastName" asp-for="lastname" placeholder="Last Name" maxlength="50" required>
                                     <span asp-validation-for="lastname" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group" style="text-align: left;">
                                 <label for="txtAddress"><i class="fas fa-building" style="font-size: 22px;"></i>&nbsp;Street Address</label>
-                                <input class="form-control" type="text" id="txtAddress" name="address" asp-for="address" placeholder="123 Main Street" maxlength="100">
+                                <input class="form-control" type="text" id="txtAddress" name="address" asp-for="address" placeholder="123 Main Street" maxlength="100" required>
                                 <span asp-validation-for="address" class="text-danger" />
                             </div>
                             <div class="form-row form-group">
                                 <div class="col" style="text-align: left;">
                                     <label id="lblCity" for="txtCity"><i class="fas fa-city" style="font-size: 22px;"></i>&nbsp;City</label>
-                                    <input class="form-control" type="text" id="txtCity" name="city" asp-for="city" placeholder="City" maxlength="50">
+                                    <input class="form-control" type="text" id="txtCity" name="city" asp-for="city" placeholder="City" maxlength="50" required>
                                     <span asp-validation-for="city" class="text-danger" />
                                 </div>
                                 <div class="col-md-3" style="text-align: left;">
@@ -78,12 +78,12 @@
                             <div class="form-row form-group">
                                 <div class="col-md-4" style="text-align: left;">
                                     <label id="lblPostal" for="txtPostal" name="postal"><i class="fas fa-mail-bulk" style="font-size: 22px;"></i>&nbsp;Postal Code</label>
-                                    <input class="form-control" type="text" id="txtPostal" name="postal" asp-for="postal" maxlength="7" placeholder="A1A 1A1">
+                                    <input class="form-control" type="text" id="txtPostal" name="postal" asp-for="postal" maxlength="7" placeholder="A1A 1A1" required>
                                     <span asp-validation-for="postal" class="text-danger" />
                                 </div>
                                 <div class="col" style="text-align: left;">
                                     <label id="lblCountry" for="txtCountry"><i class="fas fa-globe-americas" style="font-size: 22px;"></i>&nbsp;Country</label>
-                                    <input class="form-control" type="text" id="txtCountry" name="country" asp-for="country" maxlength="20" value="Canada">
+                                    <input class="form-control" type="text" id="txtCountry" name="country" asp-for="country" maxlength="20" value="Canada" required>
                                     <span asp-validation-for="country" class="text-danger" />
                                 </div>
                             </div>
