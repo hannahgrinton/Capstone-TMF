@@ -121,6 +121,7 @@
             @{
                 foreach (var item in filteredList)
                 {
+                    if(item.fundId!=0){
                     <tr>
                         <td>@item.fundId</td>
                         <td>@item.fundName</td>
@@ -136,6 +137,7 @@
                             
                         </td>
                     </tr>
+                    }
                 }
             }
         </tbody>

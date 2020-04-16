@@ -917,17 +917,7 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsor", new { mySponsorId = newRel.sponsorId });
         }
-        /**
-        **
-        **  Login Page Work
-        **
-        ***/
-        // check out login page
-        
-        public IActionResult LandingLogin() {
-            //redirect to add login
-            return View(revenueManager);
-        }
+    
 
 
 
