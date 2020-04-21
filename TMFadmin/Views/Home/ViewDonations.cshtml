@@ -67,9 +67,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
             @{
-                if(mustIncludeAll!=null){
+                
                     <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
-                }
+                
                 if(filteredDates!=null){
                     foreach(var item in filteredDates){
                     <input type="hidden" name="date[]" id="date-@item" value="@item">

@@ -59,9 +59,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
             @{
-                if(mustIncludeAll!=null){
+                
                     <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
-                }
+                
                 if(filteredRecipients!=null){
                     foreach(var item in filteredRecipients){
                     <input type="hidden" name="recipient[]" id="recipient-@item" value="@item">

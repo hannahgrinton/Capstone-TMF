@@ -63,9 +63,9 @@
         
         <form asp-controller="Home" asp-action="ViewFunds" method="post" class="">
             @{
-                if(mustIncludeAll!=null){
+                
                     <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
-                }
+                
                 if(filteredName!=null){
                     foreach(var item in filteredName){
                     <input type="hidden" name="fundName[]" id="fundName-@item" value="@item">

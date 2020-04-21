@@ -70,9 +70,9 @@
         
         <form asp-controller="Home" asp-action="ViewSponsors" method="post" class="">
             @{
-                if(mustIncludeAll!=null){
+                
                     <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
-                }
+                
                 if(filteredNames!=null){
                     foreach(var item in filteredNames){
                     <input type="hidden" name="name[]" id="name-@item" value="@item">
