@@ -31,17 +31,7 @@ namespace TMFadmin.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseMySQL(Connection.CONNECTION_STRING);
         }
-
-        /*
-        *
-        *   Sponsor Work
-        *
-        */
-
-
-
-
-
+        //---------------------------------------------------------------------- Sponsor Work
         //get current sponsor
         public Sponsor getSponsor(int mySponsorId) {
             return sponsor.Single(item => item.sponsorId == mySponsorId);

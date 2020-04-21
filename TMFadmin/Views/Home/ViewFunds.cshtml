@@ -1,7 +1,4 @@
 @model TMFadmin.Models.RevenueManager
-
-
-
 @{
     // store sorting and filtering data locally
     string mySorting=ViewData["mySorting"] as string;
@@ -55,11 +52,6 @@
     csvExportString = Model.createCsvString(filteredList); 
 
 }
-
-
-
-
-
 
 <div class="text-center" style="margin-top: 100px;">
     <h1 class="display-4">Funds</h1>
@@ -126,22 +118,21 @@
             @{
                 foreach (var item in filteredList)
                 {
-                    if(item.fundId!=0){
-                    <tr>
-                        <td>@item.fundId</td>
-                        <td>@item.fundName</td>
-                        <td>@item.creator</td>
-                        <td>@item.dateCreated</td>
-                        <td style="max-width: 200px;">@item.notes</td>
-                        <td>
-                            <form method="post">
-                                <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewFund" value="@item.fundId" name="myFundId" hidden></label>
-                                <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditFund" value="@item.fundId" name="myFundId" hidden></label>
-                                <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteFund" value="@item.fundId" name="myFundId" hidden></label>
-                            </form>
-                            
-                        </td>
-                    </tr>
+                    if (item.fundId != 0) {
+                        <tr>
+                            <td>@item.fundId</td>
+                            <td>@item.fundName</td>
+                            <td>@item.creator</td>
+                            <td>@item.dateCreated</td>
+                            <td style="max-width: 200px;">@item.notes</td>
+                            <td>
+                                <form method="post">
+                                    <label class="ico-button"><i class="far fa-eye" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="ViewFund" value="@item.fundId" name="myFundId" hidden></label>
+                                    <label class="ico-button"><i class="fas fa-pencil-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="EditFund" value="@item.fundId" name="myFundId" hidden></label>
+                                    <label class="ico-button"><i class="fas fa-trash-alt" style="font-size:20px;"></i><input type="submit" asp-controller="Home" asp-action="DeleteFund" value="@item.fundId" name="myFundId" hidden></label>
+                                </form>
+                            </td>
+                        </tr>
                     }
                 }
             }
@@ -258,6 +249,5 @@
 
     </div>
 }
-
 
 </div>

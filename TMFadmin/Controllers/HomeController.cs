@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMFadmin.Models;
-
 using System.Text;
 using System.IO;
 namespace TMFadmin.Controllers
@@ -923,16 +922,9 @@ namespace TMFadmin.Controllers
             revenueManager.SaveChanges();
             return RedirectToAction("ViewSponsor", new { mySponsorId = newRel.sponsorId });
         }
-    
-
-
-
-        /**
-        **
-        ** File Export
-        **
-        ***/        
-[Route("{myStringToExport},{myStringToName}")]
+       //---------------------------------------------------------------------- File Export
+      
+        [Route("{myStringToExport},{myStringToName}")]
         public IActionResult ExportCsv(string myStringToExport="oops!",string myStringToName="") {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
