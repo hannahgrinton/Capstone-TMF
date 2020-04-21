@@ -133,7 +133,7 @@ namespace TMFadmin.Models
 
         }
         public List<Sponsor> filterSponsorList(List<Sponsor> mySponsors, string[] myNames, string[] myPhones
-                                                , string[] myFaxes, string[] myEmails, string[] myActivities, string[] myNotes=null){
+                                                , string[] myFaxes, string[] myEmails, string[] myActivities, string[] myNotes=null, bool mustIncludeAll = true){
             //List<string> searchString = new List<string>(){"Jam Inc/","Not Jam","Baby Blue"};
             List<string> searchNames = new List<string>();
             List<string> searchPhones = new List<string>();
@@ -155,13 +155,23 @@ namespace TMFadmin.Models
                 searchNotes=myNotes.ToList();
             }  
             // apply filter to sponsors list, return filtered list of sponsors
-            if (myNotes!=null)
+            if (myNotes!=null && mustIncludeAll)
             {
                 filteredSponsor = mySponsors.Where(s => (searchNames.Contains(s.company) || (string.IsNullOrEmpty(s.company) && searchNames.Contains(string.Empty))) &&
                                                         (searchPhones.Contains(s.phone) || (string.IsNullOrEmpty(s.phone) && searchPhones.Contains(string.Empty))) &&
                                                         (searchFaxes.Contains(s.fax) || (string.IsNullOrEmpty(s.fax) && searchFaxes.Contains(string.Empty))) &&
                                                         (searchEmails.Contains(s.email) || (string.IsNullOrEmpty(s.email) && searchEmails.Contains(string.Empty))) &&
                                                         (searchActivities.Contains(s.activity) || (string.IsNullOrEmpty(s.activity) && searchActivities.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(s.notes) || (string.IsNullOrEmpty(s.notes) && searchNotes.Contains(string.Empty)))
+                                                        ).ToList();
+            }
+            else if (myNotes!=null && !mustIncludeAll)
+            {
+                filteredSponsor = mySponsors.Where(s => (searchNames.Contains(s.company) || (string.IsNullOrEmpty(s.company) && searchNames.Contains(string.Empty))) ||
+                                                        (searchPhones.Contains(s.phone) || (string.IsNullOrEmpty(s.phone) && searchPhones.Contains(string.Empty))) ||
+                                                        (searchFaxes.Contains(s.fax) || (string.IsNullOrEmpty(s.fax) && searchFaxes.Contains(string.Empty))) ||
+                                                        (searchEmails.Contains(s.email) || (string.IsNullOrEmpty(s.email) && searchEmails.Contains(string.Empty))) ||
+                                                        (searchActivities.Contains(s.activity) || (string.IsNullOrEmpty(s.activity) && searchActivities.Contains(string.Empty))) ||
                                                         (searchNotes.Contains(s.notes) || (string.IsNullOrEmpty(s.notes) && searchNotes.Contains(string.Empty)))
                                                         ).ToList();
             } else{
@@ -308,7 +318,7 @@ namespace TMFadmin.Models
         }
         public List<Advertisement> filterAdList(List<Advertisement> myAds, string[] myDates, string[] myNotes
                                                 , string[] myImgFiles, string[] myAdSizes, string[] myCosts, 
-                                                string[] myPaid, string[] myDue=null)
+                                                string[] myPaid, string[] myDue=null, bool mustIncludeAll=false)
                                                 {
 
             List<string> searchDates = new List<string>();
@@ -331,7 +341,7 @@ namespace TMFadmin.Models
                 searchDue=myDue.ToList();
             }  
             // apply filter to ads list, return filtered list of sponsors
-            if (myDue!=null)
+            if (myDue!=null && mustIncludeAll)
             {
                 filteredAd = myAds.Where(a => (searchDates.Contains(a.date.ToString()) || (string.IsNullOrEmpty(a.date.ToString()) && searchDates.Contains(string.Empty))) &&
                                                         (searchNotes.Contains(a.notes) || (string.IsNullOrEmpty(a.notes) && searchNotes.Contains(string.Empty))) &&
@@ -341,7 +351,18 @@ namespace TMFadmin.Models
                                                         (searchPaid.Contains(a.paid.ToString()) || (string.IsNullOrEmpty(a.paid.ToString()) && searchPaid.Contains(string.Empty))) &&
                                                         (searchDue.Contains(a.due.ToString()) || (string.IsNullOrEmpty(a.due.ToString()) && searchDue.Contains(string.Empty)))
                                                         ).ToList();
-            } else{
+            }else if (myDue!=null && !mustIncludeAll)
+            {
+                filteredAd = myAds.Where(a => (searchDates.Contains(a.date.ToString()) || (string.IsNullOrEmpty(a.date.ToString()) && searchDates.Contains(string.Empty))) ||
+                                                        (searchNotes.Contains(a.notes) || (string.IsNullOrEmpty(a.notes) && searchNotes.Contains(string.Empty))) ||
+                                                        (searchImgFiles.Contains(a.imgFile) || (string.IsNullOrEmpty(a.imgFile) && searchImgFiles.Contains(string.Empty))) ||
+                                                        (searchAdSizes.Contains(a.adSize) || (string.IsNullOrEmpty(a.adSize) && searchAdSizes.Contains(string.Empty))) ||
+                                                        (searchCosts.Contains(a.cost.ToString()) || (string.IsNullOrEmpty(a.cost.ToString()) && searchCosts.Contains(string.Empty))) ||
+                                                        (searchPaid.Contains(a.paid.ToString()) || (string.IsNullOrEmpty(a.paid.ToString()) && searchPaid.Contains(string.Empty))) ||
+                                                        (searchDue.Contains(a.due.ToString()) || (string.IsNullOrEmpty(a.due.ToString()) && searchDue.Contains(string.Empty)))
+                                                        ).ToList();
+            }
+            else{
                 filteredAd = myAds;
             }
             return filteredAd;            
@@ -451,7 +472,7 @@ namespace TMFadmin.Models
 
 
         public List<Donation> filterDonationList(List<Donation> myDonations, string[] myDates, string[] myNotes
-                                                , string[] myReceipts, string[] myAmounts, string[] myFundIds=null){
+                                                , string[] myReceipts, string[] myAmounts, string[] myFundIds=null, bool mustIncludeAll=true){
             List<string> searchDates = new List<string>();
             List<string> searchNotes = new List<string>();
             List<string> searchReceipts = new List<string>();
@@ -471,12 +492,21 @@ namespace TMFadmin.Models
                 searchFundIds=myFundIds.ToList();
             }  
             // apply filter to sponsors list, return filtered list of sponsors
-            if (myFundIds!=null)
+            if (myFundIds!=null && mustIncludeAll)
             {
                 filteredDonation = myDonations.Where(d=>(searchDates.Contains(d.date.ToString()) || (string.IsNullOrEmpty(d.date.ToString()) && searchDates.Contains(string.Empty))) &&
                                                         (searchNotes.Contains(d.notes) || (string.IsNullOrEmpty(d.notes) && searchNotes.Contains(string.Empty))) &&
                                                         (searchReceipts.Contains(d.receipt.ToString()) || (string.IsNullOrEmpty(d.receipt.ToString()) && searchReceipts.Contains(string.Empty))) &&
                                                         (searchAmounts.Contains(d.amount.ToString()) || (string.IsNullOrEmpty(d.amount.ToString()) && searchAmounts.Contains(string.Empty))) &&
+                                                        (searchFundIds.Contains(d.fundId.ToString()) || (string.IsNullOrEmpty(d.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
+                                                        ).ToList();
+            }
+            else if (myFundIds!=null && !mustIncludeAll)
+            {
+                filteredDonation = myDonations.Where(d=>(searchDates.Contains(d.date.ToString()) || (string.IsNullOrEmpty(d.date.ToString()) && searchDates.Contains(string.Empty))) ||
+                                                        (searchNotes.Contains(d.notes) || (string.IsNullOrEmpty(d.notes) && searchNotes.Contains(string.Empty))) ||
+                                                        (searchReceipts.Contains(d.receipt.ToString()) || (string.IsNullOrEmpty(d.receipt.ToString()) && searchReceipts.Contains(string.Empty))) ||
+                                                        (searchAmounts.Contains(d.amount.ToString()) || (string.IsNullOrEmpty(d.amount.ToString()) && searchAmounts.Contains(string.Empty))) ||
                                                         (searchFundIds.Contains(d.fundId.ToString()) || (string.IsNullOrEmpty(d.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
                                                         ).ToList();
             } else{
@@ -530,7 +560,7 @@ namespace TMFadmin.Models
 
 
         public List<Award> filterAwardList(List<Award> myAwards, string[] myRecipient, string[] myYear
-                                                , string[] myFundId=null){
+                                                , string[] myFundId=null, bool mustIncludeAll=true){
             List<string> searchRecipients = new List<string>();
             List<string> searchYears = new List<string>();
             List<string> searchFundIds = new List<string>();
@@ -545,10 +575,17 @@ namespace TMFadmin.Models
                 searchFundIds=myFundId.ToList();
             }  
             // apply filter to sponsors list, return filtered list of sponsors
-            if (myFundId!=null)
+            if (myFundId!=null && mustIncludeAll)
             {
                 filteredAward = myAwards.Where(a => (searchRecipients.Contains(a.recipient) || (string.IsNullOrEmpty(a.recipient) && searchRecipients.Contains(string.Empty))) &&
                                                         (searchYears.Contains(a.year) || (string.IsNullOrEmpty(a.year) && searchYears.Contains(string.Empty))) &&
+                                                        (searchFundIds.Contains(a.fundId.ToString()) || (string.IsNullOrEmpty(a.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
+                                                        ).ToList();
+            }
+            else if (myFundId!=null && !mustIncludeAll)
+            {
+                filteredAward = myAwards.Where(a => (searchRecipients.Contains(a.recipient) || (string.IsNullOrEmpty(a.recipient) && searchRecipients.Contains(string.Empty))) ||
+                                                        (searchYears.Contains(a.year) || (string.IsNullOrEmpty(a.year) && searchYears.Contains(string.Empty))) ||
                                                         (searchFundIds.Contains(a.fundId.ToString()) || (string.IsNullOrEmpty(a.fundId.ToString()) && searchFundIds.Contains(string.Empty)))
                                                         ).ToList();
             } else{
@@ -575,37 +612,37 @@ namespace TMFadmin.Models
             switch(mySorting)
                 {
                 case "id_asc":
-                    listData = fund.OrderBy(f => f.fundId).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.fundId).ToList();
                     break;
                 case "id_desc":
-                    listData = fund.OrderByDescending(f => f.fundId).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderByDescending(f => f.fundId).ToList();
                     break;
                 case "name_asc":
-                    listData = fund.OrderBy(f => f.fundName).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.fundName).ToList();
                     break;
                 case "name_desc":
-                    listData = fund.OrderByDescending(f => f.fundName).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderByDescending(f => f.fundName).ToList();
                     break;
                 case "creator_asc":
-                    listData = fund.OrderBy(f => f.creator).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.creator).ToList();
                     break;
                 case "creator_desc":
-                    listData = fund.OrderByDescending(f => f.creator).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderByDescending(f => f.creator).ToList();
                     break;
                 case "date_asc":
-                    listData = fund.OrderBy(f => f.dateCreated).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.dateCreated).ToList();
                     break;
                 case "date_desc":
-                    listData = fund.OrderByDescending(f => f.dateCreated).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderByDescending(f => f.dateCreated).ToList();
                     break;
                 case "notes_asc":
-                    listData = fund.OrderBy(f => f.notes).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.notes).ToList();
                     break;
                 case "notes_desc":
-                    listData = fund.OrderByDescending(f => f.notes).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderByDescending(f => f.notes).ToList();
                     break;
                 default:
-                    listData = fund.OrderBy(f => f.fundId).ToList();
+                    listData = fund.Where(f=>f.fundName!="N/A").OrderBy(f => f.fundId).ToList();
                     break;
                 
             }
@@ -616,7 +653,7 @@ namespace TMFadmin.Models
 
 
         public List<Fund> filterFundList(List<Fund> myFunds, string[] myFundNames, string[] myCreators
-                                                , string[] myDates, string[] myNotes=null){
+                                                , string[] myDates, string[] myNotes=null, bool mustIncludeAll=false){
             List<string> searchFundNames = new List<string>();
             List<string> searchCreators = new List<string>();
             List<string> searchDates = new List<string>();
@@ -633,11 +670,19 @@ namespace TMFadmin.Models
                 searchNotes=myNotes.ToList();
             }  
             // apply filter to funds list, return filtered list of funds
-            if (myNotes!=null)
+            if (myNotes!=null && mustIncludeAll)
             {
                 filteredFund = myFunds.Where(f => (searchFundNames.Contains(f.fundName) || (string.IsNullOrEmpty(f.fundName) && searchFundNames.Contains(string.Empty))) &&
                                                         (searchCreators.Contains(f.creator) || (string.IsNullOrEmpty(f.creator) && searchCreators.Contains(string.Empty))) &&
                                                         (searchDates.Contains(f.dateCreated.ToString()) || (string.IsNullOrEmpty(f.dateCreated.ToString()) && searchDates.Contains(string.Empty))) &&
+                                                        (searchNotes.Contains(f.notes) || (string.IsNullOrEmpty(f.notes) && searchNotes.Contains(string.Empty)))
+                                                        ).ToList();
+            }
+            else if (myNotes!=null && !mustIncludeAll)
+            {
+                filteredFund = myFunds.Where(f => (searchFundNames.Contains(f.fundName) || (string.IsNullOrEmpty(f.fundName) && searchFundNames.Contains(string.Empty))) ||
+                                                        (searchCreators.Contains(f.creator) || (string.IsNullOrEmpty(f.creator) && searchCreators.Contains(string.Empty))) ||
+                                                        (searchDates.Contains(f.dateCreated.ToString()) || (string.IsNullOrEmpty(f.dateCreated.ToString()) && searchDates.Contains(string.Empty))) ||
                                                         (searchNotes.Contains(f.notes) || (string.IsNullOrEmpty(f.notes) && searchNotes.Contains(string.Empty)))
                                                         ).ToList();
             } else{

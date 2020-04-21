@@ -7,6 +7,8 @@
     string[] filteredRecipients = ViewData["recipient"] as string[];
     string[] filteredYears = ViewData["year"] as string[];
     string[] filteredFundIds = ViewData["fundId"] as string[];
+    string mustInclude = ViewData["mustInclude"] as string;
+    bool mustIncludeAll = (mustInclude == "any" ? false : true);
     string csvExportString = "";
     // declare local sorted and filtered lists
     var sortedList = new List<Award>();
@@ -24,7 +26,7 @@
         filteredFundIds = Model.convertOnToNull(filteredFundIds);
 
         // filter sorted list according to filtering parameters
-        filteredList = Model.filterAwardList(sortedList, filteredRecipients, filteredYears, filteredFundIds);
+        filteredList = Model.filterAwardList(sortedList, filteredRecipients, filteredYears, filteredFundIds, mustIncludeAll);
     }else{
         // create new filtered results lists
         filteredRecipients = new string[sortedList.Count];
@@ -57,6 +59,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
             @{
+                if(mustIncludeAll!=null){
+                    <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
+                }
                 if(filteredRecipients!=null){
                     foreach(var item in filteredRecipients){
                     <input type="hidden" name="recipient[]" id="recipient-@item" value="@item">
@@ -153,6 +158,22 @@
 
                 }
                 
+                <div class="filter-menu-check-toggles">
+                    <a href="#" class="filter-menu-check-all">Check All</a>
+
+                    <a href="#" class="filter-menu-uncheck-all">Uncheck All</a>
+                </div>
+                <div class="filter-menu-require">
+                    <b>Require:</b>
+                    <div>
+                        <input @(mustIncludeAll ? "" : "checked") type="radio" name="mustInclude" id="radIncAny" value="any">
+                        <label for="radIncAny">Any</label>
+                    </div>
+                    <div>
+                        <input @(mustIncludeAll ? "checked" : "") type="radio" name="mustInclude" id="radIncAll" value="all">
+                        <label for="radIncAll">All</label>
+                    </div>
+                </div>
                 <h5>Recipient</h5>
                 @for(var i = 0; i < filterListRecipient.Count;i++){
 

@@ -132,7 +132,7 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult ViewSponsors(string mySorting = "id_asc", string[] name = null
                                             , string[] phone = null, string[] fax = null, string[] email = null
-                                            , string[] activity = null, string[] notes = null) 
+                                            , string[] activity = null, string[] notes = null,string mustInclude = "all") 
                                             {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -145,7 +145,7 @@ namespace TMFadmin.Controllers
             ViewData["email"] = email;
             ViewData["activity"] = activity;
             ViewData["notes"] = notes;
-            
+            ViewData["mustInclude"] = mustInclude;
             return View(revenueManager);
         } 
         
@@ -263,11 +263,15 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult ViewAdvertisements(string mySorting = "id_asc", string[] date = null
                                             , string[] notes = null, string[] imgFile = null, string[] adSize = null
-                                            , string[] cost = null, string[] paid = null, string[] due = null) 
+                                            , string[] cost = null, string[] paid = null, string[] due = null,string mustInclude = "all") 
                                             {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
             }
+
+            Console.WriteLine(">>>>>>>>>>>>>>>"+mustInclude);
+
+
             //view all ads
             ViewData["mySorting"] = mySorting;
             ViewData["date"] = date;
@@ -277,6 +281,7 @@ namespace TMFadmin.Controllers
             ViewData["cost"] = cost;
             ViewData["paid"] = paid;
             ViewData["due"] = due;
+            ViewData["mustInclude"] = mustInclude;
             
             return View(revenueManager);
         } 
@@ -501,7 +506,7 @@ namespace TMFadmin.Controllers
         [HttpPost]
         public IActionResult ViewDonations(string mySorting = "id_asc", string[] date = null
                                             , string[] notes = null, string[] receipt = null
-                                            , string[] amount = null, string[] fundId = null) 
+                                            , string[] amount = null, string[] fundId = null,string mustInclude = "all") 
                                             {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -513,7 +518,7 @@ namespace TMFadmin.Controllers
             ViewData["receipt"] = receipt;
             ViewData["amount"] = amount;
             ViewData["fundId"] = fundId;
-
+            ViewData["mustInclude"] = mustInclude;
             
             return View(revenueManager);
         } 
@@ -632,7 +637,7 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult ViewAwards(string mySorting = "id_asc", string[] recipient = null
-                                            , string[] year = null, string[] fundId = null) 
+                                            , string[] year = null, string[] fundId = null,string mustInclude = "all") 
                                             {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -642,6 +647,7 @@ namespace TMFadmin.Controllers
             ViewData["recipient"] = recipient;
             ViewData["year"] = year;
             ViewData["fundId"] = fundId;
+            ViewData["mustInclude"] = mustInclude;
             
             return View(revenueManager);
         } 
@@ -730,7 +736,7 @@ namespace TMFadmin.Controllers
         }
         [HttpPost]
         public IActionResult ViewFunds(string mySorting = "id_asc", string[] fundName = null
-                                            , string[] creator = null, string[] dateCreated = null, string[] notes = null) 
+                                            , string[] creator = null, string[] dateCreated = null, string[] notes = null,string mustInclude = "all") 
                                             {
             if (HttpContext.Session.GetString("auth") != "true") {
                 return RedirectToAction("Index", "Login");
@@ -741,7 +747,7 @@ namespace TMFadmin.Controllers
             ViewData["creator"] = creator;
             ViewData["dateCreated"] = dateCreated;
             ViewData["notes"] = notes;
-            
+            ViewData["mustInclude"] = mustInclude;
             return View(revenueManager);
         } 
 

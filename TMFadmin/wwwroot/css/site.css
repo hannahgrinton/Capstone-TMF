@@ -149,6 +149,10 @@ body {
     flex-direction: column;
 }
 
+#filter-menu a {
+    padding: 5px;
+}
+
 .filter-menu--hidden {
     right: -100%;
     display: none;
@@ -169,4 +173,17 @@ body {
 
 .filter-menu-label {
     text-align: start;
+}
+
+.filter-menu-require {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.filter-menu-check-toggles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

@@ -28,10 +28,33 @@ $("#paid").keyup(function() {
 
 
 var menuHidden = true;
-
+// toggle filter menu visibility
 $(".filter-menu-toggle").click(function() {
 
         $("#filter-menu").toggle();
     }
 
 );
+
+let myCheckBoxes = document.getElementsByClassName("form-check-input");
+// check all menu options
+$(".filter-menu-check-all").click(function() {
+    console.log("clicked all");
+    Array.from(myCheckBoxes).forEach((myCheckBox) => {
+
+        myCheckBox.checked = true;
+        console.log(myCheckBox);
+    });
+});
+// uncheck all menu options
+$(".filter-menu-uncheck-all").click(function() {
+    console.log("clicked none");
+    Array.from(myCheckBoxes).forEach((myCheckBox) => {
+
+        myCheckBox.checked = false;
+        console.log(myCheckBox);
+    });
+
+
+
+});

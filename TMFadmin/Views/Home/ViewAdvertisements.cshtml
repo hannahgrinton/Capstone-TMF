@@ -10,6 +10,8 @@
     string[] filteredCosts = ViewData["cost"] as string[];
     string[] filteredPaid = ViewData["paid"] as string[];
     string[] filteredDue = ViewData["due"] as string[];
+    string mustInclude = ViewData["mustInclude"] as string;
+    bool mustIncludeAll = (mustInclude == "any" ? false : true);
     string csvExportString = "";
 
     // declare local sorted and filtered lists
@@ -33,7 +35,7 @@
 
         // filter sorted list according to filtering parameters
         filteredList = Model.filterAdList(sortedList, filteredDates, filteredNotes, filteredImgFiles
-                                                , filteredAdSizes, filteredCosts, filteredPaid, filteredDue);
+                                                , filteredAdSizes, filteredCosts, filteredPaid, filteredDue, mustIncludeAll);
     }else{
         // create new filtered results lists
         filteredDates = new string[sortedList.Count];
@@ -72,6 +74,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewAdvertisements" method="post" class="">
             @{
+                if(mustIncludeAll!=null){
+                    <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
+                }
                 if(filteredDates!=null){
                     foreach(var item in filteredDates){
                     <input type="hidden" name="date[]" id="date-@item" value="@item">
@@ -231,7 +236,22 @@
                         filterListDue.Sort();
                     }
                 }
-                
+                <div class="filter-menu-check-toggles">
+                    <a href="#" class="filter-menu-check-all">Check All</a>
+
+                    <a href="#" class="filter-menu-uncheck-all">Uncheck All</a>
+                </div>
+                <div class="filter-menu-require">
+                    <b>Require:</b>
+                    <div>
+                        <input @(mustIncludeAll ? "" : "checked") type="radio" name="mustInclude" id="radIncAny" value="any">
+                        <label for="radIncAny">Any</label>
+                    </div>
+                    <div>
+                        <input @(mustIncludeAll ? "checked" : "") type="radio" name="mustInclude" id="radIncAll" value="all">
+                        <label for="radIncAll">All</label>
+                    </div>
+                </div>
                 <h5>Date</h5>
                 @for(var i = 0; i < filterListDate.Count;i++){
 
