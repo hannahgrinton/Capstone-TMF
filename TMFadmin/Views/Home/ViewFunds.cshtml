@@ -91,24 +91,34 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Fund Name</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "creator_asc" ? "creator_desc" : "creator_asc")">Creator</button>
                     <i class="sort-icon fas @(mySorting == "creator_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "creator_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "date_asc" ? "date_desc" : "date_asc")">Date Created</button>
                     <i class="sort-icon fas @(mySorting == "date_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "date_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewFunds" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
                     <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">Options</th>
             </tr>
