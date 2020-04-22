@@ -83,20 +83,28 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
-                </th>
+                    </div>
+                    </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Recipient</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "year_asc" ? "year_desc" : "year_asc")">Year Awarded</button>
                     <i class="sort-icon fas @(mySorting == "year_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "year_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "fund_asc" ? "fund_desc" : "fund_asc")">Fund</button>
                     <i class="sort-icon fas @(mySorting == "fund_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fund_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">Options</th>
             </tr>

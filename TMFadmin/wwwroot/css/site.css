@@ -187,3 +187,9 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.table-col-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
