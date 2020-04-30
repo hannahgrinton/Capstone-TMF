@@ -7,9 +7,8 @@ using MySql.Data.MySqlClient;
 namespace TMFadmin.Models
 {
     public class SettingsManager {
-        //private string connectionString = "Server=localhost;Database=tmf-capstone;Uid=fuzzbox;Pwd=threejams;SslMode=none;";
+        private string connectionString = "Server=10.16.112.118;Database=db1120622_TMFfund;Uid=u1120622_TMFfund;Pwd=nsccDonorProject@2020;SslMode=none;";
         
-        private string connectionString = "Server=localhost;Database=dbTMF;Uid=root;Pwd=;SslMode=none;";
         private MySqlConnection dbConnection;
         private MySqlCommand dbCommand;
 		private MySqlDataReader dbReader;
