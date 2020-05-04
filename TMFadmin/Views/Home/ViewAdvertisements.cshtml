@@ -10,6 +10,8 @@
     string[] filteredCosts = ViewData["cost"] as string[];
     string[] filteredPaid = ViewData["paid"] as string[];
     string[] filteredDue = ViewData["due"] as string[];
+    string mustInclude = ViewData["mustInclude"] as string;
+    bool mustIncludeAll = (mustInclude == "any" ? false : true);
     string csvExportString = "";
 
     // declare local sorted and filtered lists
@@ -33,7 +35,7 @@
 
         // filter sorted list according to filtering parameters
         filteredList = Model.filterAdList(sortedList, filteredDates, filteredNotes, filteredImgFiles
-                                                , filteredAdSizes, filteredCosts, filteredPaid, filteredDue);
+                                                , filteredAdSizes, filteredCosts, filteredPaid, filteredDue, mustIncludeAll);
     }else{
         // create new filtered results lists
         filteredDates = new string[sortedList.Count];
@@ -72,6 +74,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewAdvertisements" method="post" class="">
             @{
+                
+                    <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
+                
                 if(filteredDates!=null){
                     foreach(var item in filteredDates){
                     <input type="hidden" name="date[]" id="date-@item" value="@item">
@@ -112,36 +117,53 @@
         <thead class="thead-dark">
   <tr>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "date_asc" ? "date_desc" : "date_asc")">Date</button>
                     <i class="sort-icon fas @(mySorting == "date_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "date_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
                     <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "img_asc" ? "img_desc" : "img_asc")">Image</button>
                     <i class="sort-icon fas @(mySorting == "img_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "img_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "size_asc" ? "size_desc" : "size_asc")">Size</button>
                     <i class="sort-icon fas @(mySorting == "size_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "size_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "cost_asc" ? "cost_desc" : "cost_asc")">Cost</button>
                     <i class="sort-icon fas @(mySorting == "cost_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "cost_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "paid_asc" ? "paid_desc" : "paid_asc")">Paid</button>
                     <i class="sort-icon fas @(mySorting == "paid_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "paid_desc" ? "fa-arrow-alt-circle-up" : "")" style=""></i>
+                </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAdvertisements" asp-route-mySorting="@(mySorting == "due_asc" ? "due_desc" : "due_asc")">Balance</button>
                     <i class="sort-icon fas @(mySorting == "due_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "due_desc" ? "fa-arrow-alt-circle-up" : "")" style=""></i>
+                
+                </div>
                 </th>
                 <th scope="col">Options</th>
             </tr>
@@ -231,7 +253,22 @@
                         filterListDue.Sort();
                     }
                 }
-                
+                <div class="filter-menu-check-toggles">
+                    <a href="#" class="filter-menu-check-all">Check All</a>
+
+                    <a href="#" class="filter-menu-uncheck-all">Uncheck All</a>
+                </div>
+                <div class="filter-menu-require">
+                    <b>Require:</b>
+                    <div>
+                        <input @(mustIncludeAll ? "" : "checked") type="radio" name="mustInclude" id="radIncAny" value="any">
+                        <label for="radIncAny">Any</label>
+                    </div>
+                    <div>
+                        <input @(mustIncludeAll ? "checked" : "") type="radio" name="mustInclude" id="radIncAll" value="all">
+                        <label for="radIncAll">All</label>
+                    </div>
+                </div>
                 <h5>Date</h5>
                 @for(var i = 0; i < filterListDate.Count;i++){
 

@@ -8,6 +8,8 @@
     string[] filteredEmails = ViewData["email"] as string[];
     string[] filteredActivities = ViewData["activity"] as string[];
     string[] filteredNotes = ViewData["notes"] as string[];
+    string mustInclude = ViewData["mustInclude"] as string;
+    bool mustIncludeAll = (mustInclude == "any" ? false : true);
 
     string csvExportString = "";
 
@@ -30,7 +32,7 @@
         // filter sorted list according to filtering parameters
 
         filteredList = Model.filterSponsorList(sortedList, filteredNames, filteredPhones, filteredFaxes
-                                                , filteredEmails, filteredActivities, filteredNotes);
+                                                , filteredEmails, filteredActivities, filteredNotes, mustIncludeAll);
     }else{
         // create new filtered results lists
         filteredNames = new string[sortedList.Count];
@@ -68,6 +70,9 @@
         
         <form asp-controller="Home" asp-action="ViewSponsors" method="post" class="">
             @{
+                
+                    <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
+                
                 if(filteredNames!=null){
                     foreach(var item in filteredNames){
                     <input type="hidden" name="name[]" id="name-@item" value="@item">
@@ -103,32 +108,46 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Name</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "phone_asc" ? "phone_desc" : "phone_asc")">Phone</button>
                     <i class="sort-icon fas @(mySorting == "phone_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "phone_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "fax_asc" ? "fax_desc" : "fax_asc")">Fax</button>
                     <i class="sort-icon fas @(mySorting == "fax_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fax_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "email_asc" ? "email_desc" : "email_asc")">Email</button>
                     <i class="sort-icon fas @(mySorting == "email_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "email_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "activity_asc" ? "activity_desc" : "activity_asc")">Active</button>
                     <i class="sort-icon fas @(mySorting == "activity_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "activity_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewSponsors" asp-route-mySorting="@(mySorting == "notes_asc" ? "notes_desc" : "notes_asc")">Notes</button>
                     <i class="sort-icon fas @(mySorting == "notes_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "notes_desc" ? "fa-arrow-alt-circle-up" : "")" style=""></i>
+                    </div>
                 </th>
                 <th scope="col" style="font-weight: normal;">Options</th>
             </tr>
@@ -214,6 +233,22 @@
                     }
                 }
                 
+                <div class="filter-menu-check-toggles">
+                    <a href="#" class="filter-menu-check-all">Check All</a>
+
+                    <a href="#" class="filter-menu-uncheck-all">Uncheck All</a>
+                </div>
+                <div class="filter-menu-require">
+                    <b>Require:</b>
+                    <div>
+                        <input @(mustIncludeAll ? "" : "checked") type="radio" name="mustInclude" id="radIncAny" value="any">
+                        <label for="radIncAny">Any</label>
+                    </div>
+                    <div>
+                        <input @(mustIncludeAll ? "checked" : "") type="radio" name="mustInclude" id="radIncAll" value="all">
+                        <label for="radIncAll">All</label>
+                    </div>
+                </div>
                 <h5>Name</h5>
                 @for(var i = 0; i < filterListName.Count;i++){
 

@@ -7,6 +7,8 @@
     string[] filteredRecipients = ViewData["recipient"] as string[];
     string[] filteredYears = ViewData["year"] as string[];
     string[] filteredFundIds = ViewData["fundId"] as string[];
+    string mustInclude = ViewData["mustInclude"] as string;
+    bool mustIncludeAll = (mustInclude == "any" ? false : true);
     string csvExportString = "";
     // declare local sorted and filtered lists
     var sortedList = new List<Award>();
@@ -24,7 +26,7 @@
         filteredFundIds = Model.convertOnToNull(filteredFundIds);
 
         // filter sorted list according to filtering parameters
-        filteredList = Model.filterAwardList(sortedList, filteredRecipients, filteredYears, filteredFundIds);
+        filteredList = Model.filterAwardList(sortedList, filteredRecipients, filteredYears, filteredFundIds, mustIncludeAll);
     }else{
         // create new filtered results lists
         filteredRecipients = new string[sortedList.Count];
@@ -57,6 +59,9 @@
     <table class="table table-hover table-striped" style="margin-top: 40px;">
         <form asp-controller="Home" asp-action="ViewDonations" method="post" class="">
             @{
+                
+                    <input type="hidden" name="mustInclude" id="hiddenMustInclude" value="@mustInclude">
+                
                 if(filteredRecipients!=null){
                     foreach(var item in filteredRecipients){
                     <input type="hidden" name="recipient[]" id="recipient-@item" value="@item">
@@ -78,20 +83,28 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "id_asc" ? "id_desc" : "id_asc")">#</button>
                     <i class="sort-icon fas @(mySorting == "id_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "id_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
-                </th>
+                    </div>
+                    </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "name_asc" ? "name_desc" : "name_asc")">Recipient</button>
                     <i class="sort-icon fas @(mySorting == "name_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "name_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "year_asc" ? "year_desc" : "year_asc")">Year Awarded</button>
                     <i class="sort-icon fas @(mySorting == "year_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "year_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">
+                    <div class="table-col-header-container">
                     <button type=submit class="sort-link" asp-controller="Home" asp-action="ViewAwards" asp-route-mySorting="@(mySorting == "fund_asc" ? "fund_desc" : "fund_asc")">Fund</button>
                     <i class="sort-icon fas @(mySorting == "fund_asc" ? "fa-arrow-alt-circle-down" : "") @(mySorting == "fund_desc" ? "fa-arrow-alt-circle-up" : "")"></i>
+                    </div>
                 </th>
                 <th scope="col">Options</th>
             </tr>
@@ -153,6 +166,22 @@
 
                 }
                 
+                <div class="filter-menu-check-toggles">
+                    <a href="#" class="filter-menu-check-all">Check All</a>
+
+                    <a href="#" class="filter-menu-uncheck-all">Uncheck All</a>
+                </div>
+                <div class="filter-menu-require">
+                    <b>Require:</b>
+                    <div>
+                        <input @(mustIncludeAll ? "" : "checked") type="radio" name="mustInclude" id="radIncAny" value="any">
+                        <label for="radIncAny">Any</label>
+                    </div>
+                    <div>
+                        <input @(mustIncludeAll ? "checked" : "") type="radio" name="mustInclude" id="radIncAll" value="all">
+                        <label for="radIncAll">All</label>
+                    </div>
+                </div>
                 <h5>Recipient</h5>
                 @for(var i = 0; i < filterListRecipient.Count;i++){
 
